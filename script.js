@@ -22,7 +22,7 @@
   'use strict';
 
   /* ============================================================
-     0. CONFIG — Central constants for the whole engine
+     0. CONFIG
      ============================================================ */
   const CONFIG = {
     whatsapp: {
@@ -40,22 +40,16 @@
     },
     synapse: {
       maxLinks: 3,
-      triggerRadius: 260,
-      lineLife: 1400
-    },
-    magnet: {
-      strength: 0.22,
-      radius: 140
+      triggerRadius: 260
     }
   };
 
   /* ============================================================
-     1. UTILITIES — small physics/biology helpers
+     1. UTILITIES
      ============================================================ */
   const $  = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
-  const lerp = (a, b, t) => a + (b - a) * t;
   const rand = (min, max) => Math.random() * (max - min) + min;
   const dist = (x1, y1, x2, y2) => Math.hypot(x2 - x1, y2 - y1);
 
@@ -63,8 +57,6 @@
 
   /* ============================================================
      2. CANDLE-FLAME PARTICLE ENGINE
-        Physics : Brownian rise + flicker modulation
-        Biology : Ember like spores/pollen drifting upward
      ============================================================ */
   function initFlameCanvas() {
     if (prefersReduced) return;
@@ -77,7 +69,8 @@
     }
 
     const ctx = canvas.getContext('2d');
-    let W = 0, H = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let W = 0, H = 0;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
     function resize() {
       W = window.innerWidth;
@@ -115,18 +108,15 @@
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
 
-        // Brownian drift + rise
         p.flicker += CONFIG.particles.flickerSpeed;
         p.x += p.drift + Math.sin(p.flicker) * 0.35;
         p.y -= p.speed;
 
-        // Recycle
         if (p.y < -20 || p.x < -40 || p.x > W + 40) {
           particles[i] = spawn(false);
           continue;
         }
 
-        // Glow halo (radial gradient)
         const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, CONFIG.particles.glowRadius);
         glow.addColorStop(0, hexToRgba(p.hue, p.alpha));
         glow.addColorStop(1, hexToRgba(p.hue, 0));
@@ -136,7 +126,6 @@
         ctx.arc(p.x, p.y, CONFIG.particles.glowRadius, 0, Math.PI * 2);
         ctx.fill();
 
-        // Core
         ctx.fillStyle = hexToRgba(p.hue, 0.95);
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
@@ -159,9 +148,6 @@
 
   /* ============================================================
      3. NEURON SYNAPSE LAYER
-        Draws animated SVG lines between .btn elements
-        Physics : Spring-like attraction
-        Biology : Dendrite axon firing
      ============================================================ */
   function initSynapseLayer() {
     if (prefersReduced) return;
@@ -169,7 +155,6 @@
     const buttons = $$('.btn');
     if (buttons.length < 2) return;
 
-    // Create overlay SVG
     const svgNS = 'http://www.w3.org/2000/svg';
     let svg = $('#synapseLayer');
     if (!svg) {
@@ -185,7 +170,6 @@
       document.body.appendChild(svg);
     }
 
-    // Gradient defs
     const defs = document.createElementNS(svgNS, 'defs');
     defs.innerHTML = `
       <linearGradient id="brownGrad" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -218,7 +202,6 @@
       });
 
       centers.forEach((a, i) => {
-        // Nearest N neighbours
         const others = centers
           .map((b, j) => ({ b, j, d: dist(a.cx, a.cy, b.cx, b.cy) }))
           .filter(o => o.j !== i)
@@ -253,7 +236,6 @@
         const B = centers[b];
         if (!A || !B) return;
 
-        // Quadratic bezier bowing slightly outward
         const mx = (A.cx + B.cx) / 2;
         const my = (A.cy + B.cy) / 2;
         const dx = B.cx - A.cx;
@@ -270,7 +252,6 @@
           `M ${A.cx} ${A.cy} Q ${ctrlX} ${ctrlY} ${B.cx} ${B.cy}`
         );
 
-        // Brighten if mouse nearby
         const md = Math.min(
           dist(mouse.x, mouse.y, A.cx, A.cy),
           dist(mouse.x, mouse.y, B.cx, B.cy)
@@ -290,40 +271,10 @@
   }
 
   /* ============================================================
-     4. MAGNETIC BUTTONS
-        Physics : Coulomb-like attraction between cursor & button
-        Biology : Chemotaxis — cells moving toward a stimulus
-     ============================================================ */
-  function initMagneticButtons() {
-    if (prefersReduced) return;
-
-    const btns = $$('.btn');
-    btns.forEach((btn) => {
-      btn.addEventListener('mousemove', (e) => {
-        const r = btn.getBoundingClientRect();
-        const mx = e.clientX - (r.left + r.width / 2);
-        const my = e.clientY - (r.top + r.height / 2);
-        btn.style.transform = `translate(${mx * CONFIG.magnet.strength}px, ${my * CONFIG.magnet.strength - 4}px) scale(1.05)`;
-      });
-      btn.addEventListener('mouseleave', () => {
-        btn.style.transform = '';
-      });
-
-      // Ripple coordinates for ::after gradient
-      btn.addEventListener('mousemove', (e) => {
-        const r = btn.getBoundingClientRect();
-        btn.style.setProperty('--x', ((e.clientX - r.left) / r.width) * 100 + '%');
-        btn.style.setProperty('--y', ((e.clientY - r.top) / r.height) * 100 + '%');
-      });
-    });
-  }
-
-  /* ============================================================
-     5. SCROLL REVEAL
-        Biology : Photosynthesis — content "grows" into light
+     4. SCROLL REVEAL
      ============================================================ */
   function initScrollReveal() {
-    const targets = $$('.reveal, section, .card, .product, .stat, .quote');
+    const targets = $$('.reveal, section, .card, .product, .quote');
     if (!targets.length) return;
 
     if (!('IntersectionObserver' in window) || prefersReduced) {
@@ -350,7 +301,7 @@
   }
 
   /* ============================================================
-     6. MOBILE NAV TOGGLE
+     5. MOBILE NAV TOGGLE
      ============================================================ */
   function initNavToggle() {
     const toggle = $('.nav-toggle');
@@ -366,7 +317,6 @@
       );
     });
 
-    // Close on link click
     $$('.nav-links a').forEach((a) => {
       a.addEventListener('click', () => {
         toggle.classList.remove('open');
@@ -376,7 +326,7 @@
   }
 
   /* ============================================================
-     7. ACTIVE NAV HIGHLIGHT
+     6. ACTIVE NAV HIGHLIGHT
      ============================================================ */
   function initActiveNav() {
     const path = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
@@ -393,46 +343,46 @@
   }
 
   /* ============================================================
-     8. ANIMATED COUNTERS (Stats)
-        Biology : Cell division — numbers bloom upward
+     7. WHATSAPP FLOAT — always bound
      ============================================================ */
-  function initCounters() {
-    const nums = $$('[data-count]');
-    if (!nums.length) return;
+  function initWhatsAppFloat() {
+    const wa = $('.wa-float');
+    if (!wa) return;
+    const num = CONFIG.whatsapp.number;
+    const msg = encodeURIComponent(CONFIG.whatsapp.prefilled);
+    wa.setAttribute('href', `https://wa.me/${num}?text=${msg}`);
+    wa.setAttribute('target', '_blank');
+    wa.setAttribute('rel', 'noopener noreferrer');
+    wa.setAttribute('aria-label', 'Chat with St. Clare Candle and Altar Bread Enterprise on WhatsApp');
+  }
 
-    if (prefersReduced || !('IntersectionObserver' in window)) {
-      nums.forEach((n) => (n.textContent = n.dataset.count));
-      return;
-    }
+  /* ============================================================
+     8. ORDER NOW → WHATSAPP DIRECT
+        Any element with [data-order] opens WhatsApp with
+        a ready-made order message.
+     ============================================================ */
+  function initOrderLinks() {
+    const ORDER_TEXT =
+      "Good day, Sisters of St. Clare! 🙏%0A%0A" +
+      "I would like to place an order from St. Clare Candle and Altar Bread Enterprise.%0A%0A" +
+      "📦 *Product(s) I'd like:* ______________________%0A" +
+      "🔢 *Quantity:* ______________________%0A" +
+      "📏 *Size / Type (if applicable):* ______________________%0A" +
+      "📍 *Delivery address:* ______________________%0A" +
+      "📅 *Needed by (date):* ______________________%0A%0A" +
+      "Please confirm pricing and availability. Thank you and God bless! ✝️🕯️🍞";
 
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const el = entry.target;
-        const target = parseFloat(el.dataset.count);
-        const suffix = el.dataset.suffix || '';
-        const duration = 1400;
-        const start = performance.now();
+    const url = `https://wa.me/${CONFIG.whatsapp.number}?text=${ORDER_TEXT}`;
 
-        function tick(now) {
-          const t = Math.min((now - start) / duration, 1);
-          const eased = 1 - Math.pow(1 - t, 3);
-          el.textContent = Math.round(target * eased) + suffix;
-          if (t < 1) requestAnimationFrame(tick);
-        }
-        requestAnimationFrame(tick);
-        io.unobserve(el);
-      });
-    }, { threshold: 0.4 });
-
-    nums.forEach((n) => io.observe(n));
+    $$('[data-order]').forEach((el) => {
+      el.setAttribute('href', url);
+      el.setAttribute('target', '_blank');
+      el.setAttribute('rel', 'noopener noreferrer');
+    });
   }
 
   /* ============================================================
      9. WHATSAPP AUTO-LAUNCH (Contact page)
-        Triggered when body carries data-auto-whatsapp="true"
-        - Shows a sacred 3-second "Connecting to the Sisters…" overlay
-        - Then opens wa.me deep-link in a new tab
      ============================================================ */
   function initWhatsAppAutoLaunch() {
     const body = document.body;
@@ -442,7 +392,6 @@
     const msg = encodeURIComponent(CONFIG.whatsapp.prefilled);
     const url = `https://wa.me/${num}?text=${msg}`;
 
-    // Build the sacred overlay
     const overlay = document.createElement('div');
     overlay.className = 'wa-launch-overlay';
     overlay.innerHTML = `
@@ -458,7 +407,6 @@
     `;
     document.body.appendChild(overlay);
 
-    // Inject minimal styles inline (keeps CSS file clean)
     const style = document.createElement('style');
     style.textContent = `
       .wa-launch-overlay {
@@ -506,7 +454,6 @@
     `;
     document.head.appendChild(style);
 
-    // Fade in overlay
     requestAnimationFrame(() => overlay.classList.add('show'));
 
     let launched = false;
@@ -517,44 +464,26 @@
       setTimeout(() => overlay.classList.remove('show'), 400);
     }
 
-    // Skip button
     overlay.querySelector('.wa-launch-skip').addEventListener('click', launch);
-
-    // Auto-launch after 3s
     setTimeout(launch, 3000);
   }
 
   /* ============================================================
-     10. WHATSAPP FLOATING BUTTON (all pages)
-        Ensures the .wa-float href is always correct
-     ============================================================ */
-  function initWhatsAppFloat() {
-    const wa = $('.wa-float');
-    if (!wa) return;
-    const num = CONFIG.whatsapp.number;
-    const msg = encodeURIComponent(CONFIG.whatsapp.prefilled);
-    wa.setAttribute('href', `https://wa.me/${num}?text=${msg}`);
-    wa.setAttribute('target', '_blank');
-    wa.setAttribute('rel', 'noopener noreferrer');
-    wa.setAttribute('aria-label', 'Chat with St. Clare Candle and Altar Bread Enterprise on WhatsApp');
-  }
-
-  /* ============================================================
-     11. PARALLAX LOGO GLOW (subtle)
+     10. LOGO PARALLAX (very subtle)
      ============================================================ */
   function initLogoParallax() {
     if (prefersReduced) return;
     const logo = $('.brand-logo');
     if (!logo) return;
     window.addEventListener('mousemove', (e) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 6;
-      const y = (e.clientY / window.innerHeight - 0.5) * 6;
+      const x = (e.clientX / window.innerWidth - 0.5) * 4;
+      const y = (e.clientY / window.innerHeight - 0.5) * 4;
       logo.style.transform = `translate(${x}px, ${y}px)`;
     });
   }
 
   /* ============================================================
-     12. SMOOTH ANCHOR SCROLL
+     11. SMOOTH ANCHOR SCROLL
      ============================================================ */
   function initSmoothAnchors() {
     $$('a[href^="#"]').forEach((a) => {
@@ -571,10 +500,58 @@
   }
 
   /* ============================================================
-     13. CONSOLE SIGNATURE — a small monastic blessing
+     12. IMAGE FALLBACK — self-heals broken images
+     ============================================================ */
+  function initImageFallback() {
+    const imgs = $$('img');
+    imgs.forEach((img) => {
+      img.addEventListener('error', () => {
+        const fallback = document.createElement('div');
+        fallback.style.cssText = `
+          width:${img.width || 58}px;
+          height:${img.height || 58}px;
+          border-radius:50%;
+          background:conic-gradient(from 0deg,#D2B48C,#F4C430,#8B5A2B,#D2B48C);
+          box-shadow:0 0 32px rgba(244,196,48,0.55);
+        `;
+        img.replaceWith(fallback);
+        console.warn('[St. Clare] Image failed to load:', img.src);
+      });
+    });
+  }
+
+  /* ============================================================
+     13. CONSOLE SIGNATURE
      ============================================================ */
   function signConsole() {
     const style1 = 'color:#8B5A2B;font-size:14px;font-weight:bold;';
     const style2 = 'color:#3E2412;font-size:12px;';
     console.log('%c🕯️ St. Clare Candle and Altar Bread Enterprise', style1);
-    console.log('%c© 2
+    console.log('%c© 2026 All Rights Reserved. Ijebu-Ode, Ogun State, Nigeria.', style2);
+    console.log('%c"Lumen Christi — Light for the Altar, Bread for the Soul."', 'color:#F4C430;font-style:italic;');
+  }
+
+  /* ============================================================
+     BOOTSTRAP
+     ============================================================ */
+  function boot() {
+    initFlameCanvas();
+    initSynapseLayer();
+    initScrollReveal();
+    initNavToggle();
+    initActiveNav();
+    initWhatsAppFloat();
+    initOrderLinks();
+    initWhatsAppAutoLaunch();
+    initLogoParallax();
+    initSmoothAnchors();
+    initImageFallback();
+    signConsole();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
