@@ -14,8 +14,6 @@
 
    Contact: stclarecandlealtarent8@gmail.com
    Phone  : 09031805281
-
-   Built for the Nuns of St. Clare, Ijebu-Ode.
    ============================================================ */
 
 (function () {
@@ -54,6 +52,7 @@
   const dist = (x1, y1, x2, y2) => Math.hypot(x2 - x1, y2 - y1);
 
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
 
   /* ============================================================
      2. CANDLE-FLAME PARTICLE ENGINE
@@ -147,10 +146,11 @@
   }
 
   /* ============================================================
-     3. NEURON SYNAPSE LAYER
+     3. NEURON SYNAPSE LAYER (desktop cursor only)
      ============================================================ */
   function initSynapseLayer() {
     if (prefersReduced) return;
+    if (isTouch) return;
 
     const buttons = $$('.btn');
     if (buttons.length < 2) return;
@@ -274,7 +274,7 @@
      4. SCROLL REVEAL
      ============================================================ */
   function initScrollReveal() {
-    const targets = $$('.reveal, section, .card, .product, .quote');
+    const targets = $$('.reveal, section, .card, .product');
     if (!targets.length) return;
 
     if (!('IntersectionObserver' in window) || prefersReduced) {
@@ -343,7 +343,7 @@
   }
 
   /* ============================================================
-     7. WHATSAPP FLOAT — always bound
+     7. WHATSAPP FLOAT
      ============================================================ */
   function initWhatsAppFloat() {
     const wa = $('.wa-float');
@@ -357,9 +357,23 @@
   }
 
   /* ============================================================
-     8. ORDER NOW → WHATSAPP DIRECT
-        Any element with [data-order] opens WhatsApp with
-        a ready-made order message.
+     8. TOAST HELPER
+     ============================================================ */
+  function showToast(message, duration = 2600) {
+    let t = document.querySelector('.st-clare-toast');
+    if (!t) {
+      t = document.createElement('div');
+      t.className = 'st-clare-toast';
+      document.body.appendChild(t);
+    }
+    t.textContent = message;
+    requestAnimationFrame(() => t.classList.add('show'));
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), duration);
+  }
+
+  /* ============================================================
+     9. ORDER NOW → WhatsApp (primary), Email (secondary)
      ============================================================ */
   function initOrderLinks() {
     const ORDER_TEXT =
@@ -372,17 +386,83 @@
       "📅 *Needed by (date):* ______________________%0A%0A" +
       "Please confirm pricing and availability. Thank you and God bless! ✝️🕯️🍞";
 
-    const url = `https://wa.me/${CONFIG.whatsapp.number}?text=${ORDER_TEXT}`;
+    const waUrl = `https://wa.me/${CONFIG.whatsapp.number}?text=${ORDER_TEXT}`;
+    const mailUrl =
+      'mailto:stclarecandlealtarent8@gmail.com' +
+      '?subject=' + encodeURIComponent('Order Enquiry — St. Clare Candle and Altar Bread Enterprise') +
+      '&body=' + ORDER_TEXT.replace(/%0A/g, '%0D%0A').replace(/\*/g, '');
 
     $$('[data-order]').forEach((el) => {
-      el.setAttribute('href', url);
+      el.setAttribute('href', waUrl);
       el.setAttribute('target', '_blank');
       el.setAttribute('rel', 'noopener noreferrer');
+      el.classList.add('btn-order');
+
+      el.addEventListener('click', () => {
+        showToast('Opening WhatsApp to complete your order…');
+      });
+
+      el.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        window.location.href = mailUrl;
+        showToast('Opening email as backup…');
+      });
     });
   }
 
   /* ============================================================
-     9. WHATSAPP AUTO-LAUNCH (Contact page)
+     10. FLOATING ACTION BUBBLE — quick access to all CTAs
+     ============================================================ */
+  function initFab() {
+    if ($('.fab-wrap')) return;
+
+    const wrap = document.createElement('div');
+    wrap.className = 'fab-wrap';
+    wrap.innerHTML = `
+      <div class="fab-menu" id="fabMenu">
+        <a href="#" data-order class="btn btn-order">✝ Order Now</a>
+        <a href="https://wa.me/${CONFIG.whatsapp.number}" target="_blank" rel="noopener" class="btn btn-wa">💬 Chat on WhatsApp</a>
+        <a href="mailto:stclarecandlealtarent8@gmail.com" class="btn btn-outline">✉ Email the Sisters</a>
+        <a href="Contact.html" class="btn btn-ghost">✧ Contact Page</a>
+      </div>
+      <button class="fab-trigger" aria-label="Open quick actions" aria-expanded="false">
+        <span aria-hidden="true">☰</span>
+      </button>
+    `;
+    document.body.appendChild(wrap);
+
+    const trigger = wrap.querySelector('.fab-trigger');
+    const menu = wrap.querySelector('.fab-menu');
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = menu.classList.toggle('open');
+      trigger.classList.toggle('open', isOpen);
+      trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    menu.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => {
+        menu.classList.remove('open');
+        trigger.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!wrap.contains(e.target)) {
+        menu.classList.remove('open');
+        trigger.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Re-bind order links to include newly created FAB order button
+    initOrderLinks();
+  }
+
+  /* ============================================================
+     11. WHATSAPP AUTO-LAUNCH (Contact page)
      ============================================================ */
   function initWhatsAppAutoLaunch() {
     const body = document.body;
@@ -469,10 +549,10 @@
   }
 
   /* ============================================================
-     10. LOGO PARALLAX (very subtle)
+     12. LOGO PARALLAX (subtle, desktop only)
      ============================================================ */
   function initLogoParallax() {
-    if (prefersReduced) return;
+    if (prefersReduced || isTouch) return;
     const logo = $('.brand-logo');
     if (!logo) return;
     window.addEventListener('mousemove', (e) => {
@@ -483,7 +563,7 @@
   }
 
   /* ============================================================
-     11. SMOOTH ANCHOR SCROLL
+     13. SMOOTH ANCHOR SCROLL
      ============================================================ */
   function initSmoothAnchors() {
     $$('a[href^="#"]').forEach((a) => {
@@ -492,66 +572,4 @@
         if (!id || id === '#') return;
         const target = document.querySelector(id);
         if (!target) return;
-        e.preventDefault();
-        const y = target.getBoundingClientRect().top + window.pageYOffset - 80;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      });
-    });
-  }
-
-  /* ============================================================
-     12. IMAGE FALLBACK — self-heals broken images
-     ============================================================ */
-  function initImageFallback() {
-    const imgs = $$('img');
-    imgs.forEach((img) => {
-      img.addEventListener('error', () => {
-        const fallback = document.createElement('div');
-        fallback.style.cssText = `
-          width:${img.width || 58}px;
-          height:${img.height || 58}px;
-          border-radius:50%;
-          background:conic-gradient(from 0deg,#D2B48C,#F4C430,#8B5A2B,#D2B48C);
-          box-shadow:0 0 32px rgba(244,196,48,0.55);
-        `;
-        img.replaceWith(fallback);
-        console.warn('[St. Clare] Image failed to load:', img.src);
-      });
-    });
-  }
-
-  /* ============================================================
-     13. CONSOLE SIGNATURE
-     ============================================================ */
-  function signConsole() {
-    const style1 = 'color:#8B5A2B;font-size:14px;font-weight:bold;';
-    const style2 = 'color:#3E2412;font-size:12px;';
-    console.log('%c🕯️ St. Clare Candle and Altar Bread Enterprise', style1);
-    console.log('%c© 2026 All Rights Reserved. Ijebu-Ode, Ogun State, Nigeria.', style2);
-    console.log('%c"Lumen Christi — Light for the Altar, Bread for the Soul."', 'color:#F4C430;font-style:italic;');
-  }
-
-  /* ============================================================
-     BOOTSTRAP
-     ============================================================ */
-  function boot() {
-    initFlameCanvas();
-    initSynapseLayer();
-    initScrollReveal();
-    initNavToggle();
-    initActiveNav();
-    initWhatsAppFloat();
-    initOrderLinks();
-    initWhatsAppAutoLaunch();
-    initLogoParallax();
-    initSmoothAnchors();
-    initImageFallback();
-    signConsole();
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', boot);
-  } else {
-    boot();
-  }
-})();
+        e.preventDefault
