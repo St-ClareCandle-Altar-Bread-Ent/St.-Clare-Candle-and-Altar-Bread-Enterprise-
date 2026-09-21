@@ -374,26 +374,35 @@
 
   /* ============================================================
      9. ORDER NOW → WhatsApp (primary), Email (secondary)
+        Respects existing hrefs — only fills missing ones.
      ============================================================ */
   function initOrderLinks() {
     const ORDER_TEXT =
-      "Good day, Sisters of St. Clare! 🙏%0A%0A" +
-      "I would like to place an order from St. Clare Candle and Altar Bread Enterprise.%0A%0A" +
-      "📦 *Product(s) I'd like:* ______________________%0A" +
-      "🔢 *Quantity:* ______________________%0A" +
-      "📏 *Size / Type (if applicable):* ______________________%0A" +
-      "📍 *Delivery address:* ______________________%0A" +
-      "📅 *Needed by (date):* ______________________%0A%0A" +
+      "Good day, Sisters of St. Clare! 🙏\n\n" +
+      "I would like to place an order from St. Clare Candle and Altar Bread Enterprise.\n\n" +
+      "📦 Product(s) I'd like: ______________________\n" +
+      "🔢 Quantity: ______________________\n" +
+      "📏 Size / Type: ______________________\n" +
+      "📍 Delivery address: ______________________\n" +
+      "📅 Needed by: ______________________\n\n" +
       "Please confirm pricing and availability. Thank you and God bless! ✝️🕯️🍞";
 
-    const waUrl = `https://wa.me/${CONFIG.whatsapp.number}?text=${ORDER_TEXT}`;
+    const waUrl =
+      "https://wa.me/" + CONFIG.whatsapp.number + "?text=" + encodeURIComponent(ORDER_TEXT);
+
     const mailUrl =
       'mailto:stclarecandlealtarent8@gmail.com' +
       '?subject=' + encodeURIComponent('Order Enquiry — St. Clare Candle and Altar Bread Enterprise') +
-      '&body=' + ORDER_TEXT.replace(/%0A/g, '%0D%0A').replace(/\*/g, '');
+      '&body=' + encodeURIComponent(ORDER_TEXT);
 
-    $$('[data-order]').forEach((el) => {
-      el.setAttribute('href', waUrl);
+    $$('[data-order], .btn-order').forEach((el) => {
+      const currentHref = el.getAttribute('href');
+
+      // Only fill in href if it's missing or a placeholder "#"
+      if (!currentHref || currentHref === '#') {
+        el.setAttribute('href', waUrl);
+      }
+
       el.setAttribute('target', '_blank');
       el.setAttribute('rel', 'noopener noreferrer');
       el.classList.add('btn-order');
@@ -411,18 +420,31 @@
   }
 
   /* ============================================================
-     10. FLOATING ACTION BUBBLE — quick access to all CTAs
+     10. FLOATING ACTION BUBBLE
      ============================================================ */
   function initFab() {
     if ($('.fab-wrap')) return;
+
+    const ORDER_WA =
+      "https://wa.me/" + CONFIG.whatsapp.number + "?text=" +
+      encodeURIComponent(
+        "Good day, Sisters of St. Clare! 🙏\n\n" +
+        "I would like to place an order from St. Clare Candle and Altar Bread Enterprise.\n\n" +
+        "📦 Product(s) I'd like: ______________________\n" +
+        "🔢 Quantity: ______________________\n" +
+        "📏 Size / Type: ______________________\n" +
+        "📍 Delivery address: ______________________\n" +
+        "📅 Needed by: ______________________\n\n" +
+        "Please confirm pricing and availability. Thank you and God bless! ✝️🕯️🍞"
+      );
 
     const wrap = document.createElement('div');
     wrap.className = 'fab-wrap';
     wrap.innerHTML = `
       <div class="fab-menu" id="fabMenu">
-        <a href="#" data-order class="btn btn-order">✝ Order Now</a>
+        <a href="${ORDER_WA}" target="_blank" rel="noopener" class="btn btn-order">✝ Order Now</a>
         <a href="https://wa.me/${CONFIG.whatsapp.number}" target="_blank" rel="noopener" class="btn btn-wa">💬 Chat on WhatsApp</a>
-        <a href="mailto:stclarecandlealtarent8@gmail.com" class="btn btn-outline">✉ Email the Sisters</a>
+        <a href="mailto:stclarecandlealtarent8@gmail.com?subject=Order%20Enquiry%20%E2%80%94%20St.%20Clare%20Candle%20and%20Altar%20Bread%20Enterprise" class="btn btn-outline">✉ Email the Sisters</a>
         <a href="Contact.html" class="btn btn-ghost">✧ Contact Page</a>
       </div>
       <button class="fab-trigger" aria-label="Open quick actions" aria-expanded="false">
@@ -446,6 +468,9 @@
         menu.classList.remove('open');
         trigger.classList.remove('open');
         trigger.setAttribute('aria-expanded', 'false');
+        if (a.classList.contains('btn-order')) {
+          showToast('Opening WhatsApp to complete your order…');
+        }
       });
     });
 
@@ -456,9 +481,6 @@
         trigger.setAttribute('aria-expanded', 'false');
       }
     });
-
-    // Re-bind order links to include newly created FAB order button
-    initOrderLinks();
   }
 
   /* ============================================================
@@ -548,28 +570,4 @@
     setTimeout(launch, 3000);
   }
 
-  /* ============================================================
-     12. LOGO PARALLAX (subtle, desktop only)
-     ============================================================ */
-  function initLogoParallax() {
-    if (prefersReduced || isTouch) return;
-    const logo = $('.brand-logo');
-    if (!logo) return;
-    window.addEventListener('mousemove', (e) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 4;
-      const y = (e.clientY / window.innerHeight - 0.5) * 4;
-      logo.style.transform = `translate(${x}px, ${y}px)`;
-    });
-  }
-
-  /* ============================================================
-     13. SMOOTH ANCHOR SCROLL
-     ============================================================ */
-  function initSmoothAnchors() {
-    $$('a[href^="#"]').forEach((a) => {
-      a.addEventListener('click', (e) => {
-        const id = a.getAttribute('href');
-        if (!id || id === '#') return;
-        const target = document.querySelector(id);
-        if (!target) return;
-        e.preventDefault
+  /* ===================================================
