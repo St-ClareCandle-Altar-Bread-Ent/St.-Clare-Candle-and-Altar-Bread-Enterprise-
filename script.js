@@ -152,6 +152,17 @@
   }
 
   /* ============================================================
+     3b. BULK QUOTE TOAST CONFIRMATION
+     ============================================================ */
+  function initBulkQuote() {
+    $$('.btn-bulk').forEach(function (el) {
+      el.addEventListener('click', function () {
+        showToast('Opening WhatsApp for your bulk quote request…', 3200);
+      });
+    });
+  }
+
+  /* ============================================================
      4. SCROLL REVEAL
      ============================================================ */
   function initScrollReveal() {
@@ -281,9 +292,9 @@
         btn.style.setProperty('--y', ((e.clientY - r.top) / r.height) * 100 + '%');
       });
     });
-                       }
+      }
      /* ============================================================
-     11. GALLERY — Tabs filter (with scroll + glow) + Lightbox
+     11. GALLERY — Tabs filter (scroll + glow) + Lightbox
      ============================================================ */
   function initGallery() {
     const tabs = $$('.gallery-tab');
@@ -407,7 +418,61 @@
   }
 
   /* ============================================================
-     12. CONSOLE SIGNATURE
+     12. WHATSAPP AUTO-LAUNCH (Contact page)
+     ============================================================ */
+  function initWhatsAppAutoLaunch() {
+    const body = document.body;
+    if (!body || body.dataset.autoWhatsapp !== 'true') return;
+
+    const num = CONFIG.whatsapp.number;
+    const msg = encodeURIComponent(CONFIG.whatsapp.prefilled);
+    const url = 'https://wa.me/' + num + '?text=' + msg;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'wa-launch-overlay';
+    overlay.innerHTML =
+      '<div class="wa-launch-inner">' +
+        '<div class="wa-halo">' +
+          '<img src="logoaltarbread.png" alt="St. Clare logo">' +
+        '</div>' +
+        '<p class="wa-launch-title">Connecting you to the Sisters…</p>' +
+        '<p class="wa-launch-sub">St. Clare Candle and Altar Bread Enterprise</p>' +
+        '<div class="wa-bar"><span></span></div>' +
+        '<button type="button" class="btn btn-wa btn-sm wa-launch-skip">Open WhatsApp Now</button>' +
+      '</div>';
+    document.body.appendChild(overlay);
+
+    const style = document.createElement('style');
+    style.textContent =
+      '.wa-launch-overlay{position:fixed;inset:0;background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);z-index:9999;display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity 0.5s cubic-bezier(0.16,1,0.3,1);}' +
+      '.wa-launch-overlay.show{opacity:1;pointer-events:auto;}' +
+      '.wa-launch-inner{text-align:center;padding:24px;}' +
+      '.wa-halo{width:120px;height:120px;margin:0 auto 22px;border-radius:50%;padding:4px;background:conic-gradient(from 0deg,#D2B48C,#F4C430,#8B5A2B,#D2B48C);animation:synapse-spin 4s linear infinite;box-shadow:0 0 60px rgba(244,196,48,0.55);}' +
+      '.wa-halo img{width:100%;height:100%;border-radius:50%;object-fit:contain;background:#fff;padding:6px;}' +
+      '.wa-launch-title{font-family:Georgia,serif;font-size:1.25rem;color:#3E2412;margin-bottom:6px;letter-spacing:0.4px;}' +
+      '.wa-launch-sub{font-family:Courier New,monospace;font-size:0.78rem;color:#8B5A2B;letter-spacing:2.6px;text-transform:uppercase;margin-bottom:22px;}' +
+      '.wa-bar{width:220px;height:4px;margin:0 auto 24px;background:rgba(210,180,140,0.35);border-radius:4px;overflow:hidden;}' +
+      '.wa-bar span{display:block;height:100%;width:0%;background:linear-gradient(90deg,#8B5A2B,#F4C430);animation:wa-bar-fill 3s linear forwards;}' +
+      '@keyframes wa-bar-fill{to{width:100%;}}' +
+      '@keyframes synapse-spin{to{transform:rotate(360deg);}}';
+    document.head.appendChild(style);
+
+    requestAnimationFrame(function () { overlay.classList.add('show'); });
+
+    let launched = false;
+    function launch() {
+      if (launched) return;
+      launched = true;
+      window.open(url, '_blank', 'noopener,noreferrer');
+      setTimeout(function () { overlay.classList.remove('show'); }, 400);
+    }
+
+    overlay.querySelector('.wa-launch-skip').addEventListener('click', launch);
+    setTimeout(launch, 3000);
+  }
+
+  /* ============================================================
+     13. CONSOLE SIGNATURE
      ============================================================ */
   function signConsole() {
     const style1 = 'color:#8B5A2B;font-size:14px;font-weight:bold;';
@@ -424,6 +489,7 @@
   function boot() {
     initFlameCanvas();
     initOrderLinks();
+    initBulkQuote();
     initScrollReveal();
     initNavToggle();
     initActiveNav();
@@ -432,6 +498,7 @@
     initHeroLogoParallax();
     initButtonRipple();
     initGallery();
+    initWhatsAppAutoLaunch();
     signConsole();
   }
 
