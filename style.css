@@ -5,7 +5,6 @@
    All Rights Reserved. Ijebu-Ode, Ogun State, Nigeria.
    ============================================================ */
 
-/* -------------------- ROOT TOKENS -------------------- */
 :root {
   --white-pure:  #FFFFFF;
   --white-ivory: #FDFBF7;
@@ -82,14 +81,13 @@ a { color: var(--brown-mid); text-decoration: none; transition: color 0.3s ease;
 a:hover { color: var(--brown-deep); }
 ::selection { background: var(--brown-light); color: var(--brown-darkest); }
 
-/* Bold "Enterprise" everywhere */
 b, .enterprise-bold {
   font-weight: 800;
   letter-spacing: 0.4px;
   color: var(--brown-darkest);
 }
 
-/* -------------------- HEADER -------------------- */
+/* HEADER */
 .site-header {
   position: sticky; top: 0; z-index: 100;
   background: rgba(255,255,255,0.88);
@@ -106,10 +104,8 @@ b, .enterprise-bold {
 
 .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
 
-/* ⭐ Small neat header logo — full image, no cropping */
 .brand-logo {
-  width: 44px;
-  height: 44px;
+  width: 44px; height: 44px;
   border-radius: 50%;
   object-fit: contain;
   object-position: center;
@@ -165,7 +161,7 @@ b, .enterprise-bold {
 .nav-toggle.open span::before { transform: translate(-50%, 0) rotate(45deg); }
 .nav-toggle.open span::after  { transform: translate(-50%, 0) rotate(-45deg); }
 
-/* -------------------- BUTTONS -------------------- */
+/* BUTTONS */
 .btn {
   position: relative;
   display: inline-flex; align-items: center; justify-content: center;
@@ -185,7 +181,6 @@ b, .enterprise-bold {
     background 0.28s ease;
 }
 
-/* Neuron synapse ring on hover */
 .btn::before {
   content: '';
   position: absolute; inset: -4px; border-radius: inherit;
@@ -201,11 +196,8 @@ b, .enterprise-bold {
 }
 .btn:hover::before { opacity: 0.75; }
 
-@keyframes synapse-spin {
-  to { transform: rotate(360deg); }
-}
+@keyframes synapse-spin { to { transform: rotate(360deg); } }
 
-/* Ripple */
 .btn::after {
   content: '';
   position: absolute; inset: 0; border-radius: inherit;
@@ -236,7 +228,6 @@ b, .enterprise-bold {
 .btn-ghost:hover { background: var(--white-pure); }
 .btn-wa { background: linear-gradient(135deg, var(--wa-green), var(--wa-green-dark)); color: #fff; }
 
-/* ⭐ THE GLOWING ORDER NOW BUTTON */
 .btn-order {
   background: linear-gradient(135deg, #25D366, #128C7E) !important;
   color: #fff !important;
@@ -256,7 +247,6 @@ b, .enterprise-bold {
     inset 0 1px 0 rgba(255,255,255,0.35) !important;
 }
 
-/* Golden-green breathing glow */
 @keyframes order-glow {
   0%, 100% {
     box-shadow:
@@ -283,17 +273,13 @@ b, .enterprise-bold {
   margin-left: auto; margin-right: auto; padding: 0 16px;
 }
 
-/* -------------------- HERO -------------------- */
+/* HERO */
 .hero {
   position: relative; min-height: 90vh; display: grid; place-items: center;
   padding: 70px 24px 70px; overflow: hidden; z-index: 2;
 }
-.hero-inner {
-  max-width: 1000px; text-align: center;
-  position: relative; z-index: 3;
-}
+.hero-inner { max-width: 1000px; text-align: center; position: relative; z-index: 3; }
 
-/* ⭐⭐⭐ BIG CENTERED GLOWING HOME LOGO ⭐⭐⭐ */
 .hero-logo {
   width: 110px;
   height: 110px;
@@ -351,7 +337,7 @@ b, .enterprise-bold {
   font-size: 1.08rem; color: var(--brown-darkest); opacity: 0.85;
 }
 
-/* -------------------- SECTIONS -------------------- */
+/* SECTIONS */
 section { position: relative; padding: 80px 24px; z-index: 2; }
 .container { max-width: 1200px; margin: 0 auto; }
 .section-head { text-align: center; max-width: 760px; margin: 0 auto 56px; }
@@ -360,9 +346,8 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   font-size: 0.72rem; letter-spacing: 3.5px;
   text-transform: uppercase; color: var(--brown-mid);
   margin-bottom: 14px; display: block;
-}
-
-/* -------------------- CARDS -------------------- */
+   }
+/* GRID + CARDS */
 .grid {
   display: grid; gap: 28px;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -393,7 +378,7 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
 .card h3 { margin-bottom: 12px; }
 .card p  { margin-bottom: 0; font-size: 1rem; }
 
-/* -------------------- PRODUCTS -------------------- */
+/* PRODUCTS */
 .product {
   background: linear-gradient(180deg, var(--white-pure), var(--white-warm));
   border: 1px solid rgba(210,180,140,0.5);
@@ -414,6 +399,16 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   font-size: 4rem;
   position: relative; overflow: hidden;
 }
+.product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+.product:hover .product-img img {
+  transform: scale(1.06);
+}
 .product-body {
   padding: 24px 22px 28px;
   flex: 1; display: flex; flex-direction: column;
@@ -427,8 +422,15 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   text-transform: uppercase;
   margin-bottom: 16px;
 }
+.product-btn {
+  margin-top: 18px;
+  align-self: flex-start;
+  font-size: 0.85rem;
+  padding: 10px 20px;
+  min-height: 42px;
+}
 
-/* -------------------- FOOTER -------------------- */
+/* FOOTER */
 .site-footer {
   position: relative;
   background: linear-gradient(180deg, var(--white-warm), var(--brown-darkest));
@@ -466,8 +468,6 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   display: flex; align-items: center;
   gap: 12px; margin-bottom: 16px;
 }
-
-/* Footer logo — neat, same treatment */
 .footer-brand img {
   width: 42px; height: 42px;
   border-radius: 50%;
@@ -502,7 +502,7 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   font-weight: 800;
 }
 
-/* -------------------- PAGE HERO (About / Contact) -------------------- */
+/* PAGE HERO */
 .page-hero {
   padding: 90px 24px 50px;
   text-align: center;
@@ -519,7 +519,7 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   font-style: italic;
 }
 
-/* -------------------- SCROLL REVEAL -------------------- */
+/* REVEAL */
 .reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -528,7 +528,7 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
 }
 .reveal.in { opacity: 1; transform: translateY(0); }
 
-/* -------------------- RESPONSIVE -------------------- */
+/* RESPONSIVE */
 @media (max-width: 900px) {
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
@@ -571,13 +571,12 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   }
 }
 
-/* Touch devices — no hover transforms */
 @media (hover: none), (pointer: coarse) {
   .btn, .btn:hover, .btn:active { transform: none !important; }
   .brand-logo, .card, .product, .hero-logo { transform: none !important; }
 }
 
-/* Toast */
+/* TOAST */
 .st-clare-toast {
   position: fixed; left: 50%; bottom: 32px;
   transform: translateX(-50%) translateY(30px);
@@ -608,41 +607,90 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   outline: 3px solid var(--flame-mid);
   outline-offset: 4px;
   border-radius: 6px;
-}
+   }
 /* ============================================================
-   PRODUCT IMAGE + ALTAR BREAD GALLERY
+   GALLERY — Tabs with glow, grid, lightbox
    © 2026 St. Clare Candle and Altar Bread Enterprise.
    ============================================================ */
 
-/* Real photo in product cards */
-.product-img {
+.gallery-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.gallery-tab {
   position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, var(--brown-light), var(--white-warm));
-}
-.product-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
-}
-.product:hover .product-img img {
-  transform: scale(1.06);
-}
-
-.product-btn {
-  margin-top: 18px;
-  align-self: flex-start;
-  font-size: 0.85rem;
-  padding: 10px 20px;
-  min-height: 42px;
+  padding: 11px 26px;
+  border-radius: 999px;
+  border: 2px solid var(--brown-light);
+  background: var(--white-pure);
+  color: var(--brown-deep);
+  font-family: 'Georgia', serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  cursor: pointer;
+  transition: all 0.28s cubic-bezier(0.34, 1.4, 0.64, 1);
 }
 
-/* Altar bread gallery grid */
+.gallery-tab:hover {
+  background: var(--white-warm);
+  border-color: var(--brown-mid);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(139,90,43,0.20);
+}
+
+/* Active tab — glows so you always know where you are */
+.gallery-tab.active {
+  background: linear-gradient(135deg, var(--brown-mid), var(--flame-edge));
+  color: var(--white-pure);
+  border-color: transparent;
+  animation: tab-glow 2.4s ease-in-out infinite;
+}
+
+@keyframes tab-glow {
+  0%, 100% {
+    box-shadow:
+      0 6px 18px rgba(139,90,43,0.35),
+      0 0 0 0 rgba(244,196,48,0.75),
+      inset 0 1px 0 rgba(255,255,255,0.25);
+  }
+  50% {
+    box-shadow:
+      0 6px 22px rgba(139,90,43,0.45),
+      0 0 0 14px rgba(244,196,48,0),
+      inset 0 1px 0 rgba(255,255,255,0.35);
+  }
+}
+
+.gallery-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--flame-mid);
+  box-shadow: 0 0 12px rgba(244,196,48,0.9);
+}
+
+#mainGallery {
+  scroll-margin-top: 100px;
+  transition: opacity 0.35s ease;
+}
+
+#mainGallery.filtering {
+  opacity: 0.3;
+}
+
 .gallery-grid {
   display: grid;
-  gap: 24px;
+  gap: 22px;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   margin-top: 20px;
 }
@@ -655,8 +703,14 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   border: 1px solid rgba(210,180,140,0.55);
   box-shadow: var(--shadow-soft);
   margin: 0;
+  cursor: pointer;
   transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
-              box-shadow 0.4s ease;
+              box-shadow 0.4s ease,
+              opacity 0.4s ease;
+}
+
+.gallery-item.hidden {
+  display: none;
 }
 
 .gallery-item:hover {
@@ -688,9 +742,105 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   border-top: 1px solid rgba(210,180,140,0.35);
 }
 
+/* LIGHTBOX */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 15, 5, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s cubic-bezier(0.16,1,0.3,1);
+  padding: 40px 20px;
+}
+
+.lightbox.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-img {
+  max-width: 92vw;
+  max-height: 82vh;
+  border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.65);
+  border: 3px solid rgba(244,196,48,0.35);
+  object-fit: contain;
+  animation: lightbox-in 0.4s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+@keyframes lightbox-in {
+  from { transform: scale(0.92); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+.lightbox-caption {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--white-ivory);
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 10px 22px;
+  background: rgba(107, 62, 30, 0.75);
+  border-radius: 999px;
+  border: 1px solid rgba(210,180,140,0.35);
+  max-width: 90vw;
+}
+
+.lightbox-close,
+.lightbox-nav {
+  position: absolute;
+  background: rgba(107, 62, 30, 0.75);
+  color: var(--white-pure);
+  border: 1px solid rgba(210,180,140,0.45);
+  border-radius: 50%;
+  width: 52px;
+  height: 52px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: all 0.28s ease;
+  z-index: 10000;
+}
+
+.lightbox-close:hover,
+.lightbox-nav:hover {
+  background: var(--flame-edge);
+  border-color: var(--flame-mid);
+  transform: scale(1.08);
+}
+
+.lightbox-close {
+  top: 20px;
+  right: 20px;
+  font-size: 1.2rem;
+}
+
+.lightbox-prev { left: 20px; top: 50%; transform: translateY(-50%); }
+.lightbox-next { right: 20px; top: 50%; transform: translateY(-50%); }
+
+.lightbox-prev:hover { transform: translateY(-50%) scale(1.08); }
+.lightbox-next:hover { transform: translateY(-50%) scale(1.08); }
+
 @media (max-width: 720px) {
-  .gallery-grid { grid-template-columns: 1fr; gap: 18px; }
-   }
+  .gallery-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+  .gallery-tab { padding: 9px 18px; font-size: 0.82rem; }
+  .lightbox-close, .lightbox-nav { width: 44px; height: 44px; font-size: 1.2rem; }
+  .lightbox-prev { left: 10px; }
+  .lightbox-next { right: 10px; }
+  .lightbox-close { top: 12px; right: 12px; }
+}
 
 /* ============================================================
    END OF STYLESHEET
