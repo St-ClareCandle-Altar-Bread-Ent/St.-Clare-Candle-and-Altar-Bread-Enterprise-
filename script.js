@@ -12,9 +12,6 @@
 (function () {
   'use strict';
 
-  /* ============================================================
-     CONFIG
-     ============================================================ */
   const CONFIG = {
     whatsapp: {
       number: '2349031805281',
@@ -144,7 +141,7 @@
   }
 
   /* ============================================================
-     3. ORDER-NOW LINKS — toast confirmation on click
+     3. ORDER-NOW TOAST CONFIRMATION
      ============================================================ */
   function initOrderLinks() {
     $$('.btn-order').forEach(function (el) {
@@ -256,7 +253,7 @@
   }
 
   /* ============================================================
-     9. PARALLAX HERO LOGO (subtle, desktop only)
+     9. HERO LOGO PARALLAX
      ============================================================ */
   function initHeroLogoParallax() {
     if (prefersReduced) return;
@@ -284,10 +281,133 @@
         btn.style.setProperty('--y', ((e.clientY - r.top) / r.height) * 100 + '%');
       });
     });
+                       }
+     /* ============================================================
+     11. GALLERY — Tabs filter (with scroll + glow) + Lightbox
+     ============================================================ */
+  function initGallery() {
+    const tabs = $$('.gallery-tab');
+    const items = $$('.gallery-item');
+    if (!items.length) return;
+
+    const galleryGrid = $('#mainGallery');
+
+    // 11a. Tab filtering + fade + scroll
+    if (tabs.length) {
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          const filter = tab.dataset.filter;
+
+          tabs.forEach((t) => t.classList.remove('active'));
+          tab.classList.add('active');
+
+          if (galleryGrid) galleryGrid.classList.add('filtering');
+
+          setTimeout(() => {
+            items.forEach((item) => {
+              const cat = item.dataset.category || 'all';
+              if (filter === 'all' || cat === filter) {
+                item.classList.remove('hidden');
+              } else {
+                item.classList.add('hidden');
+              }
+            });
+
+            if (galleryGrid) galleryGrid.classList.remove('filtering');
+
+            if (galleryGrid) {
+              const y = galleryGrid.getBoundingClientRect().top + window.pageYOffset - 120;
+              window.scrollTo({ top: y, behavior: 'smooth' });
+            }
+          }, 250);
+        });
+      });
+    }
+
+    // 11b. Auto-open tab from URL hash (e.g. Gallery.html#candles)
+    const hash = (window.location.hash || '').replace('#', '');
+    if (hash && tabs.length) {
+      const targetTab = tabs.find((t) => t.dataset.filter === hash);
+      if (targetTab) {
+        setTimeout(() => targetTab.click(), 200);
+      }
+    }
+
+    // 11c. Lightbox
+    const lightbox = $('#lightbox');
+    const lightboxImg = $('#lightboxImg');
+    const lightboxCaption = $('#lightboxCaption');
+    const btnClose = $('#lightboxClose');
+    const btnPrev = $('#lightboxPrev');
+    const btnNext = $('#lightboxNext');
+
+    if (!lightbox || !lightboxImg) return;
+
+    let currentIndex = 0;
+    let visibleItems = items;
+
+    function updateVisible() {
+      visibleItems = items.filter((i) => !i.classList.contains('hidden'));
+    }
+
+    function openLightbox(index) {
+      updateVisible();
+      currentIndex = index;
+      const item = visibleItems[currentIndex];
+      if (!item) return;
+      const img = item.querySelector('img');
+      const cap = item.querySelector('figcaption');
+
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightboxCaption.textContent = cap ? cap.textContent : '';
+      lightbox.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+
+    function showPrev() {
+      updateVisible();
+      currentIndex = (currentIndex - 1 + visibleItems.length) % visibleItems.length;
+      openLightbox(currentIndex);
+    }
+
+    function showNext() {
+      updateVisible();
+      currentIndex = (currentIndex + 1) % visibleItems.length;
+      openLightbox(currentIndex);
+    }
+
+    items.forEach((item) => {
+      item.addEventListener('click', () => {
+        updateVisible();
+        const idx = visibleItems.indexOf(item);
+        if (idx >= 0) openLightbox(idx);
+      });
+    });
+
+    if (btnClose) btnClose.addEventListener('click', closeLightbox);
+    if (btnPrev)  btnPrev.addEventListener('click', showPrev);
+    if (btnNext)  btnNext.addEventListener('click', showNext);
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('show')) return;
+      if (e.key === 'Escape')     closeLightbox();
+      if (e.key === 'ArrowLeft')  showPrev();
+      if (e.key === 'ArrowRight') showNext();
+    });
   }
 
   /* ============================================================
-     11. CONSOLE SIGNATURE
+     12. CONSOLE SIGNATURE
      ============================================================ */
   function signConsole() {
     const style1 = 'color:#8B5A2B;font-size:14px;font-weight:bold;';
@@ -311,6 +431,7 @@
     initImageFallback();
     initHeroLogoParallax();
     initButtonRipple();
+    initGallery();
     signConsole();
   }
 
