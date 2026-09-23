@@ -1,4 +1,4 @@
-# 🕯️ St. Clare Candle and Altar Bread Enterprise
+#  St. Clare Candle and Altar Bread Enterprise
 
 **Light for the Altar. Bread for the Soul.**
 
