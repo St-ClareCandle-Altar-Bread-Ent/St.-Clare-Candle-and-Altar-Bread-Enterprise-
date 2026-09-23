@@ -841,6 +841,139 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   .lightbox-next { right: 10px; }
   .lightbox-close { top: 12px; right: 12px; }
 }
+/* ============================================================
+   BULK QUOTE — golden professional callout + button
+   © 2026 St. Clare Candle and Altar Bread Enterprise.
+   ============================================================ */
+
+.btn-bulk {
+  background: linear-gradient(135deg, var(--flame-edge), var(--brown-mid)) !important;
+  color: var(--white-pure) !important;
+  box-shadow:
+    0 3px 0 rgba(107, 62, 30, 0.9),
+    0 10px 26px rgba(224, 139, 42, 0.42),
+    0 0 0 0 rgba(244, 196, 48, 0.65),
+    inset 0 1px 0 rgba(255,255,255,0.25) !important;
+  animation: bulk-glow 2.6s ease-in-out infinite;
+}
+
+.btn-bulk:hover {
+  background: linear-gradient(135deg, var(--flame-mid), var(--flame-edge)) !important;
+  box-shadow:
+    0 6px 0 rgba(107, 62, 30, 0.9),
+    0 22px 48px rgba(244, 196, 48, 0.55),
+    0 0 0 12px rgba(244, 196, 48, 0.12),
+    inset 0 1px 0 rgba(255,255,255,0.35) !important;
+}
+
+@keyframes bulk-glow {
+  0%, 100% {
+    box-shadow:
+      0 3px 0 rgba(107, 62, 30, 0.9),
+      0 10px 26px rgba(224, 139, 42, 0.42),
+      0 0 0 0 rgba(244, 196, 48, 0.65),
+      inset 0 1px 0 rgba(255,255,255,0.25);
+  }
+  50% {
+    box-shadow:
+      0 3px 0 rgba(107, 62, 30, 0.9),
+      0 14px 36px rgba(244, 196, 48, 0.55),
+      0 0 0 14px rgba(244, 196, 48, 0),
+      inset 0 1px 0 rgba(255,255,255,0.30);
+  }
+}
+
+.bulk-section {
+  padding: 60px 24px;
+}
+
+.bulk-card {
+  max-width: 880px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 56px 36px;
+  border-radius: var(--r-card);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(244, 196, 48, 0.14), transparent 65%),
+    linear-gradient(180deg, var(--white-pure), var(--white-warm));
+  border: 2px solid var(--brown-light);
+  box-shadow: var(--shadow-mid);
+  position: relative;
+  overflow: hidden;
+}
+
+.bulk-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--flame-mid), var(--flame-edge), var(--flame-mid), transparent);
+}
+
+.bulk-icon {
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--flame-mid), var(--flame-edge));
+  color: var(--white-pure);
+  font-size: 2rem;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 6px 22px rgba(224, 139, 42, 0.45), inset 0 1px 0 rgba(255,255,255,0.35);
+}
+
+.bulk-eyebrow {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 3.2px;
+  text-transform: uppercase;
+  color: var(--flame-edge);
+  display: block;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.bulk-title {
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  color: var(--brown-deep);
+  padding-bottom: 0;
+  margin-bottom: 20px;
+}
+
+.bulk-title::after { display: none; }
+
+.bulk-desc {
+  max-width: 620px;
+  margin: 0 auto 32px;
+  font-size: 1.05rem;
+  color: var(--brown-darkest);
+  opacity: 0.88;
+}
+
+.bulk-cta {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card-bulk {
+  border: 2px solid var(--flame-mid);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(244, 196, 48, 0.12), transparent 65%),
+    var(--white-pure);
+}
+
+.card-bulk:hover {
+  border-color: var(--flame-edge);
+  box-shadow: 0 20px 60px rgba(224, 139, 42, 0.28);
+}
+
+@media (max-width: 720px) {
+  .bulk-card { padding: 40px 22px; }
+  .bulk-icon { width: 62px; height: 62px; font-size: 1.6rem; }
+  .bulk-cta .btn { width: 100%; }
+}
 
 /* ============================================================
    END OF STYLESHEET
