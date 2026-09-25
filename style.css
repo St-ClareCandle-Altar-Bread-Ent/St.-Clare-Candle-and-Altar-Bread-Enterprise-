@@ -974,6 +974,51 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   .bulk-icon { width: 62px; height: 62px; font-size: 1.6rem; }
   .bulk-cta .btn { width: 100%; }
 }
+/* ============================================================
+   FEATURE IMAGES — Vocation page and general use
+   © 2026 St. Clare Candle and Altar Bread Enterprise.
+   ============================================================ */
+
+.feature-image {
+  max-width: 900px;
+  margin: 32px auto 40px;
+  border-radius: var(--r-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-mid);
+  border: 1px solid rgba(210,180,140,0.55);
+  background: var(--white-pure);
+}
+
+.feature-image img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+
+.feature-image:hover img {
+  transform: scale(1.03);
+}
+
+.feature-caption {
+  padding: 14px 20px;
+  margin: 0;
+  text-align: center;
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--brown-mid);
+  background: var(--white-pure);
+  border-top: 1px solid rgba(210,180,140,0.35);
+}
+
+@media (max-width: 720px) {
+  .feature-image { margin: 22px auto 30px; }
+  .feature-image img { aspect-ratio: 4/3; }
+  .feature-caption { font-size: 0.7rem; padding: 12px 16px; }
+}
 
 /* ============================================================
    END OF STYLESHEET
