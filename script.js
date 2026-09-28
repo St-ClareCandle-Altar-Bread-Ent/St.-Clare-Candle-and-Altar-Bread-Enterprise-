@@ -292,18 +292,18 @@
         btn.style.setProperty('--y', ((e.clientY - r.top) / r.height) * 100 + '%');
       });
     });
-      }
+                     }
      /* ============================================================
-     11. GALLERY — Tabs filter (scroll + glow) + Lightbox
+     11. GALLERY — Tabs + Advent panel + Lightbox + Auto-week counter
      ============================================================ */
   function initGallery() {
     const tabs = $$('.gallery-tab');
     const items = $$('.gallery-item');
+    const galleryGrid = $('#mainGallery');
+    const adventPanel = $('#adventPanel');
     if (!items.length) return;
 
-    const galleryGrid = $('#mainGallery');
-
-    // 11a. Tab filtering + fade + scroll
+    // 11a. Tab filtering + fade + scroll + Advent panel toggle
     if (tabs.length) {
       tabs.forEach((tab) => {
         tab.addEventListener('click', () => {
@@ -311,6 +311,15 @@
 
           tabs.forEach((t) => t.classList.remove('active'));
           tab.classList.add('active');
+
+          // Show/hide Advent panel
+          if (adventPanel) {
+            if (filter === 'advent') {
+              adventPanel.classList.add('show');
+            } else {
+              adventPanel.classList.remove('show');
+            }
+          }
 
           if (galleryGrid) galleryGrid.classList.add('filtering');
 
@@ -326,8 +335,12 @@
 
             if (galleryGrid) galleryGrid.classList.remove('filtering');
 
-            if (galleryGrid) {
-              const y = galleryGrid.getBoundingClientRect().top + window.pageYOffset - 120;
+            // Smooth scroll to the top of the section
+            const target = adventPanel && adventPanel.classList.contains('show')
+              ? adventPanel
+              : galleryGrid;
+            if (target) {
+              const y = target.getBoundingClientRect().top + window.pageYOffset - 120;
               window.scrollTo({ top: y, behavior: 'smooth' });
             }
           }, 250);
@@ -335,16 +348,17 @@
       });
     }
 
-    // 11b. Auto-open tab from URL hash (e.g. Gallery.html#candles)
+    // 11b. Auto-open tab from URL hash (e.g. Gallery.html#advent)
     const hash = (window.location.hash || '').replace('#', '');
     if (hash && tabs.length) {
       const targetTab = tabs.find((t) => t.dataset.filter === hash);
-      if (targetTab) {
-        setTimeout(() => targetTab.click(), 200);
-      }
+      if (targetTab) setTimeout(() => targetTab.click(), 200);
     }
 
-    // 11c. Lightbox
+    // 11c. Auto-update Liturgical Week number
+    updateLiturgicalWeek();
+
+    // 11d. Lightbox
     const lightbox = $('#lightbox');
     const lightboxImg = $('#lightboxImg');
     const lightboxCaption = $('#lightboxCaption');
@@ -418,7 +432,39 @@
   }
 
   /* ============================================================
-     12. WHATSAPP AUTO-LAUNCH (Contact page)
+     11b. LITURGICAL WEEK COUNTER — Auto-updates every Sunday
+     Anchor: Week 26 = week containing September 27, 2026
+     ============================================================ */
+  function updateLiturgicalWeek() {
+    const weekEl = document.getElementById('weekNumber');
+    if (!weekEl) return;
+
+    const anchorDate = new Date('2026-09-27T00:00:00');
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const msPerDay = 24 * 60 * 60 * 1000;
+    const diffDays = Math.floor((today - anchorDate) / msPerDay);
+    const weeksSince = Math.floor(diffDays / 7);
+
+    // Calculate current week — cycles 1 through 34 (Ordinary Time max)
+    let currentWeek = 26 + weeksSince;
+
+    // Wrap if it goes above 34 (Ordinary Time ends) — reset to 1
+    if (currentWeek > 34) currentWeek = ((currentWeek - 34 - 1) % 34) + 1;
+    if (currentWeek < 1) currentWeek = 1;
+
+    weekEl.textContent = currentWeek + getOrdinalSuffix(currentWeek);
+  }
+
+  function getOrdinalSuffix(n) {
+    const s = ['th','st','nd','rd'];
+    const v = n % 100;
+    return s[(v - 20) % 10] || s[v] || s[0];
+  }
+
+  /* ============================================================
+     12. WHATSAPP AUTO-LAUNCH (Contact page only)
      ============================================================ */
   function initWhatsAppAutoLaunch() {
     const body = document.body;
