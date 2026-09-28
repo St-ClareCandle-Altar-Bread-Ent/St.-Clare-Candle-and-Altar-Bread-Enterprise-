@@ -292,7 +292,7 @@
         btn.style.setProperty('--y', ((e.clientY - r.top) / r.height) * 100 + '%');
       });
     });
-                     }
+           }
      /* ============================================================
      11. GALLERY — Tabs + Advent panel + Lightbox + Auto-week counter
      ============================================================ */
@@ -335,7 +335,6 @@
 
             if (galleryGrid) galleryGrid.classList.remove('filtering');
 
-            // Smooth scroll to the top of the section
             const target = adventPanel && adventPanel.classList.contains('show')
               ? adventPanel
               : galleryGrid;
@@ -348,11 +347,18 @@
       });
     }
 
-    // 11b. Auto-open tab from URL hash (e.g. Gallery.html#advent)
+    // 11b. Auto-open tab from URL hash OR hide Advent images on first load
     const hash = (window.location.hash || '').replace('#', '');
     if (hash && tabs.length) {
       const targetTab = tabs.find((t) => t.dataset.filter === hash);
       if (targetTab) setTimeout(() => targetTab.click(), 200);
+    } else {
+      // Speed fix — keep Advent images hidden on initial load
+      items.forEach((item) => {
+        if (item.dataset.category === 'advent') {
+          item.classList.add('hidden');
+        }
+      });
     }
 
     // 11c. Auto-update Liturgical Week number
@@ -447,10 +453,8 @@
     const diffDays = Math.floor((today - anchorDate) / msPerDay);
     const weeksSince = Math.floor(diffDays / 7);
 
-    // Calculate current week — cycles 1 through 34 (Ordinary Time max)
     let currentWeek = 26 + weeksSince;
 
-    // Wrap if it goes above 34 (Ordinary Time ends) — reset to 1
     if (currentWeek > 34) currentWeek = ((currentWeek - 34 - 1) % 34) + 1;
     if (currentWeek < 1) currentWeek = 1;
 
@@ -464,7 +468,7 @@
   }
 
   /* ============================================================
-     12. WHATSAPP AUTO-LAUNCH (Contact page only)
+     12. WHATSAPP AUTO-LAUNCH
      ============================================================ */
   function initWhatsAppAutoLaunch() {
     const body = document.body;
