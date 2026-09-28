@@ -1,44 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
+  <!-- ============ HOMEPAGE ============ -->
   <url>
     <loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/</loc>
-    <lastmod>2026-09-27</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/logoaltarbread.png</image:loc>
+      <image:title>St. Clare Candle and Altar Bread Enterprise</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/altar%20candle1.jpg</image:loc>
+      <image:title>Altar Candles</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/altar%20bread1.jpg</image:loc>
+      <image:title>Altar Bread — Small Hosts</image:title>
+    </image:image>
   </url>
 
-  <url>
-    <loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/index.html</loc>
-    <lastmod>2026-09-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-
+  <!-- ============ ABOUT ============ -->
   <url>
     <loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/About.html</loc>
-    <lastmod>2026-09-27</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
+  <!-- ============ VOCATION ============ -->
   <url>
     <loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/Vocation.html</loc>
-    <lastmod>2026-09-27</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/vocation1.jpg</image:loc>
+      <image:title>The Church — Morning Mass</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/vocation3.jpg</image:loc>
+      <image:title>Entrance to St. Clare Monastery, Ijebu-Ode</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/vocation6.jpg</image:loc>
+      <image:title>The Nuns' building — where the Sisters pray</image:title>
+    </image:image>
   </url>
 
+  <!-- ============ GALLERY ============ -->
   <url>
     <loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/Gallery.html</loc>
-    <lastmod>2026-09-27</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/altar%20candle1.jpg</image:loc>
+      <image:title>Altar Candle</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/altar%20bread1.jpg</image:loc>
+      <image:title>Altar Bread — Small Hosts</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/sisterswork20.jpg</image:loc>
+      <image:title>Advent Candle — Sister Maryjane</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/work%20in%20progress10.jpg</image:loc>
+      <image:title>The Host Baking Machine</image:title>
+    </image:image>
   </url>
 
+  <!-- ============ CONTACT ============ -->
   <url>
     <loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/Contact.html</loc>
-    <lastmod>2026-09-27</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
