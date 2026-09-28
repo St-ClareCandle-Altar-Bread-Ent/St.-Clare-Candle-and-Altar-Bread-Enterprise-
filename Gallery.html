@@ -13,10 +13,10 @@
 <meta name="author" content="St. Clare Candle and Altar Bread Enterprise">
 <meta name="copyright" content="© 2026 St. Clare Candle and Altar Bread Enterprise. All Rights Reserved.">
 <meta name="robots" content="index, follow">
-<meta name="description" content="Gallery of handcrafted candles, consecration-ready altar bread, and monastery work-in-progress at St. Clare Candle and Altar Bread Enterprise, Ijebu-Ode, Nigeria.">
+<meta name="description" content="Gallery of handcrafted candles, consecration-ready altar bread, Advent candles, and monastery work at St. Clare Candle and Altar Bread Enterprise, Ijebu-Ode, Nigeria.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Gallery | St. Clare Candle and Altar Bread Enterprise">
-<meta property="og:description" content="A closer look at the candles, altar bread, and life of St. Clare Monastery Productions.">
+<meta property="og:description" content="Candles, altar bread, Advent preparation, and the daily labor of the Nuns of St. Clare.">
 <meta property="og:image" content="https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/logoaltarbread.png">
 <meta property="og:locale" content="en_NG">
 <title>Gallery | St. Clare Candle and Altar Bread Enterprise</title>
@@ -26,7 +26,6 @@
   "@context": "https://schema.org",
   "@type": "ImageGallery",
   "name": "Gallery | St. Clare Candle and Altar Bread Enterprise",
-  "description": "A closer look at the candles, altar bread, and work-in-progress of St. Clare Monastery Productions in Ijebu-Ode, Nigeria.",
   "url": "https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/Gallery.html",
   "publisher": {
     "@type": "Organization",
@@ -68,7 +67,7 @@
   <div class="container">
     <span class="eyebrow" style="font-family:'Courier New',monospace; letter-spacing:3.5px; text-transform:uppercase; color:var(--brown-mid); display:block; margin-bottom:14px;">A Closer Look</span>
     <h1>Our Gallery</h1>
-    <p>Every candle, every host, every quiet hour of work — captured in a single place. Browse the crafts and the daily labor of St. Clare Candle and Altar Bread Enterprise .</p>
+    <p>Every candle, every host, every quiet hour of work — captured in a single place. Browse the crafts and the daily labor of the Nuns of St. Clare.</p>
   </div>
 </section>
 
@@ -79,7 +78,44 @@
       <button class="gallery-tab active" data-filter="all" role="tab">All</button>
       <button class="gallery-tab" data-filter="altar-bread" role="tab">Altar Bread</button>
       <button class="gallery-tab" data-filter="candles" role="tab">Candles</button>
+      <button class="gallery-tab" data-filter="advent" role="tab">Advent</button>
       <button class="gallery-tab" data-filter="monastery" role="tab">Work in Progress</button>
+    </div>
+
+    <!-- ============================================
+         ADVENT PANEL — auto-shows when Advent tab is clicked
+         ============================================ -->
+    <div class="advent-panel" id="adventPanel">
+      <div class="advent-inner">
+        <span class="advent-eyebrow">✦ The Season of Waiting ✦</span>
+        <h2 class="advent-title">Advent — A Time of Holy Expectation</h2>
+        <p class="advent-intro">Advent is the season in which the Church prepares her heart for the coming of Christ — His first coming in Bethlehem, and His final coming in glory. It is a season of waiting, but not passive waiting. It is the waiting of a bride for her bridegroom, of a people for their king, of a soul for its God.</p>
+
+        <div class="advent-highlight">
+          <span class="advent-purple">✦</span>
+          <p class="advent-purple-text"><strong>The Purple of Advent</strong> — In the Church's tradition, Advent is dressed in purple — the colour of penance, kingship, and expectation. It is the same purple worn during Lent, and it tells us that this is a season of preparation, not celebration; of longing, not fulfilment. But it is also the purple of royalty — for the King is coming, and His people are preparing His way.</p>
+        </div>
+
+        <p class="advent-intro">At the centre of every parish's Advent is the <strong>Advent Wreath</strong> and its candles — three purple, one rose, and the white Christ Candle at the centre. Each Sunday of Advent, another candle is lit, and the Church draws closer to the mystery of the Incarnation. Together, the candles tell the story of our salvation — the long wait of Israel, the cry of the prophets, the joy of the Baptist, and at last the birth of the Light of the World.</p>
+
+        <p class="advent-intro">St. Clare Candle and Altar Bread <strong>Enterprise</strong> crafts each Advent candle with the same care the Sisters give to the sanctuary candles — pure wax, clean wicks, steady flame, and a life that burns for the glory of God. Whether your parish needs a single Advent set or candles for every wreath in the church, we prepare each one in silence, prayer, and precision.</p>
+
+        <!-- ============================================
+             AUTO-WEEK COUNTER — Updates every Sunday
+             ============================================ -->
+        <div class="liturgical-week" id="liturgicalWeek">
+          <span class="lw-icon">🕯️</span>
+          <p class="lw-text">
+            <strong>Today we are in the <span id="weekNumber">26th</span> Week of Ordinary Time, Year A.</strong>
+            Time waits for no man. Every week is a step closer to Advent. <em>Buy now and keep.</em>
+          </p>
+        </div>
+
+        <div class="advent-cta">
+          <a href="https://wa.me/2349031805281?text=Good%20day%2C%20Sisters%20of%20St.%20Clare!%20%F0%9F%99%8F%0A%0AI%20would%20like%20to%20order%20Advent%20Candles%20for%20my%20parish.%0A%0AParish%20Name%3A%20______________________%0AContact%3A%20______________________%0AAdvent%20Candles%20Required%3A%20______________________%0ADelivery%20Address%3A%20______________________%0ANeeded%20By%3A%20______________________%0A%0APlease%20confirm%20availability%20and%20pricing." target="_blank" rel="noopener" class="btn btn-order btn-lg">🕯️ Order Advent Candles</a>
+          <a href="mailto:stclarecandlealtarent8@gmail.com?subject=Advent%20Candle%20Order%20%E2%80%94%20St.%20Clare%20Enterprise" class="btn btn-outline btn-lg">✉ Email Your Parish Order</a>
+        </div>
+      </div>
     </div>
 
     <div class="gallery-grid" id="mainGallery">
@@ -112,53 +148,90 @@
 
       <!-- ============ CANDLES ============ -->
       <figure class="gallery-item" data-category="candles">
-        <img src="altar candle1.jpg" alt="Altar candle — long-burning, dripless, for the sanctuary" loading="lazy">
+        <img src="altar candle1.jpg" alt="Altar candle — long-burning, dripless" loading="lazy">
         <figcaption>Altar Candle — for the sanctuary</figcaption>
       </figure>
-
       <figure class="gallery-item" data-category="candles">
-        <img src="altar candle2.jpg" alt="Altar candle — beeswax blend, clean flame" loading="lazy">
+        <img src="altar candle2.jpg" alt="Altar candle — beeswax blend" loading="lazy">
         <figcaption>Beeswax Blend — warm, honeyed light</figcaption>
       </figure>
-
       <figure class="gallery-item" data-category="candles">
-        <img src="altar candle3.jpg" alt="Altar candle — hand poured, ready for shipping" loading="lazy">
+        <img src="altar candle3.jpg" alt="Altar candle — hand poured" loading="lazy">
         <figcaption>Hand-Poured — one by one, with prayer</figcaption>
       </figure>
-
       <figure class="gallery-item" data-category="candles">
-        <img src="altar candle4.jpg" alt="Altar candle — trimmed wick, inspected for quality" loading="lazy">
+        <img src="altar candle4.jpg" alt="Altar candle — trimmed wick" loading="lazy">
         <figcaption>Trimmed &amp; Inspected — every wick checked</figcaption>
       </figure>
-
       <figure class="gallery-item" data-category="candles">
-        <img src="altar candle5.jpg" alt="Altar candle — finished, wrapped, and boxed" loading="lazy">
+        <img src="altar candle5.jpg" alt="Altar candle — wrapped and boxed" loading="lazy">
         <figcaption>Wrapped &amp; Boxed — ready for delivery</figcaption>
       </figure>
-
       <figure class="gallery-item" data-category="candles">
-        <img src="altar candle6.jpg" alt="Altar candle — a set of candles for parish use" loading="lazy">
+        <img src="altar candle6.jpg" alt="Altar candle — full set for parish" loading="lazy">
         <figcaption>A Full Set — for the parish sanctuary</figcaption>
       </figure>
-
       <figure class="gallery-item" data-category="candles">
-        <img src="altar candle7.jpg" alt="A pair of altar candles ready for the sanctuary" loading="lazy">
+        <img src="altar candle7.jpg" alt="A pair of altar candles" loading="lazy">
         <figcaption>A Pair for the Altar — steady, clean flame</figcaption>
       </figure>
-
       <figure class="gallery-item" data-category="candles">
-        <img src="altar candle8.jpg" alt="Votive candles for private devotion" loading="lazy">
+        <img src="altar candle8.jpg" alt="Votive candles for devotion" loading="lazy">
         <figcaption>Votive Candles — for private devotion</figcaption>
       </figure>
-
       <figure class="gallery-item" data-category="candles">
-        <img src="altar candle9.jpg" alt="Emergency candles in sturdy containers" loading="lazy">
-        <figcaption>Emergency Candles — light that lasts through the night</figcaption>
+        <img src="altar candle9.jpg" alt="Emergency candles" loading="lazy">
+        <figcaption>Emergency Candles — light that lasts</figcaption>
+      </figure>
+      <figure class="gallery-item" data-category="candles">
+        <img src="altar candle10.jpg" alt="Full parish set of candles" loading="lazy">
+        <figcaption>A Parish Set — every size, every need</figcaption>
       </figure>
 
-      <figure class="gallery-item" data-category="candles">
-        <img src="altar candle10.jpg" alt="A full parish set of candles — every size, every need" loading="lazy">
-        <figcaption>A Parish Set — every size, every need</figcaption>
+      <!-- ============ ADVENT CANDLES — Sister Maryjane at work ============ -->
+      <figure class="gallery-item" data-category="advent">
+        <img src="sisterswork20.jpg" alt="Advent Candle being inspected by Sister Maryjane" loading="lazy">
+        <figcaption>Advent Candle — inspected by Sister Maryjane</figcaption>
+      </figure>
+      <figure class="gallery-item" data-category="advent">
+        <img src="sisterswork21.jpg" alt="Sister Maryjane inspecting the Advent Candle for any error" loading="lazy">
+        <figcaption>Advent Candle — inspected for every imperfection</figcaption>
+      </figure>
+      <figure class="gallery-item" data-category="advent">
+        <img src="sisterswork22.jpg" alt="Sister Maryjane smiling as she works on the Advent Candle" loading="lazy">
+        <figcaption>Joy in the Work — a smile as she handles the Advent Candle</figcaption>
+      </figure>
+      <figure class="gallery-item" data-category="advent">
+        <img src="sisterswork23.jpg" alt="Sister Maryjane carefully handling the Advent Candle" loading="lazy">
+        <figcaption>Careful Hands — the Advent Candle handled with reverence</figcaption>
+      </figure>
+      <figure class="gallery-item" data-category="advent">
+        <img src="sisterswork24.jpg" alt="Sister Maryjane at work on the Advent Candle as Advent draws near" loading="lazy">
+        <figcaption>Advent Is Near — the Sisters prepare what the Church will light</figcaption>
+      </figure>
+      <figure class="gallery-item" data-category="advent">
+        <img src="sisterswork25.jpg" alt="Sister Maryjane trimming the candle with scissors" loading="lazy">
+        <figcaption>Trimming — the small details that make every candle perfect</figcaption>
+      </figure>
+      <figure class="gallery-item" data-category="advent">
+        <img src="sisterswork26.jpg" alt="Sister Maryjane still trimming the Advent Candle" loading="lazy">
+        <figcaption>Precision in Trimming — nothing left to chance</figcaption>
+      </figure>
+      <figure class="gallery-item" data-category="advent">
+        <img src="sisterswork27.jpg" alt="Sister Maryjane arranging the Advent Candle on the machine" loading="lazy">
+        <figcaption>Perfectly Arranged — prepared for the final stage</figcaption>
+      </figure>
+      <figure class="gallery-item" data-category="advent">
+        <img src="sisterswork28.jpg" alt="Sister Maryjane clearing imperfections on the machine" loading="lazy">
+        <figcaption>Clearing Imperfections — the workshop stays spotless</figcaption>
+      </figure>
+      <figure class="gallery-item" data-category="advent">
+        <img src="sisterswork29.jpg" alt="Sister Maryjane cutting for the Advent Candle — joy in service" loading="lazy">
+        <figcaption>All for the Advent Candle — joy in service</figcaption>
+      </figure>
+      <figure class="gallery-item" data-category="advent">
+        <img src="sisterswork30.jpg" alt="Sister Maryjane smiling as she serves the Lord in her work" loading="lazy">
+        <figcaption>Smiles in Service — every cut offered to God</figcaption>
       </figure>
 
       <!-- ============ WORK IN PROGRESS ============ -->
@@ -166,72 +239,58 @@
         <img src="work in progress1.jpg" alt="Sister Maryjane packaging the candles" loading="lazy">
         <figcaption>Sister Maryjane — packaging the candles with care</figcaption>
       </figure>
-
       <figure class="gallery-item" data-category="monastery">
         <img src="work in progress2.jpg" alt="Sister Maryjane inspecting the quality of a candle" loading="lazy">
         <figcaption>Sister Maryjane — ensuring every candle meets our standard</figcaption>
       </figure>
-
       <figure class="gallery-item" data-category="monastery">
         <img src="work in progress3.jpg" alt="Focused attention on the candles" loading="lazy">
         <figcaption>Focused on the Work — attention to every candle</figcaption>
       </figure>
-
       <figure class="gallery-item" data-category="monastery">
-        <img src="work in progress4.jpg" alt="The candle packaging stage — precision in every fold" loading="lazy">
+        <img src="work in progress4.jpg" alt="The candle packaging stage" loading="lazy">
         <figcaption>The Packaging Stage — precision in every fold</figcaption>
       </figure>
-
       <figure class="gallery-item" data-category="monastery">
         <img src="work in progress5.jpg" alt="Candles packaged and ready for delivery" loading="lazy">
         <figcaption>Packaged for Delivery — ready for the parishes</figcaption>
       </figure>
-
       <figure class="gallery-item" data-category="monastery">
         <img src="work in progress6.jpg" alt="Joy in labor — every candle inspected by hand" loading="lazy">
         <figcaption>Joy in Labor — every candle inspected by hand</figcaption>
       </figure>
-
       <figure class="gallery-item" data-category="monastery">
-        <img src="work in progress7.jpg" alt="Preparing the wicks — the thread that carries the flame" loading="lazy">
+        <img src="work in progress7.jpg" alt="Preparing the wicks" loading="lazy">
         <figcaption>Preparing the Wicks — the thread that carries the flame</figcaption>
       </figure>
-
       <figure class="gallery-item" data-category="monastery">
-        <img src="work in progress8.jpg" alt="Candles lined up — prepared with patience" loading="lazy">
-        <figcaption>Candles Lined Up — a batch prepared with patience</figcaption>
+        <img src="work in progress8.jpg" alt="Candles lined up, prepared" loading="lazy">
+        <figcaption>Candles Lined Up — prepared with patience</figcaption>
       </figure>
-
       <figure class="gallery-item" data-category="monastery">
         <img src="work in progress9.jpg" alt="Equipment — where precision meets prayer" loading="lazy">
         <figcaption>Equipment — where precision meets prayer</figcaption>
       </figure>
-
       <figure class="gallery-item" data-category="monastery">
-        <img src="work in progress10.jpg" alt="The host baking machine — where bread becomes sacrament-ready" loading="lazy">
+        <img src="work in progress10.jpg" alt="The host baking machine" loading="lazy">
         <figcaption>The Host Baking Machine — where bread is prepared for the altar</figcaption>
       </figure>
-
       <figure class="gallery-item" data-category="monastery">
-        <img src="work in progress11.jpg" alt="Sister Agatha at work in the workshop" loading="lazy">
+        <img src="work in progress11.jpg" alt="Sister Agatha at work" loading="lazy">
         <figcaption>Sister Agatha — serving the Church through craft</figcaption>
       </figure>
-
       <figure class="gallery-item" data-category="monastery">
         <img src="work in progress12.jpg" alt="Sister Agatha inspecting the equipment" loading="lazy">
         <figcaption>Sister Agatha — inspecting the equipment before production</figcaption>
       </figure>
-
       <figure class="gallery-item" data-category="monastery">
         <img src="work in progress13.jpg" alt="The work of our hands" loading="lazy">
         <figcaption>The Work of Our Hands — the labor of the Sisters</figcaption>
       </figure>
-
       <figure class="gallery-item" data-category="monastery">
-        <img src="work in progress14.jpg" alt="The workshop equipment — where authority meets craft" loading="lazy">
+        <img src="work in progress14.jpg" alt="Workshop equipment" loading="lazy">
         <figcaption>The Workshop Equipment — where authority meets craft</figcaption>
       </figure>
-
       <figure class="gallery-item" data-category="monastery">
         <img src="work in progress15.jpg" alt="Final inspection before delivery" loading="lazy">
         <figcaption>Final Inspection — everything ready for the Church</figcaption>
@@ -241,12 +300,12 @@
 
     <div style="text-align: center; margin-top: 50px;">
       <a href="https://wa.me/2349031805281?text=Good%20day%2C%20Sisters%20of%20St.%20Clare!%20%F0%9F%99%8F%0A%0AI%20saw%20your%20gallery%20and%20I%20would%20like%20to%20place%20an%20order." target="_blank" rel="noopener" class="btn btn-order btn-lg">✝ Order Now via WhatsApp</a>
-      <a href="mailto:stclarecandlealtarent8@gmail.com?subject=Gallery%20Enquiry%20%E2%80%94%20St.%20Clare%20Enterprise" class="btn btn-outline btn-lg" style="margin-left: 12px;">✉ Enquire by Email</a>
+      <a href="mailto:stclarecandlealtarent8@gmail.com?subject=Gallery%20Enquiry" class="btn btn-outline btn-lg" style="margin-left: 12px;">✉ Enquire by Email</a>
     </div>
 
   </div>
-          </section>
-         <footer class="site-footer">
+                                                               </section>
+  <footer class="site-footer">
   <div class="footer-grid">
     <div>
       <div class="footer-brand">
@@ -265,17 +324,18 @@
       <p><a href="Contact.html">Contact</a></p>
     </div>
     <div>
-  <h4>Products</h4>
-  <p><a href="index.html#products">All Products</a></p>
-  <p><a href="Gallery.html#candles">Altar Candles</a></p>
-  <p><a href="Gallery.html#candles">Votive Candles</a></p>
-  <p><a href="Gallery.html#candles">Household Candles</a></p>
-  <p><a href="Gallery.html#candles">Emergency Candles</a></p>
-  <p><a href="Gallery.html#altar-bread">Altar Bread</a></p>
+      <h4>Products</h4>
+      <p><a href="index.html#products">All Products</a></p>
+      <p><a href="Gallery.html#candles">Altar Candles</a></p>
+      <p><a href="Gallery.html#candles">Votive Candles</a></p>
+      <p><a href="Gallery.html#candles">Household Candles</a></p>
+      <p><a href="Gallery.html#candles">Emergency Candles</a></p>
+      <p><a href="Gallery.html#advent">Advent Candles</a></p>
+      <p><a href="Gallery.html#altar-bread">Altar Bread</a></p>
     </div>
     <div>
       <h4>Reach Us</h4>
-      <p>Plot 1, Monastery Close<br>P.O. Box 32<br>Ikoto, Imoru road,Ijebu-Ode, Ogun State<br>Nigeria</p>
+      <p>Plot 1, Monastery Close<br>Ikoto, Imoru Road<br>P.O. Box 32<br>Ijebu-Ode, Ogun State<br>Nigeria</p>
       <p style="margin-top: 12px;">📞 <a href="tel:+2349031805281">0903 180 5281</a><br>✉️ <a href="mailto:stclarecandlealtarent8@gmail.com">stclarecandlealtarent8@gmail.com</a></p>
     </div>
   </div>
@@ -292,4 +352,5 @@
 
 <script src="script.js"></script>
 </body>
-</html> 
+    </html>
+                                                               
