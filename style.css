@@ -87,7 +87,6 @@ b, .enterprise-bold {
   color: var(--brown-darkest);
 }
 
-/* HEADER */
 .site-header {
   position: sticky; top: 0; z-index: 100;
   background: rgba(255,255,255,0.88);
@@ -161,7 +160,6 @@ b, .enterprise-bold {
 .nav-toggle.open span::before { transform: translate(-50%, 0) rotate(45deg); }
 .nav-toggle.open span::after  { transform: translate(-50%, 0) rotate(-45deg); }
 
-/* BUTTONS */
 .btn {
   position: relative;
   display: inline-flex; align-items: center; justify-content: center;
@@ -273,7 +271,6 @@ b, .enterprise-bold {
   margin-left: auto; margin-right: auto; padding: 0 16px;
 }
 
-/* HERO */
 .hero {
   position: relative; min-height: 90vh; display: grid; place-items: center;
   padding: 70px 24px 70px; overflow: hidden; z-index: 2;
@@ -281,38 +278,16 @@ b, .enterprise-bold {
 .hero-inner { max-width: 1000px; text-align: center; position: relative; z-index: 3; }
 
 .hero-logo {
-  width: 110px;
-  height: 110px;
+  width: 110px; height: 110px;
   border-radius: 50%;
-  object-fit: contain;
-  object-position: center;
-  background: #ffffff;
-  padding: 6px;
+  object-fit: contain; object-position: center;
+  background: #ffffff; padding: 6px;
   border: 3px solid var(--brown-light);
-  margin: 0 auto 28px;
-  display: block;
+  margin: 0 auto 28px; display: block;
   box-shadow:
     0 0 0 6px rgba(210,180,140,0.15),
     0 0 60px rgba(244,196,48,0.55),
     0 8px 30px rgba(107,62,30,0.22);
-  animation: hero-halo 3.5s ease-in-out infinite;
-}
-
-@keyframes hero-halo {
-  0%, 100% {
-    box-shadow:
-      0 0 0 6px rgba(210,180,140,0.15),
-      0 0 45px rgba(244,196,48,0.45),
-      0 8px 30px rgba(107,62,30,0.22);
-    transform: scale(1);
-  }
-  50% {
-    box-shadow:
-      0 0 0 12px rgba(210,180,140,0.08),
-      0 0 85px rgba(244,196,48,0.75),
-      0 8px 40px rgba(107,62,30,0.28);
-    transform: scale(1.03);
-  }
 }
 
 .hero-eyebrow {
@@ -337,7 +312,6 @@ b, .enterprise-bold {
   font-size: 1.08rem; color: var(--brown-darkest); opacity: 0.85;
 }
 
-/* SECTIONS */
 section { position: relative; padding: 80px 24px; z-index: 2; }
 .container { max-width: 1200px; margin: 0 auto; }
 .section-head { text-align: center; max-width: 760px; margin: 0 auto 56px; }
@@ -347,7 +321,6 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   text-transform: uppercase; color: var(--brown-mid);
   margin-bottom: 14px; display: block;
    }
-/* GRID + CARDS */
 .grid {
   display: grid; gap: 28px;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -378,7 +351,6 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
 .card h3 { margin-bottom: 12px; }
 .card p  { margin-bottom: 0; font-size: 1rem; }
 
-/* PRODUCTS */
 .product {
   background: linear-gradient(180deg, var(--white-pure), var(--white-warm));
   border: 1px solid rgba(210,180,140,0.5);
@@ -388,10 +360,7 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex; flex-direction: column;
 }
-.product:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-deep);
-}
+.product:hover { transform: translateY(-8px); box-shadow: var(--shadow-deep); }
 .product-img {
   aspect-ratio: 4/3;
   background: linear-gradient(135deg, var(--brown-light), var(--white-warm));
@@ -400,44 +369,31 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   position: relative; overflow: hidden;
 }
 .product-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
   transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
 }
-.product:hover .product-img img {
-  transform: scale(1.06);
-}
-.product-body {
-  padding: 24px 22px 28px;
-  flex: 1; display: flex; flex-direction: column;
-}
+.product:hover .product-img img { transform: scale(1.06); }
+.product-body { padding: 24px 22px 28px; flex: 1; display: flex; flex-direction: column; }
 .product-body h3 { margin-bottom: 10px; }
 .product-body p  { flex: 1; }
 .product-meta {
   font-family: 'Courier New', monospace;
   font-size: 0.8rem; letter-spacing: 1.5px;
-  color: var(--brown-mid);
-  text-transform: uppercase;
+  color: var(--brown-mid); text-transform: uppercase;
   margin-bottom: 16px;
 }
 .product-btn {
-  margin-top: 18px;
-  align-self: flex-start;
-  font-size: 0.85rem;
-  padding: 10px 20px;
-  min-height: 42px;
+  margin-top: 18px; align-self: flex-start;
+  font-size: 0.85rem; padding: 10px 20px; min-height: 42px;
 }
 
-/* FOOTER */
 .site-footer {
   position: relative;
   background: linear-gradient(180deg, var(--white-warm), var(--brown-darkest));
   color: var(--white-ivory);
   padding: 70px 24px 30px;
-  margin-top: 60px;
-  overflow: hidden;
+  margin-top: 60px; overflow: hidden;
 }
 .site-footer::before {
   content: '';
@@ -464,13 +420,9 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   grid-template-columns: 1.4fr 1fr 1fr 1fr;
   position: relative; z-index: 2;
 }
-.footer-brand {
-  display: flex; align-items: center;
-  gap: 12px; margin-bottom: 16px;
-}
+.footer-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
 .footer-brand img {
-  width: 42px; height: 42px;
-  border-radius: 50%;
+  width: 42px; height: 42px; border-radius: 50%;
   object-fit: contain; object-position: center;
   background: #ffffff; padding: 3px;
   border: 2px solid var(--brown-light);
@@ -479,34 +431,25 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
 }
 .footer-brand strong {
   color: var(--white-pure);
-  font-size: 0.98rem;
-  letter-spacing: 0.3px;
+  font-size: 0.98rem; letter-spacing: 0.3px;
 }
 .footer-brand strong b {
   color: var(--flame-mid);
   font-weight: 800;
 }
-
 .footer-bottom {
   max-width: 1200px; margin: 0 auto;
   padding-top: 24px;
   border-top: 1px solid rgba(210,180,140,0.25);
-  text-align: center;
-  font-size: 0.82rem;
+  text-align: center; font-size: 0.82rem;
   color: rgba(255,255,255,0.65);
   font-family: 'Courier New', monospace;
   letter-spacing: 0.6px;
 }
-.footer-bottom b {
-  color: var(--flame-mid);
-  font-weight: 800;
-}
+.footer-bottom b { color: var(--flame-mid); font-weight: 800; }
 
-/* PAGE HERO */
 .page-hero {
-  padding: 90px 24px 50px;
-  text-align: center;
-  position: relative;
+  padding: 90px 24px 50px; text-align: center; position: relative;
   background:
     radial-gradient(ellipse at 50% 0%, rgba(210,180,140,0.28), transparent 60%),
     linear-gradient(180deg, var(--white-warm), var(--white-pure));
@@ -519,16 +462,13 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   font-style: italic;
 }
 
-/* REVEAL */
 .reveal {
-  opacity: 0;
-  transform: translateY(30px);
+  opacity: 0; transform: translateY(30px);
   transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1),
               transform 0.8s cubic-bezier(0.16,1,0.3,1);
 }
 .reveal.in { opacity: 1; transform: translateY(0); }
 
-/* RESPONSIVE */
 @media (max-width: 900px) {
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
@@ -547,28 +487,18 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
     opacity: 0; pointer-events: none;
     transition: all 0.3s ease;
   }
-  .nav-links.open {
-    transform: translateY(0);
-    opacity: 1; pointer-events: auto;
-  }
+  .nav-links.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
   .nav-links a { width: 100%; text-align: center; }
-
   .footer-grid { grid-template-columns: 1fr; }
   section { padding: 60px 20px; }
   .card { padding: 28px 22px; }
   .btn { padding: 12px 24px; font-size: 0.94rem; }
   .btn-lg { padding: 14px 30px; font-size: 1rem; }
-
   .brand-logo { width: 40px; height: 40px; }
   .footer-brand img { width: 38px; height: 38px; }
   .brand-name { font-size: 0.9rem; }
   .brand-sub  { font-size: 0.58rem; letter-spacing: 1.8px; }
-
-  .hero-logo {
-    width: 90px; height: 90px;
-    padding: 5px;
-    margin-bottom: 22px;
-  }
+  .hero-logo { width: 90px; height: 90px; padding: 5px; margin-bottom: 22px; }
 }
 
 @media (hover: none), (pointer: coarse) {
@@ -576,7 +506,6 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   .brand-logo, .card, .product, .hero-logo { transform: none !important; }
 }
 
-/* TOAST */
 .st-clare-toast {
   position: fixed; left: 50%; bottom: 32px;
   transform: translateX(-50%) translateY(30px);
@@ -591,10 +520,7 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   white-space: nowrap; max-width: 92vw;
   overflow: hidden; text-overflow: ellipsis;
 }
-.st-clare-toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
+.st-clare-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -610,29 +536,22 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
    }
 /* ============================================================
    GALLERY — Tabs with glow, grid, lightbox
-   © 2026 St. Clare Candle and Altar Bread Enterprise.
    ============================================================ */
 
 .gallery-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 40px;
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 10px; margin-bottom: 40px;
 }
 
 .gallery-tab {
-  position: relative;
-  padding: 11px 26px;
+  position: relative; padding: 11px 26px;
   border-radius: 999px;
   border: 2px solid var(--brown-light);
   background: var(--white-pure);
   color: var(--brown-deep);
   font-family: 'Georgia', serif;
-  font-size: 0.92rem;
-  font-weight: 700;
-  letter-spacing: 0.6px;
-  cursor: pointer;
+  font-size: 0.92rem; font-weight: 700;
+  letter-spacing: 0.6px; cursor: pointer;
   transition: all 0.28s cubic-bezier(0.34, 1.4, 0.64, 1);
 }
 
@@ -643,7 +562,6 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   box-shadow: 0 6px 18px rgba(139,90,43,0.20);
 }
 
-/* Active tab — glows so you always know where you are */
 .gallery-tab.active {
   background: linear-gradient(135deg, var(--brown-mid), var(--flame-edge));
   color: var(--white-pure);
@@ -668,73 +586,49 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
 
 .gallery-tab.active::after {
   content: '';
-  position: absolute;
-  bottom: -6px;
-  left: 50%;
+  position: absolute; bottom: -6px; left: 50%;
   transform: translateX(-50%);
-  width: 8px;
-  height: 8px;
+  width: 8px; height: 8px;
   border-radius: 50%;
   background: var(--flame-mid);
   box-shadow: 0 0 12px rgba(244,196,48,0.9);
 }
 
-#mainGallery {
-  scroll-margin-top: 100px;
-  transition: opacity 0.35s ease;
-}
-
-#mainGallery.filtering {
-  opacity: 0.3;
-}
+#mainGallery { scroll-margin-top: 100px; transition: opacity 0.35s ease; }
+#mainGallery.filtering { opacity: 0.3; }
 
 .gallery-grid {
-  display: grid;
-  gap: 22px;
+  display: grid; gap: 22px;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   margin-top: 20px;
 }
 
 .gallery-item {
-  position: relative;
-  overflow: hidden;
+  position: relative; overflow: hidden;
   border-radius: var(--r-card);
   background: var(--white-pure);
   border: 1px solid rgba(210,180,140,0.55);
   box-shadow: var(--shadow-soft);
-  margin: 0;
-  cursor: pointer;
+  margin: 0; cursor: pointer;
   transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
               box-shadow 0.4s ease,
               opacity 0.4s ease;
 }
 
-.gallery-item.hidden {
-  display: none;
-}
-
-.gallery-item:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-deep);
-}
+.gallery-item.hidden { display: none; }
+.gallery-item:hover { transform: translateY(-6px); box-shadow: var(--shadow-deep); }
 
 .gallery-item img {
-  width: 100%;
-  aspect-ratio: 4/3;
-  object-fit: cover;
-  display: block;
+  width: 100%; aspect-ratio: 4/3;
+  object-fit: cover; display: block;
   transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
 }
-
-.gallery-item:hover img {
-  transform: scale(1.05);
-}
+.gallery-item:hover img { transform: scale(1.05); }
 
 .gallery-item figcaption {
   padding: 16px 18px 18px;
   font-family: 'Courier New', monospace;
-  font-size: 0.78rem;
-  letter-spacing: 1.4px;
+  font-size: 0.78rem; letter-spacing: 1.4px;
   text-transform: uppercase;
   color: var(--brown-mid);
   text-align: center;
@@ -744,52 +638,38 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
 
 /* LIGHTBOX */
 .lightbox {
-  position: fixed;
-  inset: 0;
+  position: fixed; inset: 0;
   background: rgba(30, 15, 5, 0.94);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
   transition: opacity 0.35s cubic-bezier(0.16,1,0.3,1);
   padding: 40px 20px;
 }
-
-.lightbox.show {
-  opacity: 1;
-  pointer-events: auto;
-}
+.lightbox.show { opacity: 1; pointer-events: auto; }
 
 .lightbox-img {
-  max-width: 92vw;
-  max-height: 82vh;
+  max-width: 92vw; max-height: 82vh;
   border-radius: 14px;
   box-shadow: 0 20px 60px rgba(0,0,0,0.65);
   border: 3px solid rgba(244,196,48,0.35);
   object-fit: contain;
   animation: lightbox-in 0.4s cubic-bezier(0.34, 1.4, 0.64, 1);
 }
-
 @keyframes lightbox-in {
   from { transform: scale(0.92); opacity: 0; }
   to   { transform: scale(1);    opacity: 1; }
 }
 
 .lightbox-caption {
-  position: absolute;
-  bottom: 24px;
-  left: 50%;
+  position: absolute; bottom: 24px; left: 50%;
   transform: translateX(-50%);
   color: var(--white-ivory);
   font-family: 'Courier New', monospace;
-  font-size: 0.82rem;
-  letter-spacing: 1.6px;
-  text-transform: uppercase;
-  text-align: center;
+  font-size: 0.82rem; letter-spacing: 1.6px;
+  text-transform: uppercase; text-align: center;
   padding: 10px 22px;
   background: rgba(107, 62, 30, 0.75);
   border-radius: 999px;
@@ -797,39 +677,26 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   max-width: 90vw;
 }
 
-.lightbox-close,
-.lightbox-nav {
+.lightbox-close, .lightbox-nav {
   position: absolute;
   background: rgba(107, 62, 30, 0.75);
   color: var(--white-pure);
   border: 1px solid rgba(210,180,140,0.45);
   border-radius: 50%;
-  width: 52px;
-  height: 52px;
-  font-size: 1.5rem;
-  cursor: pointer;
-  display: grid;
-  place-items: center;
+  width: 52px; height: 52px;
+  font-size: 1.5rem; cursor: pointer;
+  display: grid; place-items: center;
   transition: all 0.28s ease;
   z-index: 10000;
 }
-
-.lightbox-close:hover,
-.lightbox-nav:hover {
+.lightbox-close:hover, .lightbox-nav:hover {
   background: var(--flame-edge);
   border-color: var(--flame-mid);
   transform: scale(1.08);
 }
-
-.lightbox-close {
-  top: 20px;
-  right: 20px;
-  font-size: 1.2rem;
-}
-
+.lightbox-close { top: 20px; right: 20px; font-size: 1.2rem; }
 .lightbox-prev { left: 20px; top: 50%; transform: translateY(-50%); }
 .lightbox-next { right: 20px; top: 50%; transform: translateY(-50%); }
-
 .lightbox-prev:hover { transform: translateY(-50%) scale(1.08); }
 .lightbox-next:hover { transform: translateY(-50%) scale(1.08); }
 
@@ -841,11 +708,117 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   .lightbox-next { right: 10px; }
   .lightbox-close { top: 12px; right: 12px; }
 }
+
 /* ============================================================
-   BULK QUOTE — golden professional callout + button
-   © 2026 St. Clare Candle and Altar Bread Enterprise.
+   ADVENT PANEL — Static (no animations for performance)
    ============================================================ */
 
+.advent-panel {
+  display: none;
+  margin: 0 auto 44px;
+  max-width: 880px;
+  border-radius: var(--r-card);
+  overflow: hidden;
+  border: 2px solid #4A1259;
+  box-shadow:
+    0 8px 32px rgba(74, 18, 89, 0.25),
+    0 0 24px 4px rgba(244, 196, 48, 0.18),
+    inset 0 1px 0 rgba(255,255,255,0.15);
+  background: linear-gradient(180deg, #2A0A38 0%, #1A0520 100%);
+  position: relative;
+}
+
+.advent-panel.show { display: block; }
+
+.advent-panel::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, #4A1259, #F4C430, #4A1259);
+}
+
+.advent-inner {
+  padding: 48px 36px 42px;
+  text-align: center;
+  color: #F5E8D0;
+}
+
+.advent-eyebrow {
+  display: inline-block;
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem; letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: #F4C430;
+  padding: 8px 22px;
+  border: 1px solid rgba(244, 196, 48, 0.45);
+  border-radius: var(--r-pill);
+  background: rgba(244, 196, 48, 0.08);
+  margin-bottom: 22px; font-weight: 700;
+}
+
+.advent-title {
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+  color: #F4C430;
+  margin-bottom: 26px; padding-bottom: 0;
+  text-shadow: 0 2px 22px rgba(244, 196, 48, 0.35);
+}
+.advent-title::after { display: none; }
+
+.advent-intro {
+  max-width: 720px; margin: 0 auto 22px;
+  font-size: 1.02rem; line-height: 1.8;
+  color: rgba(245, 232, 208, 0.92);
+  opacity: 1;
+}
+
+.advent-highlight {
+  max-width: 720px; margin: 28px auto;
+  padding: 26px 28px;
+  background: rgba(74, 18, 89, 0.35);
+  border-left: 3px solid #F4C430;
+  border-radius: 0 var(--r-soft) var(--r-soft) 0;
+  text-align: left;
+  display: flex; gap: 16px; align-items: flex-start;
+}
+.advent-purple { color: #F4C430; font-size: 1.6rem; line-height: 1; flex-shrink: 0; }
+.advent-purple-text { margin: 0; color: rgba(245, 232, 208, 0.94); font-size: 1rem; line-height: 1.75; }
+.advent-purple-text strong { color: #F4C430; }
+
+.liturgical-week {
+  max-width: 720px; margin: 30px auto 26px;
+  padding: 22px 26px;
+  background: linear-gradient(135deg, rgba(244, 196, 48, 0.10), rgba(74, 18, 89, 0.35));
+  border: 1px solid rgba(244, 196, 48, 0.4);
+  border-radius: var(--r-soft);
+  display: flex; gap: 16px; align-items: center;
+  text-align: left;
+  box-shadow: inset 0 0 12px 0 rgba(244, 196, 48, 0.12);
+}
+
+.lw-icon {
+  font-size: 1.8rem; flex-shrink: 0;
+  filter: drop-shadow(0 0 12px rgba(244, 196, 48, 0.65));
+}
+.lw-text {
+  margin: 0; color: rgba(245, 232, 208, 0.94);
+  font-size: 0.98rem; line-height: 1.7;
+}
+.lw-text strong { color: #F4C430; }
+.lw-text em { color: #F4C430; font-style: italic; }
+
+.advent-cta {
+  display: flex; gap: 14px; justify-content: center;
+  flex-wrap: wrap; margin-top: 30px;
+}
+
+@media (max-width: 720px) {
+  .advent-inner { padding: 36px 22px 32px; }
+  .advent-highlight { padding: 20px 20px; flex-direction: column; gap: 10px; }
+  .liturgical-week { padding: 18px 20px; flex-direction: column; gap: 10px; text-align: center; }
+  .advent-cta .btn { width: 100%; }
+  .lw-icon { font-size: 1.5rem; }
+}
+
+/* BULK QUOTE */
 .btn-bulk {
   background: linear-gradient(135deg, var(--flame-edge), var(--brown-mid)) !important;
   color: var(--white-pure) !important;
@@ -856,7 +829,6 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
     inset 0 1px 0 rgba(255,255,255,0.25) !important;
   animation: bulk-glow 2.6s ease-in-out infinite;
 }
-
 .btn-bulk:hover {
   background: linear-gradient(135deg, var(--flame-mid), var(--flame-edge)) !important;
   box-shadow:
@@ -865,7 +837,6 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
     0 0 0 12px rgba(244, 196, 48, 0.12),
     inset 0 1px 0 rgba(255,255,255,0.35) !important;
 }
-
 @keyframes bulk-glow {
   0%, 100% {
     box-shadow:
@@ -883,131 +854,82 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   }
 }
 
-.bulk-section {
-  padding: 60px 24px;
-}
+.bulk-section { padding: 60px 24px; }
 
 .bulk-card {
-  max-width: 880px;
-  margin: 0 auto;
-  text-align: center;
-  padding: 56px 36px;
+  max-width: 880px; margin: 0 auto;
+  text-align: center; padding: 56px 36px;
   border-radius: var(--r-card);
   background:
     radial-gradient(ellipse at 50% 0%, rgba(244, 196, 48, 0.14), transparent 65%),
     linear-gradient(180deg, var(--white-pure), var(--white-warm));
   border: 2px solid var(--brown-light);
   box-shadow: var(--shadow-mid);
-  position: relative;
-  overflow: hidden;
+  position: relative; overflow: hidden;
 }
-
 .bulk-card::before {
-  content: '';
-  position: absolute;
+  content: ''; position: absolute;
   top: 0; left: 0; right: 0; height: 3px;
   background: linear-gradient(90deg, transparent, var(--flame-mid), var(--flame-edge), var(--flame-mid), transparent);
 }
-
 .bulk-icon {
-  width: 76px;
-  height: 76px;
-  margin: 0 auto 20px;
-  border-radius: 50%;
+  width: 76px; height: 76px;
+  margin: 0 auto 20px; border-radius: 50%;
   background: linear-gradient(135deg, var(--flame-mid), var(--flame-edge));
-  color: var(--white-pure);
-  font-size: 2rem;
-  display: grid;
-  place-items: center;
+  color: var(--white-pure); font-size: 2rem;
+  display: grid; place-items: center;
   box-shadow: 0 6px 22px rgba(224, 139, 42, 0.45), inset 0 1px 0 rgba(255,255,255,0.35);
 }
-
 .bulk-eyebrow {
   font-family: 'Courier New', monospace;
-  font-size: 0.72rem;
-  letter-spacing: 3.2px;
-  text-transform: uppercase;
-  color: var(--flame-edge);
-  display: block;
-  margin-bottom: 12px;
-  font-weight: 700;
+  font-size: 0.72rem; letter-spacing: 3.2px;
+  text-transform: uppercase; color: var(--flame-edge);
+  display: block; margin-bottom: 12px; font-weight: 700;
 }
-
 .bulk-title {
   font-size: clamp(1.7rem, 3vw, 2.4rem);
   color: var(--brown-deep);
-  padding-bottom: 0;
-  margin-bottom: 20px;
+  padding-bottom: 0; margin-bottom: 20px;
 }
-
 .bulk-title::after { display: none; }
-
 .bulk-desc {
-  max-width: 620px;
-  margin: 0 auto 32px;
-  font-size: 1.05rem;
-  color: var(--brown-darkest);
-  opacity: 0.88;
+  max-width: 620px; margin: 0 auto 32px;
+  font-size: 1.05rem; color: var(--brown-darkest); opacity: 0.88;
 }
-
 .bulk-cta {
-  display: flex;
-  gap: 14px;
-  justify-content: center;
-  flex-wrap: wrap;
+  display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
 }
-
 .card-bulk {
   border: 2px solid var(--flame-mid);
   background:
     radial-gradient(ellipse at 50% 0%, rgba(244, 196, 48, 0.12), transparent 65%),
     var(--white-pure);
 }
-
 .card-bulk:hover {
   border-color: var(--flame-edge);
   box-shadow: 0 20px 60px rgba(224, 139, 42, 0.28);
 }
 
-@media (max-width: 720px) {
-  .bulk-card { padding: 40px 22px; }
-  .bulk-icon { width: 62px; height: 62px; font-size: 1.6rem; }
-  .bulk-cta .btn { width: 100%; }
-}
-/* ============================================================
-   FEATURE IMAGES — Vocation page and general use
-   © 2026 St. Clare Candle and Altar Bread Enterprise.
-   ============================================================ */
-
+/* FEATURE IMAGE — Vocation page and general use */
 .feature-image {
-  max-width: 900px;
-  margin: 32px auto 40px;
+  max-width: 900px; margin: 32px auto 40px;
   border-radius: var(--r-card);
   overflow: hidden;
   box-shadow: var(--shadow-mid);
   border: 1px solid rgba(210,180,140,0.55);
   background: var(--white-pure);
 }
-
 .feature-image img {
-  width: 100%;
-  aspect-ratio: 16/9;
-  object-fit: cover;
-  display: block;
+  width: 100%; aspect-ratio: 16/9;
+  object-fit: cover; display: block;
   transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
 }
-
-.feature-image:hover img {
-  transform: scale(1.03);
-}
-
+.feature-image:hover img { transform: scale(1.03); }
 .feature-caption {
-  padding: 14px 20px;
-  margin: 0;
+  padding: 14px 20px; margin: 0;
   text-align: center;
   font-family: 'Courier New', monospace;
-  font-size: 0.78rem;
-  letter-spacing: 1.4px;
+  font-size: 0.78rem; letter-spacing: 1.4px;
   text-transform: uppercase;
   color: var(--brown-mid);
   background: var(--white-pure);
@@ -1015,182 +937,14 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
 }
 
 @media (max-width: 720px) {
+  .bulk-card { padding: 40px 22px; }
+  .bulk-icon { width: 62px; height: 62px; font-size: 1.6rem; }
+  .bulk-cta .btn { width: 100%; }
   .feature-image { margin: 22px auto 30px; }
   .feature-image img { aspect-ratio: 4/3; }
   .feature-caption { font-size: 0.7rem; padding: 12px 16px; }
 }
-/* ============================================================
-   ADVENT PANEL — Catholic aesthetic, purple + gold
-   © 2026 St. Clare Candle and Altar Bread Enterprise.
-   ============================================================ */
 
-.advent-panel {
-  display: none;
-  margin: 0 auto 44px;
-  max-width: 880px;
-  border-radius: var(--r-card);
-  overflow: hidden;
-  border: 2px solid #4A1259;
-  box-shadow:
-    0 8px 32px rgba(74, 18, 89, 0.25),
-    inset 0 1px 0 rgba(255,255,255,0.15);
-  background:
-    linear-gradient(180deg, #2A0A38 0%, #1A0520 100%);
-  position: relative;
-  animation: advent-glow 5s ease-in-out infinite;
-}
-
-.advent-panel.show { display: block; }
-
-@keyframes advent-glow {
-  0%, 100% {
-    box-shadow:
-      0 8px 32px rgba(74, 18, 89, 0.25),
-      0 0 0 0 rgba(244, 196, 48, 0.35),
-      inset 0 1px 0 rgba(255,255,255,0.15);
-  }
-  50% {
-    box-shadow:
-      0 8px 40px rgba(74, 18, 89, 0.35),
-      0 0 30px 6px rgba(244, 196, 48, 0.22),
-      inset 0 1px 0 rgba(255,255,255,0.20);
-  }
-}
-
-.advent-panel::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #4A1259, #F4C430, #4A1259);
-}
-
-.advent-inner {
-  padding: 48px 36px 42px;
-  text-align: center;
-  color: #F5E8D0;
-}
-
-.advent-eyebrow {
-  display: inline-block;
-  font-family: 'Courier New', monospace;
-  font-size: 0.72rem;
-  letter-spacing: 3.5px;
-  text-transform: uppercase;
-  color: #F4C430;
-  padding: 8px 22px;
-  border: 1px solid rgba(244, 196, 48, 0.45);
-  border-radius: var(--r-pill);
-  background: rgba(244, 196, 48, 0.08);
-  margin-bottom: 22px;
-  font-weight: 700;
-}
-
-.advent-title {
-  font-size: clamp(1.6rem, 3vw, 2.3rem);
-  color: #F4C430;
-  margin-bottom: 26px;
-  padding-bottom: 0;
-  text-shadow: 0 2px 22px rgba(244, 196, 48, 0.35);
-}
-
-.advent-title::after { display: none; }
-
-.advent-intro {
-  max-width: 720px;
-  margin: 0 auto 22px;
-  font-size: 1.02rem;
-  line-height: 1.8;
-  color: rgba(245, 232, 208, 0.92);
-  opacity: 1;
-}
-
-.advent-highlight {
-  max-width: 720px;
-  margin: 28px auto;
-  padding: 26px 28px;
-  background: rgba(74, 18, 89, 0.35);
-  border-left: 3px solid #F4C430;
-  border-radius: 0 var(--r-soft) var(--r-soft) 0;
-  text-align: left;
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
-}
-
-.advent-purple {
-  color: #F4C430;
-  font-size: 1.6rem;
-  line-height: 1;
-  flex-shrink: 0;
-}
-
-.advent-purple-text {
-  margin: 0;
-  color: rgba(245, 232, 208, 0.94);
-  font-size: 1rem;
-  line-height: 1.75;
-}
-
-.advent-purple-text strong { color: #F4C430; }
-
-/* Liturgical week counter */
-.liturgical-week {
-  max-width: 720px;
-  margin: 30px auto 26px;
-  padding: 22px 26px;
-  background:
-    linear-gradient(135deg, rgba(244, 196, 48, 0.10), rgba(74, 18, 89, 0.35));
-  border: 1px solid rgba(244, 196, 48, 0.4);
-  border-radius: var(--r-soft);
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  text-align: left;
-  animation: lw-pulse 3.5s ease-in-out infinite;
-}
-
-@keyframes lw-pulse {
-  0%, 100% { box-shadow: inset 0 0 0 0 rgba(244, 196, 48, 0); }
-  50%      { box-shadow: inset 0 0 22px 0 rgba(244, 196, 48, 0.18); }
-}
-
-.lw-icon {
-  font-size: 1.8rem;
-  flex-shrink: 0;
-  filter: drop-shadow(0 0 12px rgba(244, 196, 48, 0.65));
-}
-
-.lw-text {
-  margin: 0;
-  color: rgba(245, 232, 208, 0.94);
-  font-size: 0.98rem;
-  line-height: 1.7;
-}
-
-.lw-text strong { color: #F4C430; }
-.lw-text em { color: #F4C430; font-style: italic; }
-
-.advent-cta {
-  display: flex;
-  gap: 14px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 30px;
-}
-
-/* When Advent panel is showing, hide the main grid until All tab is clicked again */
-.advent-panel.show ~ #mainGallery.filtering-advent {
-  display: none;
-}
-
-@media (max-width: 720px) {
-  .advent-inner { padding: 36px 22px 32px; }
-  .advent-highlight { padding: 20px 20px; flex-direction: column; gap: 10px; }
-  .liturgical-week { padding: 18px 20px; flex-direction: column; gap: 10px; text-align: center; }
-  .advent-cta .btn { width: 100%; }
-  .lw-icon { font-size: 1.5rem; }
-}
 /* ============================================================
    END OF STYLESHEET
    © 2026 St. Clare Candle and Altar Bread Enterprise.
