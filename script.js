@@ -292,7 +292,7 @@
         btn.style.setProperty('--y', ((e.clientY - r.top) / r.height) * 100 + '%');
       });
     });
-}
+       }
      /* ============================================================
      11. GALLERY — Tabs + Advent panel + Lightbox + Auto-week counter
      ============================================================ */
@@ -521,16 +521,15 @@
   /* ============================================================
      13. PROFESSION BANNER — Auto countdown + Celebration mode
      Sister Maria Hope Ehizojie — 24 October 2026, 10:00 AM
+     Compact glowing purple ticker · Auto-updates every day
      ============================================================ */
   function initProfessionBanner() {
     const banner = document.getElementById('professionBanner');
     if (!banner) return;
 
-    const countdownEl = document.getElementById('professionCountdown');
-    const titleEl = document.getElementById('professionTitle');
+    const messageEl = document.getElementById('professionMessage');
     const readMoreEl = document.getElementById('professionReadMore');
 
-    // Profession date: 24 October 2026, 10:00 AM
     const professionDate = new Date('2026-10-24T10:00:00');
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -541,45 +540,40 @@
     const msPerDay = 24 * 60 * 60 * 1000;
     const daysUntil = Math.round((professionDay - today) / msPerDay);
 
-    // Celebration mode — it's profession day
+    // --- CELEBRATION MODE ---
     if (daysUntil === 0) {
       banner.classList.add('celebration');
-      if (titleEl) {
-        titleEl.innerHTML = '🌸 Today is the Day! 🌸<br>Profession of Sister Maria Hope Ehizojie';
+      if (messageEl) {
+        messageEl.innerHTML =
+          '🌸 Today is the Day! 🌸 Profession of Sister Maria Hope Ehizojie · St. Clare Monastery, Ijebu-Ode · 10:00 AM · Let us rejoice and give thanks to God!';
       }
-      if (countdownEl) {
-        countdownEl.innerHTML = '<strong>St. Clare Monastery, Ijebu-Ode Diocese · 10:00 AM</strong><br>Let us rejoice and give thanks to God.';
-      }
-      if (readMoreEl) {
-        readMoreEl.style.display = 'inline-block';
-      }
+      if (readMoreEl) readMoreEl.style.display = 'inline-block';
       createFlowerPetals();
       return;
     }
 
-    // Future — countdown mode
-    if (daysUntil > 0 && countdownEl) {
+    // --- COUNTDOWN MODE ---
+    if (daysUntil > 0 && messageEl) {
       let text = '';
       if (daysUntil === 1) {
         text = '<strong>Tomorrow</strong> — the Profession of Sister Maria Hope Ehizojie';
       } else if (daysUntil < 7) {
-        text = '<strong>' + daysUntil + ' days</strong> until the Profession · Saturday, 24 October 2026 · 10:00 AM';
+        text = '<strong>' + daysUntil + ' days</strong> until the Profession of Sister Maria Hope Ehizojie · Saturday, 24 October 2026';
       } else if (daysUntil < 14) {
-        text = '<strong>One week</strong> until the Profession · Saturday, 24 October 2026';
+        text = '<strong>One week</strong> until the Profession of Sister Maria Hope Ehizojie · Saturday, 24 October 2026';
       } else {
-        text = '<strong>' + daysUntil + ' days</strong> until her Profession · Saturday, 24 October 2026';
+        text = '<strong>' + daysUntil + ' days</strong> until the Profession of Sister Maria Hope Ehizojie · Saturday, 24 October 2026';
       }
-      countdownEl.innerHTML = text + '<br>Please remember her in your prayers.';
+      messageEl.innerHTML = text + ' · Please remember her in your prayers.';
     }
 
-    // Past — profession day has passed, hide banner
+    // --- PAST — hide banner ---
     if (daysUntil < 0) {
       banner.style.display = 'none';
     }
   }
 
   function createFlowerPetals() {
-    // Only create once per page load
     if (document.querySelector('.flower-petals')) return;
 
     const container = document.createElement('div');
