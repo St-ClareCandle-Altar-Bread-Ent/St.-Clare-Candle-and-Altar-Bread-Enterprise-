@@ -6,7 +6,7 @@
   <!-- ============ HOMEPAGE ============ -->
   <url>
     <loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/</loc>
-    <lastmod>2026-09-28</lastmod>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -26,21 +26,21 @@
   <!-- ============ ABOUT ============ -->
   <url>
     <loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/About.html</loc>
-    <lastmod>2026-09-28</lastmod>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/environment.jpg</image:loc>
+      <image:title>The workshop environment — where precision meets prayer</image:title>
+    </image:image>
   </url>
 
   <!-- ============ VOCATION ============ -->
   <url>
     <loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/Vocation.html</loc>
-    <lastmod>2026-09-28</lastmod>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/vocation1.jpg</image:loc>
-      <image:title>The Church — Morning Mass</image:title>
-    </image:image>
     <image:image>
       <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/vocation3.jpg</image:loc>
       <image:title>Entrance to St. Clare Monastery, Ijebu-Ode</image:title>
@@ -49,12 +49,20 @@
       <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/vocation6.jpg</image:loc>
       <image:title>The Nuns' building — where the Sisters pray</image:title>
     </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/sisterbond.jpg</image:loc>
+      <image:title>Sister Maryjane and a fellow Sister at the Altar Bread House</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/sistersbond2.jpg</image:loc>
+      <image:title>Sister Maryjane — a smile in the workshop</image:title>
+    </image:image>
   </url>
 
   <!-- ============ GALLERY ============ -->
   <url>
     <loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/Gallery.html</loc>
-    <lastmod>2026-09-28</lastmod>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -66,21 +74,41 @@
       <image:title>Altar Bread — Small Hosts</image:title>
     </image:image>
     <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/workspace.jpg</image:loc>
+      <image:title>Sister Maryjane at work — the hosts resplendent on the table</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/sistersbondenvironment.jpg</image:loc>
+      <image:title>The Altar Bread House — host on the table, resplendent in white</image:title>
+    </image:image>
+    <image:image>
       <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/sisterswork20.jpg</image:loc>
-      <image:title>Advent Candle — Sister Maryjane</image:title>
+      <image:title>Advent Candle — inspected by Sister Maryjane</image:title>
     </image:image>
     <image:image>
       <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/work%20in%20progress10.jpg</image:loc>
       <image:title>The Host Baking Machine</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/environment.jpg</image:loc>
+      <image:title>The Workshop — equipment and Sisters at work</image:title>
     </image:image>
   </url>
 
   <!-- ============ CONTACT ============ -->
   <url>
     <loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/Contact.html</loc>
-    <lastmod>2026-09-28</lastmod>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+
+  <!-- ============ PROFESSION (hidden — appears on Oct 24) ============ -->
+  <url>
+    <loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/Profession.html</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 
 </urlset>
