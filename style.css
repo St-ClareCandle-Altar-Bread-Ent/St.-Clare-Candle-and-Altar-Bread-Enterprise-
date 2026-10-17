@@ -1033,62 +1033,168 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   letter-spacing: 1.2px;
   opacity: 0.95;
   margin: 2px 0 0;
+/* ============================================================
+   PROFESSION BANNER — Sister Maria Hope Ehizojie
+   Compact glowing purple · News-ticker motion
+   Auto-updating countdown · Celebration on October 24
+   © 2026 St. Clare Candle and Altar Bread Enterprise.
+   ============================================================ */
+
+.profession-banner {
+  position: relative;
+  z-index: 90;
+  width: 100%;
+  height: 44px;
+  background: linear-gradient(135deg, #4A1259 0%, #7B2D8C 50%, #4A1259 100%);
+  color: #F5E8D0;
+  overflow: hidden;
+  border-bottom: 2px solid #F4C430;
+  animation: profession-glow 2.5s ease-in-out infinite;
+  display: flex;
+  align-items: center;
 }
 
-.profession-countdown strong {
-  color: #F4C430;
-  font-weight: 700;
+@keyframes profession-glow {
+  0%, 100% {
+    box-shadow:
+      0 2px 14px rgba(74, 18, 89, 0.55),
+      0 0 20px 2px rgba(244, 196, 48, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+  50% {
+    box-shadow:
+      0 4px 22px rgba(74, 18, 89, 0.75),
+      0 0 40px 8px rgba(244, 196, 48, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
 }
 
-.profession-read-more {
-  display: none;
-  margin-top: 10px;
-  padding: 8px 22px;
+.profession-banner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #F4C430, #FFE9B8, #F4C430, transparent);
+  animation: shine-line 4s linear infinite;
+}
+
+@keyframes shine-line {
+  0%, 100% { opacity: 0.5; }
+  50%      { opacity: 1; }
+}
+
+/* Ticker wrapper — clips the scrolling text */
+.profession-ticker {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+/* The scrolling text */
+.profession-ticker-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  white-space: nowrap;
+  padding-left: 100%;
+  animation: ticker-scroll 24s linear infinite;
   font-family: 'Georgia', serif;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   font-weight: 700;
-  letter-spacing: 0.6px;
-  color: #4A1259;
-  background: linear-gradient(135deg, #F4C430, #FFE9B8);
-  border: none;
-  border-radius: 999px;
-  text-decoration: none;
-  box-shadow: 0 3px 0 rgba(107, 62, 30, 0.6), 0 6px 16px rgba(244, 196, 48, 0.4);
-  transition: transform 0.28s ease, box-shadow 0.28s ease;
+  letter-spacing: 0.5px;
+  color: #FFE9B8;
+  text-shadow: 0 1px 8px rgba(244, 196, 48, 0.5);
 }
 
-.profession-read-more:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 0 rgba(107, 62, 30, 0.6), 0 10px 24px rgba(244, 196, 48, 0.6);
-  color: #2A0A38;
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
 }
 
-/* CELEBRATION MODE — only active on October 24, 2026 */
+.profession-ticker-text .label {
+  color: #F4C430;
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-right: 12px;
+  font-weight: 700;
+}
+
+.profession-ticker-text .sep {
+  color: #F4C430;
+  margin: 0 18px;
+  font-size: 1.1rem;
+  opacity: 0.8;
+}
+
+.profession-ticker-text strong {
+  color: #FFE9B8;
+  font-weight: 800;
+}
+
+/* Pause the ticker on hover so it can be read */
+.profession-ticker:hover .profession-ticker-text {
+  animation-play-state: paused;
+}
+
+/* CELEBRATION MODE — the whole banner glows and turns richer purple */
 .profession-banner.celebration {
   background:
-    linear-gradient(135deg, rgba(255, 233, 184, 0.15) 0%, transparent 50%),
+    linear-gradient(135deg, rgba(255, 233, 184, 0.18) 0%, transparent 50%),
     linear-gradient(135deg, #7B2D8C 0%, #4A1259 100%);
   border-bottom: 3px solid #F4C430;
-  padding: 22px 20px;
-  animation: celebration-glow 2s ease-in-out infinite;
+  height: 54px;
+  animation: celebration-glow 1.8s ease-in-out infinite;
 }
 
 @keyframes celebration-glow {
   0%, 100% {
     box-shadow:
-      0 4px 24px rgba(74, 18, 89, 0.5),
-      0 0 30px 8px rgba(244, 196, 48, 0.4);
+      0 3px 24px rgba(74, 18, 89, 0.6),
+      0 0 30px 6px rgba(244, 196, 48, 0.4);
   }
   50% {
     box-shadow:
-      0 4px 32px rgba(74, 18, 89, 0.6),
-      0 0 50px 16px rgba(244, 196, 48, 0.6);
+      0 4px 34px rgba(74, 18, 89, 0.8),
+      0 0 60px 18px rgba(244, 196, 48, 0.65);
   }
 }
 
-.profession-banner.celebration .profession-title {
-  font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+.profession-banner.celebration .profession-ticker-text {
+  font-size: 1.05rem;
   color: #FFE9B8;
+}
+
+/* Read More button — only appears on profession day */
+.profession-read-more {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 6px 16px;
+  font-family: 'Georgia', serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #4A1259;
+  background: linear-gradient(135deg, #F4C430, #FFE9B8);
+  border-radius: 999px;
+  text-decoration: none;
+  display: none;
+  box-shadow: 0 2px 0 rgba(107, 62, 30, 0.6), 0 4px 12px rgba(244, 196, 48, 0.45);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  z-index: 3;
+  white-space: nowrap;
+}
+
+.profession-read-more:hover {
+  transform: translateY(-50%) scale(1.06);
+  box-shadow: 0 3px 0 rgba(107, 62, 30, 0.6), 0 8px 20px rgba(244, 196, 48, 0.65);
+  color: #2A0A38;
 }
 
 .profession-banner.celebration .profession-read-more {
@@ -1113,30 +1219,22 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
 }
 
 @keyframes petal-fall {
-  0% {
-    transform: translateY(-20vh) rotate(0deg);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.9;
-  }
-  90% {
-    opacity: 0.9;
-  }
-  100% {
-    transform: translateY(120vh) rotate(720deg);
-    opacity: 0;
-  }
+  0%   { transform: translateY(-20vh) rotate(0deg);   opacity: 0; }
+  10%  { opacity: 0.9; }
+  90%  { opacity: 0.9; }
+  100% { transform: translateY(120vh) rotate(720deg); opacity: 0; }
 }
 
 @media (max-width: 720px) {
-  .profession-banner { padding: 14px 14px; }
-  .profession-eyebrow { font-size: 0.58rem; letter-spacing: 2.5px; }
-  .profession-title { font-size: 0.88rem; line-height: 1.35; }
-  .profession-countdown { font-size: 0.72rem; }
-  .profession-read-more { font-size: 0.82rem; padding: 7px 18px; }
+  .profession-banner { height: 40px; }
+  .profession-banner.celebration { height: 48px; }
+  .profession-ticker-text { font-size: 0.82rem; }
+  .profession-ticker-text .label { font-size: 0.62rem; letter-spacing: 2px; margin-right: 8px; }
+  .profession-ticker-text .sep { margin: 0 12px; }
+  .profession-banner.celebration .profession-ticker-text { font-size: 0.9rem; }
+  .profession-read-more { font-size: 0.7rem; padding: 5px 12px; right: 8px; }
   .petal { font-size: 1.2rem; }
-}
+   }
 
 /* ============================================================
    END OF STYLESHEET
