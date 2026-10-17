@@ -292,7 +292,7 @@
         btn.style.setProperty('--y', ((e.clientY - r.top) / r.height) * 100 + '%');
       });
     });
-           }
+}
      /* ============================================================
      11. GALLERY — Tabs + Advent panel + Lightbox + Auto-week counter
      ============================================================ */
@@ -312,7 +312,6 @@
           tabs.forEach((t) => t.classList.remove('active'));
           tab.classList.add('active');
 
-          // Show/hide Advent panel
           if (adventPanel) {
             if (filter === 'advent') {
               adventPanel.classList.add('show');
@@ -353,7 +352,6 @@
       const targetTab = tabs.find((t) => t.dataset.filter === hash);
       if (targetTab) setTimeout(() => targetTab.click(), 200);
     } else {
-      // Speed fix — keep Advent images hidden on initial load
       items.forEach((item) => {
         if (item.dataset.category === 'advent') {
           item.classList.add('hidden');
@@ -439,7 +437,6 @@
 
   /* ============================================================
      11b. LITURGICAL WEEK COUNTER — Auto-updates every Sunday
-     Anchor: Week 26 = week containing September 27, 2026
      ============================================================ */
   function updateLiturgicalWeek() {
     const weekEl = document.getElementById('weekNumber');
@@ -522,7 +519,90 @@
   }
 
   /* ============================================================
-     13. CONSOLE SIGNATURE
+     13. PROFESSION BANNER — Auto countdown + Celebration mode
+     Sister Maria Hope Ehizojie — 24 October 2026, 10:00 AM
+     ============================================================ */
+  function initProfessionBanner() {
+    const banner = document.getElementById('professionBanner');
+    if (!banner) return;
+
+    const countdownEl = document.getElementById('professionCountdown');
+    const titleEl = document.getElementById('professionTitle');
+    const readMoreEl = document.getElementById('professionReadMore');
+
+    // Profession date: 24 October 2026, 10:00 AM
+    const professionDate = new Date('2026-10-24T10:00:00');
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const professionDay = new Date(professionDate);
+    professionDay.setHours(0, 0, 0, 0);
+
+    const msPerDay = 24 * 60 * 60 * 1000;
+    const daysUntil = Math.round((professionDay - today) / msPerDay);
+
+    // Celebration mode — it's profession day
+    if (daysUntil === 0) {
+      banner.classList.add('celebration');
+      if (titleEl) {
+        titleEl.innerHTML = '🌸 Today is the Day! 🌸<br>Profession of Sister Maria Hope Ehizojie';
+      }
+      if (countdownEl) {
+        countdownEl.innerHTML = '<strong>St. Clare Monastery, Ijebu-Ode Diocese · 10:00 AM</strong><br>Let us rejoice and give thanks to God.';
+      }
+      if (readMoreEl) {
+        readMoreEl.style.display = 'inline-block';
+      }
+      createFlowerPetals();
+      return;
+    }
+
+    // Future — countdown mode
+    if (daysUntil > 0 && countdownEl) {
+      let text = '';
+      if (daysUntil === 1) {
+        text = '<strong>Tomorrow</strong> — the Profession of Sister Maria Hope Ehizojie';
+      } else if (daysUntil < 7) {
+        text = '<strong>' + daysUntil + ' days</strong> until the Profession · Saturday, 24 October 2026 · 10:00 AM';
+      } else if (daysUntil < 14) {
+        text = '<strong>One week</strong> until the Profession · Saturday, 24 October 2026';
+      } else {
+        text = '<strong>' + daysUntil + ' days</strong> until her Profession · Saturday, 24 October 2026';
+      }
+      countdownEl.innerHTML = text + '<br>Please remember her in your prayers.';
+    }
+
+    // Past — profession day has passed, hide banner
+    if (daysUntil < 0) {
+      banner.style.display = 'none';
+    }
+  }
+
+  function createFlowerPetals() {
+    // Only create once per page load
+    if (document.querySelector('.flower-petals')) return;
+
+    const container = document.createElement('div');
+    container.className = 'flower-petals';
+    document.body.appendChild(container);
+
+    const flowers = ['🌸', '🌺', '🌼', '🌻', '🌷', '💮', '🏵️'];
+    const count = 20;
+
+    for (let i = 0; i < count; i++) {
+      const petal = document.createElement('div');
+      petal.className = 'petal';
+      petal.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+      petal.style.left = Math.random() * 100 + '%';
+      petal.style.animationDuration = (8 + Math.random() * 8) + 's';
+      petal.style.animationDelay = (Math.random() * 8) + 's';
+      petal.style.fontSize = (1 + Math.random() * 1.2) + 'rem';
+      container.appendChild(petal);
+    }
+  }
+
+  /* ============================================================
+     14. CONSOLE SIGNATURE
      ============================================================ */
   function signConsole() {
     const style1 = 'color:#8B5A2B;font-size:14px;font-weight:bold;';
@@ -549,6 +629,7 @@
     initButtonRipple();
     initGallery();
     initWhatsAppAutoLaunch();
+    initProfessionBanner();
     signConsole();
   }
 
