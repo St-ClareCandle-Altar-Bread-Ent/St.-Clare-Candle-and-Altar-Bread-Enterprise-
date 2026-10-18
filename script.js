@@ -4,6 +4,9 @@
 
    Copyright © 2026 St. Clare Candle and Altar Bread Enterprise.
    All Rights Reserved. Ijebu-Ode, Ogun State, Nigeria.
+
+   Contact: stclarecandlealtarent8@gmail.com
+   Phone  : 09031805281
    ============================================================ */
 
 (function () {
@@ -198,12 +201,13 @@
         btn.style.setProperty('--y', ((e.clientY - r.top) / r.height) * 100 + '%');
       });
     });
-}
+       }
      function initGallery() {
     const tabs = $$('.gallery-tab');
     const items = $$('.gallery-item');
     const galleryGrid = $('#mainGallery');
     const adventPanel = $('#adventPanel');
+    const paschalPanel = $('#paschalPanel');
     if (!items.length) return;
 
     if (tabs.length) {
@@ -212,19 +216,35 @@
           const filter = tab.dataset.filter;
           tabs.forEach((t) => t.classList.remove('active'));
           tab.classList.add('active');
+
+          // Advent panel
           if (adventPanel) {
             if (filter === 'advent') adventPanel.classList.add('show');
             else adventPanel.classList.remove('show');
           }
+
+          // Paschal panel
+          if (paschalPanel) {
+            if (filter === 'paschal') paschalPanel.classList.add('show');
+            else paschalPanel.classList.remove('show');
+          }
+
           if (galleryGrid) galleryGrid.classList.add('filtering');
+
           setTimeout(() => {
             items.forEach((item) => {
               const cat = item.dataset.category || 'all';
               if (filter === 'all' || cat === filter) item.classList.remove('hidden');
               else item.classList.add('hidden');
             });
+
             if (galleryGrid) galleryGrid.classList.remove('filtering');
-            const target = adventPanel && adventPanel.classList.contains('show') ? adventPanel : galleryGrid;
+
+            // Scroll to the right target
+            let target = galleryGrid;
+            if (adventPanel && adventPanel.classList.contains('show')) target = adventPanel;
+            if (paschalPanel && paschalPanel.classList.contains('show')) target = paschalPanel;
+
             if (target) {
               const y = target.getBoundingClientRect().top + window.pageYOffset - 120;
               window.scrollTo({ top: y, behavior: 'smooth' });
@@ -240,7 +260,7 @@
       if (targetTab) setTimeout(() => targetTab.click(), 200);
     } else {
       items.forEach((item) => {
-        if (item.dataset.category === 'advent') item.classList.add('hidden');
+        if (item.dataset.category === 'advent' || item.dataset.category === 'paschal') item.classList.add('hidden');
       });
     }
 
@@ -403,7 +423,7 @@
   function signConsole() {
     console.log('%c🕯️ St. Clare Candle and Altar Bread Enterprise', 'color:#8B5A2B;font-size:14px;font-weight:bold;');
     console.log('%c© 2026 All Rights Reserved. Ijebu-Ode, Ogun State, Nigeria.', 'color:#3E2412;font-size:12px;');
-    console.log('%c"Lumen Christi — Light for the Altar, Bread for the Soul."', 'color:#F4C430;font-style:italic;');
+    console.log('%c"Handcrafted for the Altar. Made for the Church."', 'color:#F4C430;font-style:italic;');
   }
 
   function boot() {
