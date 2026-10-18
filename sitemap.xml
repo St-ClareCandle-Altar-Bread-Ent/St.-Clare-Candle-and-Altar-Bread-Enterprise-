@@ -3,7 +3,6 @@
   xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
-  <!-- ============ HOMEPAGE ============ -->
   <url>
     <loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/</loc>
     <lastmod>2026-10-18</lastmod>
@@ -23,7 +22,6 @@
     </image:image>
   </url>
 
-  <!-- ============ ABOUT ============ -->
   <url>
     <loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/About.html</loc>
     <lastmod>2026-10-18</lastmod>
@@ -35,7 +33,6 @@
     </image:image>
   </url>
 
-  <!-- ============ VOCATION ============ -->
   <url>
     <loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/Vocation.html</loc>
     <lastmod>2026-10-18</lastmod>
@@ -59,7 +56,6 @@
     </image:image>
   </url>
 
-  <!-- ============ GALLERY ============ -->
   <url>
     <loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/Gallery.html</loc>
     <lastmod>2026-10-18</lastmod>
@@ -72,6 +68,26 @@
     <image:image>
       <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/altar%20bread1.jpg</image:loc>
       <image:title>Altar Bread — Small Hosts</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/whitecandle1.jpeg</image:loc>
+      <image:title>White Candle — pure and clean-burning</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/adventcandle.jpeg</image:loc>
+      <image:title>Advent Candle</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/paschalcandle1.jpeg</image:loc>
+      <image:title>Paschal Candle — the Light of Christ</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/paschalcandle2.jpeg</image:loc>
+      <image:title>Paschal Candle — for the Easter Vigil</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/paschalcandle3.jpeg</image:loc>
+      <image:title>Paschal Candle — prepared for the sanctuary</image:title>
     </image:image>
     <image:image>
       <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/workspace.jpg</image:loc>
@@ -95,7 +111,6 @@
     </image:image>
   </url>
 
-  <!-- ============ CONTACT ============ -->
   <url>
     <loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/Contact.html</loc>
     <lastmod>2026-10-18</lastmod>
@@ -103,7 +118,6 @@
     <priority>0.7</priority>
   </url>
 
-  <!-- ============ PROFESSION (hidden — appears Oct 24) ============ -->
   <url>
     <loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/Profession.html</loc>
     <lastmod>2026-10-18</lastmod>
@@ -111,7 +125,6 @@
     <priority>0.6</priority>
   </url>
 
-  <!-- ============ SISTER DEPARTMENT — HELICICULTURE (external) ============ -->
   <url>
     <loc>https://stclare-heliciculture.github.io/stclaremonastery-heliciculture/</loc>
     <lastmod>2026-10-18</lastmod>
