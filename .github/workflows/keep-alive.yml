@@ -1,0 +1,42 @@
+# ============================================================
+# St. Clare Candle and Altar Bread Enterprise
+# Weekly Keep-Alive — Auto-updates timestamp for Google crawl
+# Copyright © 2026 St. Clare Candle and Altar Bread Enterprise.
+# All Rights Reserved. Ijebu-Ode, Ogun State, Nigeria.
+# ============================================================
+
+name: Weekly Keep-Alive
+
+on:
+  schedule:
+    # Runs every Sunday at 03:00 UTC (04:00 WAT / Nigeria time)
+    - cron: '0 3 * * 0'
+  workflow_dispatch:
+    # Allows manual trigger from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Update last-updated timestamp
+        run: |
+          DATE=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          echo "$DATE" > last-updated.txt
+          echo "Updated: $DATE"
+
+      - name: Commit and push
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add last-updated.txt
+          git diff --quiet && git diff --staged --quiet || git commit -m "chore: weekly keep-alive update — $(date -u +'%Y-%m-%d')"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
