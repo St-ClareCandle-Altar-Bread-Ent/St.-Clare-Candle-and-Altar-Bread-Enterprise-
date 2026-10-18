@@ -877,6 +877,124 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   .profession-read-more { font-size: 0.66rem; padding: 4px 10px; right: 6px; }
   .petal { font-size: 1.2rem; }
 }
+/* ============================================================
+   PASCHAL PANEL — Golden, radiant, reverent
+   The Light of the Risen Christ
+   © 2026 St. Clare Candle and Altar Bread Enterprise.
+   ============================================================ */
+
+.paschal-panel {
+  display: none;
+  margin: 0 auto 44px;
+  max-width: 880px;
+  border-radius: var(--r-card);
+  overflow: hidden;
+  border: 2px solid #B8860B;
+  box-shadow:
+    0 8px 32px rgba(184, 134, 11, 0.28),
+    0 0 30px 6px rgba(244, 196, 48, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(255, 233, 184, 0.22), transparent 60%),
+    linear-gradient(180deg, #FFFDF5 0%, #FFF7E0 100%);
+  position: relative;
+}
+
+.paschal-panel.show { display: block; }
+
+.paschal-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #B8860B, #F4C430, #FFE9B8, #F4C430, #B8860B);
+}
+
+.paschal-inner {
+  padding: 48px 36px 42px;
+  text-align: center;
+  color: var(--brown-darkest);
+}
+
+.paschal-eyebrow {
+  display: inline-block;
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: #B8860B;
+  padding: 8px 22px;
+  border: 1px solid rgba(184, 134, 11, 0.5);
+  border-radius: var(--r-pill);
+  background: rgba(244, 196, 48, 0.12);
+  margin-bottom: 22px;
+  font-weight: 700;
+}
+
+.paschal-title {
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+  color: #8B5A2B;
+  margin-bottom: 26px;
+  padding-bottom: 0;
+  text-shadow: 0 2px 22px rgba(244, 196, 48, 0.45);
+}
+
+.paschal-title::after { display: none; }
+
+.paschal-intro {
+  max-width: 720px;
+  margin: 0 auto 22px;
+  font-size: 1.02rem;
+  line-height: 1.8;
+  color: var(--brown-darkest);
+  opacity: 0.94;
+}
+
+.paschal-highlight {
+  max-width: 720px;
+  margin: 28px auto;
+  padding: 26px 28px;
+  background: rgba(244, 196, 48, 0.14);
+  border-left: 3px solid #B8860B;
+  border-radius: 0 var(--r-soft) var(--r-soft) 0;
+  text-align: left;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.paschal-star {
+  color: #B8860B;
+  font-size: 1.8rem;
+  line-height: 1;
+  flex-shrink: 0;
+  text-shadow: 0 0 12px rgba(244, 196, 48, 0.7);
+}
+
+.paschal-highlight-text {
+  margin: 0;
+  color: var(--brown-darkest);
+  font-size: 1rem;
+  line-height: 1.75;
+  opacity: 0.94;
+}
+
+.paschal-highlight-text strong { color: #8B5A2B; }
+
+.paschal-cta {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+@media (max-width: 720px) {
+  .paschal-inner { padding: 36px 22px 32px; }
+  .paschal-highlight { padding: 20px 20px; flex-direction: column; gap: 10px; }
+  .paschal-cta .btn { width: 100%; }
+  .paschal-star { font-size: 1.4rem; }
+   }
 
 /* ============================================================
    END OF STYLESHEET
