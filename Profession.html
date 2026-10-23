@@ -64,14 +64,14 @@
       <h2>Her Vows, Her Yes, Her Joy</h2>
     </div>
     <p>On Saturday, 24 October 2026, at 10:00 AM, Sister Maria Hope Ehizojie will make her religious profession at St. Clare Monastery Nigeria, Ijebu-Ode Diocese — offering her life to God in the spirit of St. Clare of Assisi.</p>
-    <p>We invite you to share in this joy. Photos from the celebration will appear here.</p>
+    <p>We invite you to share in this joy. <strong>Tap her photos below to see them full-screen.</strong></p>
 
-    <div class="gallery-grid" style="margin-top: 40px; max-width: 900px; margin-left: auto; margin-right: auto;">
-      <figure class="gallery-item">
+    <div class="gallery-grid" id="mainGallery" style="margin-top: 40px; max-width: 900px; margin-left: auto; margin-right: auto;">
+      <figure class="gallery-item" data-category="profession">
         <img src="sisterpic1.jpg" alt="Sister Maria Hope Ehizojie — portrait" loading="lazy" decoding="async">
         <figcaption>Sister Maria Hope Ehizojie</figcaption>
       </figure>
-      <figure class="gallery-item">
+      <figure class="gallery-item" data-category="profession">
         <img src="sisterpic2.jpg" alt="Sister Maria Hope Ehizojie — portrait" loading="lazy" decoding="async">
         <figcaption>Sister Maria Hope Ehizojie</figcaption>
       </figure>
@@ -83,7 +83,6 @@
     </div>
   </div>
 </section>
-
 <footer class="site-footer">
   <div class="footer-grid">
     <div>
@@ -123,6 +122,15 @@
   <div class="footer-bottom">© 2026 St. Clare Candle and Altar Bread <b>Enterprise</b>. All Rights Reserved. · Ijebu-Ode, Ogun State, Nigeria</div>
 </footer>
 
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕</button>
+  <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous">‹</button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="">
+  <p class="lightbox-caption" id="lightboxCaption"></p>
+  <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next">›</button>
+</div>
+
 <script src="script.js"></script>
 </body>
-</html>
+  </html>
