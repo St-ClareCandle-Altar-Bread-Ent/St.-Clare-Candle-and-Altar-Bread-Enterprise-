@@ -15,7 +15,7 @@
   const CONFIG = {
     whatsapp: {
       number: '2349031805281',
-      prefilled: 'Good day, Sisters of St. Clare. I found your website and I would like to enquire about your candles and altar bread.'
+      prefilled: 'Good day, Sisters of St. Clare Monastery Nigeria. I found your website and I would like to enquire about your candles and altar bread.'
     },
     particles: { count: 42, maxSize: 3.2, minSize: 0.8, riseSpeed: 0.35, flickerSpeed: 0.0022, glowRadius: 26 }
   };
@@ -23,56 +23,33 @@
   const $  = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
   const rand = (min, max) => Math.random() * (max - min) + min;
-
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* CANDLE-FLAME PARTICLE CANVAS */
   function initFlameCanvas() {
     if (prefersReduced) return;
     let canvas = $('#flameCanvas');
-    if (!canvas) {
-      canvas = document.createElement('canvas');
-      canvas.id = 'flameCanvas';
-      document.body.appendChild(canvas);
-    }
+    if (!canvas) { canvas = document.createElement('canvas'); canvas.id = 'flameCanvas'; document.body.appendChild(canvas); }
     const ctx = canvas.getContext('2d');
     let W = 0, H = 0;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    function resize() {
-      W = window.innerWidth; H = window.innerHeight;
-      canvas.width  = W * dpr; canvas.height = H * dpr;
-      canvas.style.width  = W + 'px'; canvas.style.height = H + 'px';
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
+    function resize() { W = window.innerWidth; H = window.innerHeight; canvas.width = W * dpr; canvas.height = H * dpr; canvas.style.width = W + 'px'; canvas.style.height = H + 'px'; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
     resize();
     window.addEventListener('resize', resize);
     const palette = ['#FFE9B8', '#F4C430', '#E08B2A', '#D2B48C', '#8B5A2B'];
     const particles = Array.from({ length: CONFIG.particles.count }).map(() => spawn(true));
-    function spawn(initial = false) {
-      return {
-        x: rand(0, W), y: initial ? rand(0, H) : H + rand(10, 80),
-        size: rand(CONFIG.particles.minSize, CONFIG.particles.maxSize),
-        speed: rand(0.2, CONFIG.particles.riseSpeed + 0.4),
-        drift: rand(-0.15, 0.15), flicker: rand(0, Math.PI * 2),
-        hue: palette[Math.floor(rand(0, palette.length))],
-        alpha: rand(0.35, 0.85)
-      };
-    }
+    function spawn(initial = false) { return { x: rand(0, W), y: initial ? rand(0, H) : H + rand(10, 80), size: rand(CONFIG.particles.minSize, CONFIG.particles.maxSize), speed: rand(0.2, CONFIG.particles.riseSpeed + 0.4), drift: rand(-0.15, 0.15), flicker: rand(0, Math.PI * 2), hue: palette[Math.floor(rand(0, palette.length))], alpha: rand(0.35, 0.85) }; }
     function draw() {
       ctx.clearRect(0, 0, W, H);
       ctx.globalCompositeOperation = 'lighter';
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
-        p.flicker += CONFIG.particles.flickerSpeed;
-        p.x += p.drift + Math.sin(p.flicker) * 0.35;
-        p.y -= p.speed;
+        p.flicker += CONFIG.particles.flickerSpeed; p.x += p.drift + Math.sin(p.flicker) * 0.35; p.y -= p.speed;
         if (p.y < -20 || p.x < -40 || p.x > W + 40) { particles[i] = spawn(false); continue; }
         const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, CONFIG.particles.glowRadius);
-        glow.addColorStop(0, hexToRgba(p.hue, p.alpha));
-        glow.addColorStop(1, hexToRgba(p.hue, 0));
-        ctx.fillStyle = glow;
-        ctx.beginPath(); ctx.arc(p.x, p.y, CONFIG.particles.glowRadius, 0, Math.PI * 2); ctx.fill();
-        ctx.fillStyle = hexToRgba(p.hue, 0.95);
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+        glow.addColorStop(0, hexToRgba(p.hue, p.alpha)); glow.addColorStop(1, hexToRgba(p.hue, 0));
+        ctx.fillStyle = glow; ctx.beginPath(); ctx.arc(p.x, p.y, CONFIG.particles.glowRadius, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = hexToRgba(p.hue, 0.95); ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
       }
       ctx.globalCompositeOperation = 'source-over';
       requestAnimationFrame(draw);
@@ -80,14 +57,9 @@
     draw();
   }
 
-  function hexToRgba(hex, a) {
-    const h = hex.replace('#', '');
-    const r = parseInt(h.substring(0, 2), 16);
-    const g = parseInt(h.substring(2, 4), 16);
-    const b = parseInt(h.substring(4, 6), 16);
-    return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
-  }
+  function hexToRgba(hex, a) { const h = hex.replace('#', ''); const r = parseInt(h.substring(0,2),16); const g = parseInt(h.substring(2,4),16); const b = parseInt(h.substring(4,6),16); return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')'; }
 
+  /* TOAST */
   function showToast(message, duration) {
     duration = duration || 2600;
     let t = document.querySelector('.st-clare-toast');
@@ -98,67 +70,38 @@
     t._timer = setTimeout(function () { t.classList.remove('show'); }, duration);
   }
 
-  function initOrderLinks() {
-    $$('.btn-order').forEach(function (el) {
-      el.addEventListener('click', function () { showToast('Opening WhatsApp to complete your order…'); });
-    });
-  }
+  function initOrderLinks() { $$('.btn-order').forEach(function (el) { el.addEventListener('click', function () { showToast('Opening WhatsApp to complete your order…'); }); }); }
+  function initBulkQuote() { $$('.btn-bulk').forEach(function (el) { el.addEventListener('click', function () { showToast('Opening WhatsApp for your bulk quote request…', 3200); }); }); }
 
-  function initBulkQuote() {
-    $$('.btn-bulk').forEach(function (el) {
-      el.addEventListener('click', function () { showToast('Opening WhatsApp for your bulk quote request…', 3200); });
-    });
-  }
-
+  /* SCROLL REVEAL */
   function initScrollReveal() {
     const targets = $$('.reveal, section, .card, .product');
     if (!targets.length) return;
-    if (!('IntersectionObserver' in window) || prefersReduced) {
-      targets.forEach(function (t) { t.classList.add('in'); }); return;
-    }
-    const io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) { entry.target.classList.add('in'); io.unobserve(entry.target); }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-    targets.forEach(function (t) {
-      if (!t.classList.contains('reveal')) t.classList.add('reveal');
-      io.observe(t);
-    });
+    if (!('IntersectionObserver' in window) || prefersReduced) { targets.forEach(function (t) { t.classList.add('in'); }); return; }
+    const io = new IntersectionObserver(function (entries) { entries.forEach(function (entry) { if (entry.isIntersecting) { entry.target.classList.add('in'); io.unobserve(entry.target); } }); }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    targets.forEach(function (t) { if (!t.classList.contains('reveal')) t.classList.add('reveal'); io.observe(t); });
   }
 
+  /* NAV TOGGLE */
   function initNavToggle() {
-    const toggle = $('.nav-toggle');
-    const links  = $('.nav-links');
+    const toggle = $('.nav-toggle'); const links = $('.nav-links');
     if (!toggle || !links) return;
-    toggle.addEventListener('click', function () {
-      toggle.classList.toggle('open');
-      links.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', toggle.classList.contains('open') ? 'true' : 'false');
-    });
-    $$('.nav-links a').forEach(function (a) {
-      a.addEventListener('click', function () {
-        toggle.classList.remove('open');
-        links.classList.remove('open');
-      });
-    });
+    toggle.addEventListener('click', function () { toggle.classList.toggle('open'); links.classList.toggle('open'); toggle.setAttribute('aria-expanded', toggle.classList.contains('open') ? 'true' : 'false'); });
+    $$('.nav-links a').forEach(function (a) { a.addEventListener('click', function () { toggle.classList.remove('open'); links.classList.remove('open'); }); });
   }
 
+  /* ACTIVE NAV */
   function initActiveNav() {
     const path = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
-    $$('.nav-links a').forEach(function (a) {
-      const href = (a.getAttribute('href') || '').toLowerCase();
-      if (href === path || (path === '' && href === 'index.html')) a.classList.add('active');
-    });
+    $$('.nav-links a').forEach(function (a) { const href = (a.getAttribute('href') || '').toLowerCase(); if (href === path || (path === '' && href === 'index.html')) a.classList.add('active'); });
   }
 
+  /* SMOOTH ANCHORS */
   function initSmoothAnchors() {
     $$('a[href^="#"]').forEach(function (a) {
       a.addEventListener('click', function (e) {
-        const id = a.getAttribute('href');
-        if (!id || id === '#') return;
-        const target = document.querySelector(id);
-        if (!target) return;
+        const id = a.getAttribute('href'); if (!id || id === '#') return;
+        const target = document.querySelector(id); if (!target) return;
         e.preventDefault();
         const y = target.getBoundingClientRect().top + window.pageYOffset - 80;
         window.scrollTo({ top: y, behavior: 'smooth' });
@@ -166,25 +109,23 @@
     });
   }
 
+  /* IMAGE FALLBACK */
   function initImageFallback() {
     $$('img').forEach(function (img) {
       img.addEventListener('error', function () {
         const fallback = document.createElement('div');
-        fallback.style.cssText =
-          'width:' + (img.width || 44) + 'px;height:' + (img.height || 44) + 'px;' +
-          'border-radius:50%;background:conic-gradient(from 0deg,#D2B48C,#F4C430,#8B5A2B,#D2B48C);' +
-          'box-shadow:0 0 32px rgba(244,196,48,0.55);';
+        fallback.style.cssText = 'width:' + (img.width || 44) + 'px;height:' + (img.height || 44) + 'px;border-radius:50%;background:conic-gradient(from 0deg,#D2B48C,#F4C430,#8B5A2B,#D2B48C);box-shadow:0 0 32px rgba(244,196,48,0.55);';
         img.replaceWith(fallback);
         console.warn('[St. Clare] Image failed to load:', img.src);
       });
     });
   }
 
+  /* HERO LOGO PARALLAX */
   function initHeroLogoParallax() {
     if (prefersReduced) return;
     if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
-    const logo = $('.hero-logo');
-    if (!logo) return;
+    const logo = $('.hero-logo'); if (!logo) return;
     window.addEventListener('mousemove', function (e) {
       const x = (e.clientX / window.innerWidth - 0.5) * 8;
       const y = (e.clientY / window.innerHeight - 0.5) * 8;
@@ -192,6 +133,7 @@
     });
   }
 
+  /* BUTTON RIPPLE */
   function initButtonRipple() {
     if (prefersReduced) return;
     $$('.btn').forEach(function (btn) {
@@ -201,8 +143,9 @@
         btn.style.setProperty('--y', ((e.clientY - r.top) / r.height) * 100 + '%');
       });
     });
-       }
-     function initGallery() {
+        }
+     /* GALLERY — Tabs + Advent + Paschal + Lightbox */
+  function initGallery() {
     const tabs = $$('.gallery-tab');
     const items = $$('.gallery-item');
     const galleryGrid = $('#mainGallery');
@@ -216,53 +159,28 @@
           const filter = tab.dataset.filter;
           tabs.forEach((t) => t.classList.remove('active'));
           tab.classList.add('active');
-
-          // Advent panel
-          if (adventPanel) {
-            if (filter === 'advent') adventPanel.classList.add('show');
-            else adventPanel.classList.remove('show');
-          }
-
-          // Paschal panel
-          if (paschalPanel) {
-            if (filter === 'paschal') paschalPanel.classList.add('show');
-            else paschalPanel.classList.remove('show');
-          }
-
+          if (adventPanel) { if (filter === 'advent') adventPanel.classList.add('show'); else adventPanel.classList.remove('show'); }
+          if (paschalPanel) { if (filter === 'paschal') paschalPanel.classList.add('show'); else paschalPanel.classList.remove('show'); }
           if (galleryGrid) galleryGrid.classList.add('filtering');
-
           setTimeout(() => {
             items.forEach((item) => {
               const cat = item.dataset.category || 'all';
               if (filter === 'all' || cat === filter) item.classList.remove('hidden');
               else item.classList.add('hidden');
             });
-
             if (galleryGrid) galleryGrid.classList.remove('filtering');
-
-            // Scroll to the right target
             let target = galleryGrid;
             if (adventPanel && adventPanel.classList.contains('show')) target = adventPanel;
             if (paschalPanel && paschalPanel.classList.contains('show')) target = paschalPanel;
-
-            if (target) {
-              const y = target.getBoundingClientRect().top + window.pageYOffset - 120;
-              window.scrollTo({ top: y, behavior: 'smooth' });
-            }
+            if (target) { const y = target.getBoundingClientRect().top + window.pageYOffset - 120; window.scrollTo({ top: y, behavior: 'smooth' }); }
           }, 250);
         });
       });
     }
 
     const hash = (window.location.hash || '').replace('#', '');
-    if (hash && tabs.length) {
-      const targetTab = tabs.find((t) => t.dataset.filter === hash);
-      if (targetTab) setTimeout(() => targetTab.click(), 200);
-    } else {
-      items.forEach((item) => {
-        if (item.dataset.category === 'advent' || item.dataset.category === 'paschal') item.classList.add('hidden');
-      });
-    }
+    if (hash && tabs.length) { const targetTab = tabs.find((t) => t.dataset.filter === hash); if (targetTab) setTimeout(() => targetTab.click(), 200); }
+    else { items.forEach((item) => { if (item.dataset.category === 'advent' || item.dataset.category === 'paschal') item.classList.add('hidden'); }); }
 
     updateLiturgicalWeek();
 
@@ -277,7 +195,6 @@
     let currentIndex = 0;
     let visibleItems = items;
     function updateVisible() { visibleItems = items.filter((i) => !i.classList.contains('hidden')); }
-
     function openLightbox(index) {
       updateVisible(); currentIndex = index;
       const item = visibleItems[currentIndex]; if (!item) return;
@@ -310,6 +227,47 @@
     });
   }
 
+  /* LIGHTBOX-ONLY — for pages without tabs (e.g., Profession.html) */
+  function initLightboxOnly() {
+    const items = $$('.gallery-item');
+    const lightbox = $('#lightbox');
+    const lightboxImg = $('#lightboxImg');
+    const lightboxCaption = $('#lightboxCaption');
+    const btnClose = $('#lightboxClose');
+
+    if (!items.length || !lightbox || !lightboxImg) return;
+    if ($$('.gallery-tab').length > 0) return;
+
+    items.forEach((item) => {
+      item.addEventListener('click', () => {
+        const img = item.querySelector('img');
+        const cap = item.querySelector('figcaption');
+        if (!img) return;
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt || '';
+        lightboxCaption.textContent = cap ? cap.textContent : '';
+        lightbox.classList.add('show');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+
+    if (btnClose) btnClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('show')) {
+        closeLightbox();
+      }
+    });
+  }
+
+  /* LITURGICAL WEEK COUNTER */
   function updateLiturgicalWeek() {
     const weekEl = document.getElementById('weekNumber');
     if (!weekEl) return;
@@ -324,12 +282,9 @@
     weekEl.textContent = currentWeek + getOrdinalSuffix(currentWeek);
   }
 
-  function getOrdinalSuffix(n) {
-    const s = ['th','st','nd','rd'];
-    const v = n % 100;
-    return s[(v - 20) % 10] || s[v] || s[0];
-  }
+  function getOrdinalSuffix(n) { const s = ['th','st','nd','rd']; const v = n % 100; return s[(v - 20) % 10] || s[v] || s[0]; }
 
+  /* WHATSAPP AUTO-LAUNCH */
   function initWhatsAppAutoLaunch() {
     const body = document.body;
     if (!body || body.dataset.autoWhatsapp !== 'true') return;
@@ -339,9 +294,9 @@
     const overlay = document.createElement('div');
     overlay.className = 'wa-launch-overlay';
     overlay.innerHTML =
-      '<div class="wa-launch-inner"><div class="wa-halo"><img src="logoaltarbread.png" alt="St. Clare logo"></div>' +
+      '<div class="wa-launch-inner"><div class="wa-halo"><img src="logoaltarbread.png" alt="St. Clare Monastery Nigeria logo"></div>' +
       '<p class="wa-launch-title">Connecting you to the Sisters…</p>' +
-      '<p class="wa-launch-sub">St. Clare Candle and Altar Bread Enterprise</p>' +
+      '<p class="wa-launch-sub">St. Clare Monastery Nigeria</p>' +
       '<div class="wa-bar"><span></span></div>' +
       '<button type="button" class="btn btn-wa btn-sm wa-launch-skip">Open WhatsApp Now</button></div>';
     document.body.appendChild(overlay);
@@ -371,6 +326,7 @@
     setTimeout(launch, 3000);
   }
 
+  /* PROFESSION BANNER */
   function initProfessionBanner() {
     const banner = document.getElementById('professionBanner');
     if (!banner) return;
@@ -380,11 +336,11 @@
     const today = new Date(); today.setHours(0, 0, 0, 0);
     const professionDay = new Date(professionDate); professionDay.setHours(0, 0, 0, 0);
     const msPerDay = 24 * 60 * 60 * 1000;
-    const daysUntil = Math.round((professionDay - today) / msPerDay);
+    const daysUntil = Math.ceil((professionDay - today) / msPerDay);
 
     if (daysUntil === 0) {
       banner.classList.add('celebration');
-      if (messageEl) messageEl.innerHTML = '🌸 Today is the Day! 🌸 Profession of Sister Maria Hope Ehizojie · St. Clare Monastery, Ijebu-Ode · 10:00 AM · Let us rejoice and give thanks to God!';
+      if (messageEl) messageEl.innerHTML = '🌸 Today is the Day! 🌸 Profession of Sister Maria Hope Ehizojie · St. Clare Monastery Nigeria · 10:00 AM · Let us rejoice and give thanks to God!';
       if (readMoreEl) readMoreEl.style.display = 'inline-block';
       createFlowerPetals();
       return;
@@ -392,10 +348,11 @@
 
     if (daysUntil > 0 && messageEl) {
       let text = '';
-      if (daysUntil === 1) text = '<strong>Tomorrow</strong> — the Profession of Sister Maria Hope Ehizojie';
-      else if (daysUntil < 7) text = '<strong>' + daysUntil + ' days</strong> until the Profession of Sister Maria Hope Ehizojie · Saturday, 24 October 2026';
-      else if (daysUntil < 14) text = '<strong>One week</strong> until the Profession of Sister Maria Hope Ehizojie · Saturday, 24 October 2026';
-      else text = '<strong>' + daysUntil + ' days</strong> until the Profession of Sister Maria Hope Ehizojie · Saturday, 24 October 2026';
+      if (daysUntil === 1) text = '<strong>Tomorrow</strong> — the Simple Profession of Sister Maria Hope Ehizojie';
+      else if (daysUntil === 2) text = '<strong>Just 2 days</strong> — Sister Maria Hope Ehizojie\'s Simple Profession · Saturday, 24 October 2026';
+      else if (daysUntil < 7) text = '<strong>' + daysUntil + ' days</strong> until the Simple Profession of Sister Maria Hope Ehizojie · Saturday, 24 October 2026 · 10:00 AM';
+      else if (daysUntil === 7) text = '<strong>One week</strong> until the Simple Profession of Sister Maria Hope Ehizojie · Saturday, 24 October 2026';
+      else text = '<strong>' + daysUntil + ' days</strong> until the Simple Profession of Sister Maria Hope Ehizojie · Saturday, 24 October 2026';
       messageEl.innerHTML = text + ' · Please remember her in your prayers.';
     }
 
@@ -421,7 +378,7 @@
   }
 
   function signConsole() {
-    console.log('%c🕯️ St. Clare Candle and Altar Bread Enterprise', 'color:#8B5A2B;font-size:14px;font-weight:bold;');
+    console.log('%c🕯️ St. Clare Monastery Nigeria — Candle and Altar Bread Enterprise', 'color:#8B5A2B;font-size:14px;font-weight:bold;');
     console.log('%c© 2026 All Rights Reserved. Ijebu-Ode, Ogun State, Nigeria.', 'color:#3E2412;font-size:12px;');
     console.log('%c"Handcrafted for the Altar. Made for the Church."', 'color:#F4C430;font-style:italic;');
   }
@@ -438,6 +395,7 @@
     initHeroLogoParallax();
     initButtonRipple();
     initGallery();
+    initLightboxOnly();
     initWhatsAppAutoLaunch();
     initProfessionBanner();
     signConsole();
