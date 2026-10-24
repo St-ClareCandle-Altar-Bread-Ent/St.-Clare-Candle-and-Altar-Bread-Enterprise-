@@ -1,67 +1,192 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
+  <!-- ============ HOMEPAGE ============ -->
   <url>
     <loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <image:image><image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/logoaltarbread.png</image:loc><image:title>St. Clare Monastery Nigeria — Candle and Altar Bread Enterprise</image:title></image:image>
-    <image:image><image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/altar%20candle1.jpg</image:loc><image:title>Altar Candles by the Sisters of St. Clare Monastery Nigeria</image:title></image:image>
-    <image:image><image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/altar%20bread1.jpg</image:loc><image:title>Altar Bread by the Sisters of St. Clare Monastery Nigeria</image:title></image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/logoaltarbread.png</image:loc>
+      <image:title>St. Clare Monastery Nigeria</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/altar%20candle1.jpg</image:loc>
+      <image:title>Altar Candles by the Sisters of St. Clare Monastery Nigeria</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/altar%20bread1.jpg</image:loc>
+      <image:title>Altar Bread by the Sisters of St. Clare Monastery Nigeria</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/sistermaria1.jpg</image:loc>
+      <image:title>Sister Maria Hope Ehizojie — Now Professed</image:title>
+    </image:image>
   </url>
 
+  <!-- ============ ABOUT ============ -->
   <url>
     <loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/About.html</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image><image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/environment.jpg</image:loc><image:title>The workshop at St. Clare Monastery Nigeria</image:title></image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/environment.jpg</image:loc>
+      <image:title>The workshop at St. Clare Monastery Nigeria</image:title>
+    </image:image>
   </url>
 
+  <!-- ============ VOCATION ============ -->
   <url>
     <loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/Vocation.html</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image><image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/vocation3.jpg</image:loc><image:title>Entrance to St. Clare Monastery Nigeria</image:title></image:image>
-    <image:image><image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/vocation6.jpg</image:loc><image:title>The Nuns' building at St. Clare Monastery Nigeria</image:title></image:image>
-    <image:image><image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/sisterbond.jpg</image:loc><image:title>Sister Maryjane and a fellow Sister at the Altar Bread House</image:title></image:image>
-    <image:image><image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/sistersbond2.jpg</image:loc><image:title>Sister Maryjane — a smile in the workshop</image:title></image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/vocation3.jpg</image:loc>
+      <image:title>Entrance to St. Clare Monastery Nigeria</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/vocation6.jpg</image:loc>
+      <image:title>The Nuns' building at St. Clare Monastery Nigeria</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/sisterbond.jpg</image:loc>
+      <image:title>Sister Maryjane and a fellow Sister at the Altar Bread House</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/sistersbond2.jpg</image:loc>
+      <image:title>Sister Maryjane — a smile in the workshop</image:title>
+    </image:image>
   </url>
 
+  <!-- ============ GALLERY ============ -->
   <url>
     <loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/Gallery.html</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/whitecandle1.jpeg</image:loc><image:title>White Candle by the Sisters of St. Clare Monastery Nigeria</image:title></image:image>
-    <image:image><image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/adventcandle.jpeg</image:loc><image:title>Advent Candle</image:title></image:image>
-    <image:image><image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/paschalcandle1.jpeg</image:loc><image:title>Paschal Candle — the Light of Christ</image:title></image:image>
-    <image:image><image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/paschalcandle2.jpeg</image:loc><image:title>Paschal Candle — for the Easter Vigil</image:title></image:image>
-    <image:image><image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/paschalcandle3.jpeg</image:loc><image:title>Paschal Candle — prepared for the sanctuary</image:title></image:image>
-    <image:image><image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/workspace.jpg</image:loc><image:title>Sister Maryjane at work — St. Clare Monastery Nigeria</image:title></image:image>
-    <image:image><image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/sistersbondenvironment.jpg</image:loc><image:title>The Altar Bread House — St. Clare Monastery Nigeria</image:title></image:image>
-    <image:image><image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/environment.jpg</image:loc><image:title>The Workshop — St. Clare Monastery Nigeria</image:title></image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/altar%20candle1.jpg</image:loc>
+      <image:title>Altar Candle</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/altar%20bread1.jpg</image:loc>
+      <image:title>Altar Bread — Small Hosts</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/whitecandle1.jpeg</image:loc>
+      <image:title>White Candle — pure and clean-burning</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/adventcandle.jpeg</image:loc>
+      <image:title>Advent Candle</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/paschalcandle1.jpeg</image:loc>
+      <image:title>Paschal Candle — the Light of Christ</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/paschalcandle2.jpeg</image:loc>
+      <image:title>Paschal Candle — for the Easter Vigil</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/paschalcandle3.jpeg</image:loc>
+      <image:title>Paschal Candle — prepared for the sanctuary</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/workspace.jpg</image:loc>
+      <image:title>Sister Maryjane at work — the hosts resplendent on the table</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/sistersbondenvironment.jpg</image:loc>
+      <image:title>The Altar Bread House — host on the table, resplendent in white</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/sisterswork20.jpg</image:loc>
+      <image:title>Advent Candle — inspected by Sister Maryjane</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/work%20in%20progress10.jpg</image:loc>
+      <image:title>The Host Baking Machine</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/environment.jpg</image:loc>
+      <image:title>The Workshop — equipment and Sisters at work</image:title>
+    </image:image>
   </url>
 
+  <!-- ============ NEWS ============ -->
+  <url>
+    <loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/News.html</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/sisteragatha.jpg</image:loc>
+      <image:title>Sister Agatha — Solemn Profession, 27 February 2027</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/sistermaria1.jpg</image:loc>
+      <image:title>Sister Maria Hope Ehizojie — Simple Profession, 24 October 2026</image:title>
+    </image:image>
+  </url>
+
+  <!-- ============ CONTACT ============ -->
   <url>
     <loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/Contact.html</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
+  <!-- ============ PROFESSION ============ -->
   <url>
     <loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/Profession.html</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-24</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/sistermaria1.jpg</image:loc>
+      <image:title>Sister Maria Hope Ehizojie — Now Professed</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/sistermaria2.jpg</image:loc>
+      <image:title>Sister Maria Hope with a fellow Sister</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/sistermaria3.jpg</image:loc>
+      <image:title>Sister Maria Hope — Portrait of Joy</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/sistermaria4.jpg</image:loc>
+      <image:title>Sister Maria Hope with Family, the Novice Mistress, and Mother Rose</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/sistermaria5.jpg</image:loc>
+      <image:title>Sister Maria Hope with Family and Community</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/sistermaria6.jpg</image:loc>
+      <image:title>The Joy of the Day</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/sistermaria7.jpg</image:loc>
+      <image:title>Sister Maria Hope with a Friend</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://st-clarecandle-altar-bread-ent.github.io/St.-Clare-Candle-and-Altar-Bread-Enterprise-/sisteragatha.jpg</image:loc>
+      <image:title>Sister Agatha — Solemn Profession, 27 February 2027</image:title>
+    </image:image>
   </url>
 
+  <!-- ============ SISTER DEPARTMENT — HELICICULTURE ============ -->
   <url>
     <loc>https://stclare-heliciculture.github.io/stclaremonastery-heliciculture/</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
