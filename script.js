@@ -143,7 +143,7 @@
         btn.style.setProperty('--y', ((e.clientY - r.top) / r.height) * 100 + '%');
       });
     });
-        }
+                                                                                                                                                                                                                                                                                                                    }
      /* GALLERY — Tabs + Advent + Paschal + Lightbox */
   function initGallery() {
     const tabs = $$('.gallery-tab');
@@ -326,37 +326,92 @@
     setTimeout(launch, 3000);
   }
 
-  /* PROFESSION BANNER */
+  /* PROFESSION BANNER — Auto-updates for Sister Maria Hope (Simple) and Sister Agatha (Solemn) */
   function initProfessionBanner() {
     const banner = document.getElementById('professionBanner');
     if (!banner) return;
     const messageEl = document.getElementById('professionMessage');
     const readMoreEl = document.getElementById('professionReadMore');
-    const professionDate = new Date('2026-10-24T10:00:00');
-    const today = new Date(); today.setHours(0, 0, 0, 0);
-    const professionDay = new Date(professionDate); professionDay.setHours(0, 0, 0, 0);
-    const msPerDay = 24 * 60 * 60 * 1000;
-    const daysUntil = Math.ceil((professionDay - today) / msPerDay);
 
-    if (daysUntil === 0) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Simple Profession — Sister Maria Hope Ehizojie — 24 October 2026
+    const simpleProfession = new Date('2026-10-24T10:00:00');
+    simpleProfession.setHours(0, 0, 0, 0);
+
+    // Solemn Profession — Sister Agatha — 27 February 2027
+    const solemnProfession = new Date('2027-02-27T10:00:00');
+    solemnProfession.setHours(0, 0, 0, 0);
+
+    const msPerDay = 24 * 60 * 60 * 1000;
+
+    /* --- SIMPLE PROFESSION DAY (24 October 2026) --- */
+    if (today.getTime() === simpleProfession.getTime()) {
       banner.classList.add('celebration');
-      if (messageEl) messageEl.innerHTML = '🌸 Today is the Day! 🌸 Profession of Sister Maria Hope Ehizojie · St. Clare Monastery Nigeria · 10:00 AM · Let us rejoice and give thanks to God!';
-      if (readMoreEl) readMoreEl.style.display = 'inline-block';
+      if (messageEl) messageEl.innerHTML = '🌸 Today is the Day! 🌸 Simple Profession of Sister Maria Hope Ehizojie · St. Clare Monastery Nigeria · 10:00 AM · Let us rejoice and give thanks to God!';
+      if (readMoreEl) { readMoreEl.style.display = 'inline-block'; readMoreEl.textContent = '🌸 See Photos'; }
       createFlowerPetals();
       return;
     }
 
-    if (daysUntil > 0 && messageEl) {
-      let text = '';
-      if (daysUntil === 1) text = '<strong>Tomorrow</strong> — the Simple Profession of Sister Maria Hope Ehizojie';
-      else if (daysUntil === 2) text = '<strong>Just 2 days</strong> — Sister Maria Hope Ehizojie\'s Simple Profession · Saturday, 24 October 2026';
-      else if (daysUntil < 7) text = '<strong>' + daysUntil + ' days</strong> until the Simple Profession of Sister Maria Hope Ehizojie · Saturday, 24 October 2026 · 10:00 AM';
-      else if (daysUntil === 7) text = '<strong>One week</strong> until the Simple Profession of Sister Maria Hope Ehizojie · Saturday, 24 October 2026';
-      else text = '<strong>' + daysUntil + ' days</strong> until the Simple Profession of Sister Maria Hope Ehizojie · Saturday, 24 October 2026';
-      messageEl.innerHTML = text + ' · Please remember her in your prayers.';
+    /* --- SOLEMN PROFESSION DAY (27 February 2027) --- */
+    if (today.getTime() === solemnProfession.getTime()) {
+      banner.classList.add('celebration');
+      if (messageEl) messageEl.innerHTML = '🌸 Today is the Day! 🌸 Solemn Profession of Sister Agatha · St. Clare Monastery Nigeria · 10:00 AM · Let us rejoice and give thanks to God!';
+      if (readMoreEl) { readMoreEl.style.display = 'inline-block'; readMoreEl.textContent = '🌸 See Photos'; }
+      createFlowerPetals();
+      return;
     }
 
-    if (daysUntil < 0) banner.style.display = 'none';
+    /* --- AFTER SIMPLE, BEFORE SOLEMN --- */
+    if (today > simpleProfession && today < solemnProfession) {
+      const daysSinceSimple = Math.floor((today - simpleProfession) / msPerDay);
+      const daysUntilSolemn = Math.ceil((solemnProfession - today) / msPerDay);
+
+      if (messageEl) {
+        if (daysSinceSimple <= 30) {
+          // Within a month after Sister Maria Hope's profession
+          messageEl.innerHTML = '<strong>Congratulations to Sister Maria Hope Ehizojie</strong>, now professed at St. Clare Monastery Nigeria · <strong>' + daysUntilSolemn + ' days</strong> until the Solemn Profession of Sister Agatha · 27 February 2027';
+        } else if (daysUntilSolemn <= 30) {
+          // Final month before Sister Agatha's Solemn Profession
+          messageEl.innerHTML = '<strong>' + daysUntilSolemn + ' days</strong> until the Solemn Profession of Sister Agatha · 27 February 2027 · Please remember her in your prayers.';
+        } else if (daysUntilSolemn <= 90) {
+          // Preparing for Solemn Profession
+          messageEl.innerHTML = '<strong>Solemn Profession of Sister Agatha</strong> · 27 February 2027 · <strong>' + daysUntilSolemn + ' days</strong> to go. Please pray for her.';
+        } else {
+          // Far out
+          messageEl.innerHTML = 'Next: <strong>Solemn Profession of Sister Agatha</strong> · 27 February 2027 · Please pray for her preparation.';
+        }
+      }
+
+      if (readMoreEl) {
+        if (daysSinceSimple <= 30) {
+          readMoreEl.style.display = 'inline-block';
+          readMoreEl.textContent = '🌸 See Sister Maria Hope\'s Photos';
+        } else {
+          readMoreEl.style.display = 'none';
+        }
+      }
+      return;
+    }
+
+    /* --- AFTER SOLEMN (after 27 Feb 2027) --- */
+    if (today > solemnProfession) {
+      const daysSinceSolemn = Math.floor((today - solemnProfession) / msPerDay);
+      if (messageEl) {
+        if (daysSinceSolemn <= 30) {
+          messageEl.innerHTML = '<strong>Congratulations to Sister Agatha</strong>, now solemnly professed at St. Clare Monastery Nigeria · <a href="Profession.html" style="color:#B8860B; text-decoration:underline;">See Photos</a>';
+        } else {
+          messageEl.innerHTML = 'Thank you for your prayers for the Sisters of St. Clare Monastery Nigeria. 🙏';
+        }
+      }
+      if (readMoreEl && daysSinceSolemn <= 30) {
+        readMoreEl.style.display = 'inline-block';
+        readMoreEl.textContent = '🌸 See Photos';
+      }
+      return;
+    }
   }
 
   function createFlowerPetals() {
