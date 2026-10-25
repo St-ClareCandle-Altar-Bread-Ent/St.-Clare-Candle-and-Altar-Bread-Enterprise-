@@ -2209,6 +2209,61 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   }
                                      }
      }
+   /* ============================================================
+   PHOTO CARDS — Profession page
+   St. Clare Monastery Nigeria
+   ============================================================ */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.photo-card {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--white-pure, #fff);
+  border-radius: 8px;
+  box-shadow: 0 4px 18px rgba(90, 60, 30, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.photo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 26px rgba(90, 60, 30, 0.14);
+}
+
+.photo-card img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.photo-card:hover img {
+  transform: scale(1.04);
+}
+
+.photo-card figcaption {
+  padding: 16px 20px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--brown-mid, #8B6F47);
+  text-align: center;
+  border-top: 1px solid rgba(210, 180, 140, 0.35);
+}
+
+@media (max-width: 600px) {
+  .photo-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+                   }
 /* ============================================================
    END OF STYLESHEET
    © 2026 St. Clare Candle and Altar Bread Enterprise.
