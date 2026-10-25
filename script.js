@@ -1,521 +1,376 @@
 /* ============================================================
-   ST. CLARE CANDLE AND ALTAR BREAD ENTERPRISE
-   script.js — Physics × Biology Interaction Engine
-
-   Copyright © 2026 St. Clare Candle and Altar Bread Enterprise.
+   SCRIPT.JS — St. Clare Monastery Nigeria
+   © 2026 St. Clare Candle and Altar Bread Enterprise.
    All Rights Reserved. Ijebu-Ode, Ogun State, Nigeria.
 
-   Contact: stclarecandlealtarent8@gmail.com
-   Phone  : 09031805281
+   CONTENTS
+   1. Auto Banner Rotation
+   2. Christ the King — Rose Petal Rain
+   3. Navigation Toggle
+   4. Reveal on Scroll
+   5. WhatsApp Toast
+   6. Gallery Lightbox + Filters
+   7. Auto WhatsApp (Contact page)
    ============================================================ */
 
-(function () {
-  'use strict';
-
-  const CONFIG = {
-    whatsapp: {
-      number: '2349031805281',
-      prefilled: 'Good day, Sisters of St. Clare Monastery Nigeria. I found your website and I would like to enquire about your candles and altar bread.'
-    },
-    particles: { count: 42, maxSize: 3.2, minSize: 0.8, riseSpeed: 0.35, flickerSpeed: 0.0022, glowRadius: 26 }
-  };
-
-  const $  = (sel, ctx = document) => ctx.querySelector(sel);
-  const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
-  const rand = (min, max) => Math.random() * (max - min) + min;
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* CANDLE-FLAME PARTICLE CANVAS */
-  function initFlameCanvas() {
-    if (prefersReduced) return;
-    let canvas = $('#flameCanvas');
-    if (!canvas) { canvas = document.createElement('canvas'); canvas.id = 'flameCanvas'; document.body.appendChild(canvas); }
-    const ctx = canvas.getContext('2d');
-    let W = 0, H = 0;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    function resize() { W = window.innerWidth; H = window.innerHeight; canvas.width = W * dpr; canvas.height = H * dpr; canvas.style.width = W + 'px'; canvas.style.height = H + 'px'; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
-    resize();
-    window.addEventListener('resize', resize);
-    const palette = ['#FFE9B8', '#F4C430', '#E08B2A', '#D2B48C', '#8B5A2B'];
-    const particles = Array.from({ length: CONFIG.particles.count }).map(() => spawn(true));
-    function spawn(initial = false) { return { x: rand(0, W), y: initial ? rand(0, H) : H + rand(10, 80), size: rand(CONFIG.particles.minSize, CONFIG.particles.maxSize), speed: rand(0.2, CONFIG.particles.riseSpeed + 0.4), drift: rand(-0.15, 0.15), flicker: rand(0, Math.PI * 2), hue: palette[Math.floor(rand(0, palette.length))], alpha: rand(0.35, 0.85) }; }
-    function draw() {
-      ctx.clearRect(0, 0, W, H);
-      ctx.globalCompositeOperation = 'lighter';
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-        p.flicker += CONFIG.particles.flickerSpeed; p.x += p.drift + Math.sin(p.flicker) * 0.35; p.y -= p.speed;
-        if (p.y < -20 || p.x < -40 || p.x > W + 40) { particles[i] = spawn(false); continue; }
-        const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, CONFIG.particles.glowRadius);
-        glow.addColorStop(0, hexToRgba(p.hue, p.alpha)); glow.addColorStop(1, hexToRgba(p.hue, 0));
-        ctx.fillStyle = glow; ctx.beginPath(); ctx.arc(p.x, p.y, CONFIG.particles.glowRadius, 0, Math.PI * 2); ctx.fill();
-        ctx.fillStyle = hexToRgba(p.hue, 0.95); ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
-      }
-      ctx.globalCompositeOperation = 'source-over';
-      requestAnimationFrame(draw);
-    }
-    draw();
-  }
-
-  function hexToRgba(hex, a) { const h = hex.replace('#', ''); const r = parseInt(h.substring(0,2),16); const g = parseInt(h.substring(2,4),16); const b = parseInt(h.substring(4,6),16); return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')'; }
-
-  /* TOAST */
-  function showToast(message, duration) {
-    duration = duration || 2600;
-    let t = document.querySelector('.st-clare-toast');
-    if (!t) { t = document.createElement('div'); t.className = 'st-clare-toast'; document.body.appendChild(t); }
-    t.textContent = message;
-    requestAnimationFrame(function () { t.classList.add('show'); });
-    clearTimeout(t._timer);
-    t._timer = setTimeout(function () { t.classList.remove('show'); }, duration);
-  }
-
-  function initOrderLinks() { $$('.btn-order').forEach(function (el) { el.addEventListener('click', function () { showToast('Opening WhatsApp to complete your order…'); }); }); }
-  function initBulkQuote() { $$('.btn-bulk').forEach(function (el) { el.addEventListener('click', function () { showToast('Opening WhatsApp for your bulk quote request…', 3200); }); }); }
-
-  /* SCROLL REVEAL */
-  function initScrollReveal() {
-    const targets = $$('.reveal, section, .card, .product');
-    if (!targets.length) return;
-    if (!('IntersectionObserver' in window) || prefersReduced) { targets.forEach(function (t) { t.classList.add('in'); }); return; }
-    const io = new IntersectionObserver(function (entries) { entries.forEach(function (entry) { if (entry.isIntersecting) { entry.target.classList.add('in'); io.unobserve(entry.target); } }); }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-    targets.forEach(function (t) { if (!t.classList.contains('reveal')) t.classList.add('reveal'); io.observe(t); });
-  }
-
-  /* NAV TOGGLE */
-  function initNavToggle() {
-    const toggle = $('.nav-toggle'); const links = $('.nav-links');
-    if (!toggle || !links) return;
-    toggle.addEventListener('click', function () { toggle.classList.toggle('open'); links.classList.toggle('open'); toggle.setAttribute('aria-expanded', toggle.classList.contains('open') ? 'true' : 'false'); });
-    $$('.nav-links a').forEach(function (a) { a.addEventListener('click', function () { toggle.classList.remove('open'); links.classList.remove('open'); }); });
-  }
-
-  /* ACTIVE NAV */
-  function initActiveNav() {
-    const path = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
-    $$('.nav-links a').forEach(function (a) { const href = (a.getAttribute('href') || '').toLowerCase(); if (href === path || (path === '' && href === 'index.html')) a.classList.add('active'); });
-  }
-
-  /* SMOOTH ANCHORS */
-  function initSmoothAnchors() {
-    $$('a[href^="#"]').forEach(function (a) {
-      a.addEventListener('click', function (e) {
-        const id = a.getAttribute('href'); if (!id || id === '#') return;
-        const target = document.querySelector(id); if (!target) return;
-        e.preventDefault();
-        const y = target.getBoundingClientRect().top + window.pageYOffset - 80;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      });
-    });
-  }
-
-  /* IMAGE FALLBACK */
-  function initImageFallback() {
-    $$('img').forEach(function (img) {
-      img.addEventListener('error', function () {
-        const fallback = document.createElement('div');
-        fallback.style.cssText = 'width:' + (img.width || 44) + 'px;height:' + (img.height || 44) + 'px;border-radius:50%;background:conic-gradient(from 0deg,#D2B48C,#F4C430,#8B5A2B,#D2B48C);box-shadow:0 0 32px rgba(244,196,48,0.55);';
-        img.replaceWith(fallback);
-        console.warn('[St. Clare] Image failed to load:', img.src);
-      });
-    });
-  }
-
-  /* HERO LOGO PARALLAX */
-  function initHeroLogoParallax() {
-    if (prefersReduced) return;
-    if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
-    const logo = $('.hero-logo'); if (!logo) return;
-    window.addEventListener('mousemove', function (e) {
-      const x = (e.clientX / window.innerWidth - 0.5) * 8;
-      const y = (e.clientY / window.innerHeight - 0.5) * 8;
-      logo.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(1.02)';
-    });
-  }
-
-  /* BUTTON RIPPLE */
-  function initButtonRipple() {
-    if (prefersReduced) return;
-    $$('.btn').forEach(function (btn) {
-      btn.addEventListener('mousemove', function (e) {
-        const r = btn.getBoundingClientRect();
-        btn.style.setProperty('--x', ((e.clientX - r.left) / r.width) * 100 + '%');
-        btn.style.setProperty('--y', ((e.clientY - r.top) / r.height) * 100 + '%');
-      });
-    });
-                                                                                                                                                                                                                                                                                                                    }
-     /* GALLERY — Tabs + Advent + Paschal + Lightbox */
-  function initGallery() {
-    const tabs = $$('.gallery-tab');
-    const items = $$('.gallery-item');
-    const galleryGrid = $('#mainGallery');
-    const adventPanel = $('#adventPanel');
-    const paschalPanel = $('#paschalPanel');
-    if (!items.length) return;
-
-    if (tabs.length) {
-      tabs.forEach((tab) => {
-        tab.addEventListener('click', () => {
-          const filter = tab.dataset.filter;
-          tabs.forEach((t) => t.classList.remove('active'));
-          tab.classList.add('active');
-          if (adventPanel) { if (filter === 'advent') adventPanel.classList.add('show'); else adventPanel.classList.remove('show'); }
-          if (paschalPanel) { if (filter === 'paschal') paschalPanel.classList.add('show'); else paschalPanel.classList.remove('show'); }
-          if (galleryGrid) galleryGrid.classList.add('filtering');
-          setTimeout(() => {
-            items.forEach((item) => {
-              const cat = item.dataset.category || 'all';
-              if (filter === 'all' || cat === filter) item.classList.remove('hidden');
-              else item.classList.add('hidden');
-            });
-            if (galleryGrid) galleryGrid.classList.remove('filtering');
-            let target = galleryGrid;
-            if (adventPanel && adventPanel.classList.contains('show')) target = adventPanel;
-            if (paschalPanel && paschalPanel.classList.contains('show')) target = paschalPanel;
-            if (target) { const y = target.getBoundingClientRect().top + window.pageYOffset - 120; window.scrollTo({ top: y, behavior: 'smooth' }); }
-          }, 250);
-        });
-      });
-    }
-
-    const hash = (window.location.hash || '').replace('#', '');
-    if (hash && tabs.length) { const targetTab = tabs.find((t) => t.dataset.filter === hash); if (targetTab) setTimeout(() => targetTab.click(), 200); }
-    else { items.forEach((item) => { if (item.dataset.category === 'advent' || item.dataset.category === 'paschal') item.classList.add('hidden'); }); }
-
-    updateLiturgicalWeek();
-
-    const lightbox = $('#lightbox');
-    const lightboxImg = $('#lightboxImg');
-    const lightboxCaption = $('#lightboxCaption');
-    const btnClose = $('#lightboxClose');
-    const btnPrev = $('#lightboxPrev');
-    const btnNext = $('#lightboxNext');
-    if (!lightbox || !lightboxImg) return;
-
-    let currentIndex = 0;
-    let visibleItems = items;
-    function updateVisible() { visibleItems = items.filter((i) => !i.classList.contains('hidden')); }
-    function openLightbox(index) {
-      updateVisible(); currentIndex = index;
-      const item = visibleItems[currentIndex]; if (!item) return;
-      const img = item.querySelector('img'); const cap = item.querySelector('figcaption');
-      lightboxImg.src = img.src; lightboxImg.alt = img.alt;
-      lightboxCaption.textContent = cap ? cap.textContent : '';
-      lightbox.classList.add('show'); document.body.style.overflow = 'hidden';
-    }
-    function closeLightbox() { lightbox.classList.remove('show'); document.body.style.overflow = ''; }
-    function showPrev() { updateVisible(); currentIndex = (currentIndex - 1 + visibleItems.length) % visibleItems.length; openLightbox(currentIndex); }
-    function showNext() { updateVisible(); currentIndex = (currentIndex + 1) % visibleItems.length; openLightbox(currentIndex); }
-
-    items.forEach((item) => {
-      item.addEventListener('click', () => {
-        updateVisible();
-        const idx = visibleItems.indexOf(item);
-        if (idx >= 0) openLightbox(idx);
-      });
-    });
-
-    if (btnClose) btnClose.addEventListener('click', closeLightbox);
-    if (btnPrev)  btnPrev.addEventListener('click', showPrev);
-    if (btnNext)  btnNext.addEventListener('click', showNext);
-    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
-    document.addEventListener('keydown', (e) => {
-      if (!lightbox.classList.contains('show')) return;
-      if (e.key === 'Escape')     closeLightbox();
-      if (e.key === 'ArrowLeft')  showPrev();
-      if (e.key === 'ArrowRight') showNext();
-    });
-  }
-
-  /* LIGHTBOX-ONLY — for pages without tabs (e.g., Profession.html) */
-  function initLightboxOnly() {
-    const items = $$('.gallery-item');
-    const lightbox = $('#lightbox');
-    const lightboxImg = $('#lightboxImg');
-    const lightboxCaption = $('#lightboxCaption');
-    const btnClose = $('#lightboxClose');
-
-    if (!items.length || !lightbox || !lightboxImg) return;
-    if ($$('.gallery-tab').length > 0) return;
-
-    items.forEach((item) => {
-      item.addEventListener('click', () => {
-        const img = item.querySelector('img');
-        const cap = item.querySelector('figcaption');
-        if (!img) return;
-        lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt || '';
-        lightboxCaption.textContent = cap ? cap.textContent : '';
-        lightbox.classList.add('show');
-        document.body.style.overflow = 'hidden';
-      });
-    });
-
-    function closeLightbox() {
-      lightbox.classList.remove('show');
-      document.body.style.overflow = '';
-    }
-
-    if (btnClose) btnClose.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) closeLightbox();
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && lightbox.classList.contains('show')) {
-        closeLightbox();
-      }
-    });
-  }
-
-  /* LITURGICAL WEEK COUNTER */
-  function updateLiturgicalWeek() {
-    const weekEl = document.getElementById('weekNumber');
-    if (!weekEl) return;
-    const anchorDate = new Date('2026-09-27T00:00:00');
-    const today = new Date(); today.setHours(0, 0, 0, 0);
-    const msPerDay = 24 * 60 * 60 * 1000;
-    const diffDays = Math.floor((today - anchorDate) / msPerDay);
-    const weeksSince = Math.floor(diffDays / 7);
-    let currentWeek = 26 + weeksSince;
-    if (currentWeek > 34) currentWeek = ((currentWeek - 34 - 1) % 34) + 1;
-    if (currentWeek < 1) currentWeek = 1;
-    weekEl.textContent = currentWeek + getOrdinalSuffix(currentWeek);
-  }
-
-  function getOrdinalSuffix(n) { const s = ['th','st','nd','rd']; const v = n % 100; return s[(v - 20) % 10] || s[v] || s[0]; }
-
-  /* WHATSAPP AUTO-LAUNCH */
-  function initWhatsAppAutoLaunch() {
-    const body = document.body;
-    if (!body || body.dataset.autoWhatsapp !== 'true') return;
-    const num = CONFIG.whatsapp.number;
-    const msg = encodeURIComponent(CONFIG.whatsapp.prefilled);
-    const url = 'https://wa.me/' + num + '?text=' + msg;
-    const overlay = document.createElement('div');
-    overlay.className = 'wa-launch-overlay';
-    overlay.innerHTML =
-      '<div class="wa-launch-inner"><div class="wa-halo"><img src="logoaltarbread.png" alt="St. Clare Monastery Nigeria logo"></div>' +
-      '<p class="wa-launch-title">Connecting you to the Sisters…</p>' +
-      '<p class="wa-launch-sub">St. Clare Monastery Nigeria</p>' +
-      '<div class="wa-bar"><span></span></div>' +
-      '<button type="button" class="btn btn-wa btn-sm wa-launch-skip">Open WhatsApp Now</button></div>';
-    document.body.appendChild(overlay);
-    const style = document.createElement('style');
-    style.textContent =
-      '.wa-launch-overlay{position:fixed;inset:0;background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);z-index:9999;display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity 0.5s cubic-bezier(0.16,1,0.3,1);}' +
-      '.wa-launch-overlay.show{opacity:1;pointer-events:auto;}' +
-      '.wa-launch-inner{text-align:center;padding:24px;}' +
-      '.wa-halo{width:120px;height:120px;margin:0 auto 22px;border-radius:50%;padding:4px;background:conic-gradient(from 0deg,#D2B48C,#F4C430,#8B5A2B,#D2B48C);animation:synapse-spin 4s linear infinite;box-shadow:0 0 60px rgba(244,196,48,0.55);}' +
-      '.wa-halo img{width:100%;height:100%;border-radius:50%;object-fit:contain;background:#fff;padding:6px;}' +
-      '.wa-launch-title{font-family:Georgia,serif;font-size:1.25rem;color:#3E2412;margin-bottom:6px;}' +
-      '.wa-launch-sub{font-family:Courier New,monospace;font-size:0.78rem;color:#8B5A2B;letter-spacing:2.6px;text-transform:uppercase;margin-bottom:22px;}' +
-      '.wa-bar{width:220px;height:4px;margin:0 auto 24px;background:rgba(210,180,140,0.35);border-radius:4px;overflow:hidden;}' +
-      '.wa-bar span{display:block;height:100%;width:0%;background:linear-gradient(90deg,#8B5A2B,#F4C430);animation:wa-bar-fill 3s linear forwards;}' +
-      '@keyframes wa-bar-fill{to{width:100%;}}' +
-      '@keyframes synapse-spin{to{transform:rotate(360deg);}}';
-    document.head.appendChild(style);
-    requestAnimationFrame(function () { overlay.classList.add('show'); });
-    let launched = false;
-    function launch() {
-      if (launched) return;
-      launched = true;
-      window.open(url, '_blank', 'noopener,noreferrer');
-      setTimeout(function () { overlay.classList.remove('show'); }, 400);
-    }
-    overlay.querySelector('.wa-launch-skip').addEventListener('click', launch);
-    setTimeout(launch, 3000);
-  }
-
-  /* PROFESSION BANNER — Auto-updates for Sister Maria Hope (Simple) and Sister Agatha (Solemn) */
-  function initProfessionBanner() {
-    const banner = document.getElementById('professionBanner');
-    if (!banner) return;
-    const messageEl = document.getElementById('professionMessage');
-    const readMoreEl = document.getElementById('professionReadMore');
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    // Simple Profession — Sister Maria Hope Ehizojie — 24 October 2026
-    const simpleProfession = new Date('2026-10-24T10:00:00');
-    simpleProfession.setHours(0, 0, 0, 0);
-
-    // Solemn Profession — Sister Agatha — 27 February 2027
-    const solemnProfession = new Date('2027-02-27T10:00:00');
-    solemnProfession.setHours(0, 0, 0, 0);
-
-    const msPerDay = 24 * 60 * 60 * 1000;
-
-    /* --- SIMPLE PROFESSION DAY (24 October 2026) --- */
-    if (today.getTime() === simpleProfession.getTime()) {
-      banner.classList.add('celebration');
-      if (messageEl) messageEl.innerHTML = '🌸 Today is the Day! 🌸 Simple Profession of Sister Maria Hope Ehizojie · St. Clare Monastery Nigeria · 10:00 AM · Let us rejoice and give thanks to God!';
-      if (readMoreEl) { readMoreEl.style.display = 'inline-block'; readMoreEl.textContent = '🌸 See Photos'; }
-      createFlowerPetals();
-      return;
-    }
-
-    /* --- SOLEMN PROFESSION DAY (27 February 2027) --- */
-    if (today.getTime() === solemnProfession.getTime()) {
-      banner.classList.add('celebration');
-      if (messageEl) messageEl.innerHTML = '🌸 Today is the Day! 🌸 Solemn Profession of Sister Agatha · St. Clare Monastery Nigeria · 10:00 AM · Let us rejoice and give thanks to God!';
-      if (readMoreEl) { readMoreEl.style.display = 'inline-block'; readMoreEl.textContent = '🌸 See Photos'; }
-      createFlowerPetals();
-      return;
-    }
-
-    /* --- AFTER SIMPLE, BEFORE SOLEMN --- */
-    if (today > simpleProfession && today < solemnProfession) {
-      const daysSinceSimple = Math.floor((today - simpleProfession) / msPerDay);
-      const daysUntilSolemn = Math.ceil((solemnProfession - today) / msPerDay);
-
-      if (messageEl) {
-        if (daysSinceSimple <= 30) {
-          // Within a month after Sister Maria Hope's profession
-          messageEl.innerHTML = '<strong>Congratulations to Sister Maria Hope Ehizojie</strong>, now professed at St. Clare Monastery Nigeria · <strong>' + daysUntilSolemn + ' days</strong> until the Solemn Profession of Sister Agatha · 27 February 2027';
-        } else if (daysUntilSolemn <= 30) {
-          // Final month before Sister Agatha's Solemn Profession
-          messageEl.innerHTML = '<strong>' + daysUntilSolemn + ' days</strong> until the Solemn Profession of Sister Agatha · 27 February 2027 · Please remember her in your prayers.';
-        } else if (daysUntilSolemn <= 90) {
-          // Preparing for Solemn Profession
-          messageEl.innerHTML = '<strong>Solemn Profession of Sister Agatha</strong> · 27 February 2027 · <strong>' + daysUntilSolemn + ' days</strong> to go. Please pray for her.';
-        } else {
-          // Far out
-          messageEl.innerHTML = 'Next: <strong>Solemn Profession of Sister Agatha</strong> · 27 February 2027 · Please pray for her preparation.';
-        }
-      }
-
-      if (readMoreEl) {
-        if (daysSinceSimple <= 30) {
-          readMoreEl.style.display = 'inline-block';
-          readMoreEl.textContent = '🌸 See Sister Maria Hope\'s Photos';
-        } else {
-          readMoreEl.style.display = 'none';
-        }
-      }
-      return;
-    }
-
-    /* --- AFTER SOLEMN (after 27 Feb 2027) --- */
-    if (today > solemnProfession) {
-      const daysSinceSolemn = Math.floor((today - solemnProfession) / msPerDay);
-      if (messageEl) {
-        if (daysSinceSolemn <= 30) {
-          messageEl.innerHTML = '<strong>Congratulations to Sister Agatha</strong>, now solemnly professed at St. Clare Monastery Nigeria · <a href="Profession.html" style="color:#B8860B; text-decoration:underline;">See Photos</a>';
-        } else {
-          messageEl.innerHTML = 'Thank you for your prayers for the Sisters of St. Clare Monastery Nigeria. 🙏';
-        }
-      }
-      if (readMoreEl && daysSinceSolemn <= 30) {
-        readMoreEl.style.display = 'inline-block';
-        readMoreEl.textContent = '🌸 See Photos';
-      }
-      return;
-    }
-  }
-
-  function createFlowerPetals() {
-    if (document.querySelector('.flower-petals')) return;
-    const container = document.createElement('div');
-    container.className = 'flower-petals';
-    document.body.appendChild(container);
-    const flowers = ['🌸', '🌺', '🌼', '🌻', '🌷', '💮', '🏵️'];
-    for (let i = 0; i < 20; i++) {
-      const petal = document.createElement('div');
-      petal.className = 'petal';
-      petal.textContent = flowers[Math.floor(Math.random() * flowers.length)];
-      petal.style.left = Math.random() * 100 + '%';
-      petal.style.animationDuration = (8 + Math.random() * 8) + 's';
-      petal.style.animationDelay = (Math.random() * 8) + 's';
-      petal.style.fontSize = (1 + Math.random() * 1.2) + 'rem';
-      container.appendChild(petal);
-    }
-  }
-
-  function signConsole() {
-    console.log('%c🕯️ St. Clare Monastery Nigeria — Candle and Altar Bread Enterprise', 'color:#8B5A2B;font-size:14px;font-weight:bold;');
-    console.log('%c© 2026 All Rights Reserved. Ijebu-Ode, Ogun State, Nigeria.', 'color:#3E2412;font-size:12px;');
-    console.log('%c"Handcrafted for the Altar. Made for the Church."', 'color:#F4C430;font-style:italic;');
-  }
-
-  function boot() {
-    initFlameCanvas();
-    initOrderLinks();
-    initBulkQuote();
-    initScrollReveal();
-    initNavToggle();
-    initActiveNav();
-    initSmoothAnchors();
-    initImageFallback();
-    initHeroLogoParallax();
-    initButtonRipple();
-    initGallery();
-    initLightboxOnly();
-    initWhatsAppAutoLaunch();
-    initProfessionBanner();
-    signConsole();
-  }
-
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
-  else boot();
-})();
 /* ============================================================
-   AUTO BANNER ROTATION
-   Handles date-based announcements:
-   - Before 25 Oct 2026 → Profession of Sister Maria Hope
-   - From 25 Oct 2026 onwards → Christ the King (22 Nov 2026)
+   1. AUTO BANNER ROTATION
+   - Up to 25 Oct 2026 23:59 → Profession of Sister Maria Hope
+   - From 26 Oct 2026 00:00 → Christ the King (22 Nov 2026)
+   - After 22 Nov 2026 23:59 → Thank you message
    ============================================================ */
 (function () {
   'use strict';
 
-  var banner = document.getElementById('professionBanner');
-  var msg    = document.getElementById('professionMessage');
-  var link   = document.getElementById('professionReadMore');
-  if (!banner || !msg) return;
+  function applyBanner() {
+    var banner = document.getElementById('professionBanner');
+    var msg    = document.getElementById('professionMessage');
+    var link   = document.getElementById('professionReadMore');
+    if (!banner || !msg) return;
 
-  // Current date — set this to the actual current date logic
-  var now = new Date();
+    var now = new Date();
 
-  // ── Profession window: up to and including 24 Oct 2026 ──
-  var professionEnd = new Date('2026-10-24T23:59:59');
+    var professionEnd   = new Date('2026-10-25T23:59:59');
+    var christKingStart = new Date('2026-10-26T00:00:00');
+    var christKingEnd   = new Date('2026-11-22T23:59:59');
 
-  // ── Christ the King window: 25 Oct 2026 → 22 Nov 2026 ──
-  var christKingStart = new Date('2026-10-25T00:00:00');
-  var christKingEnd   = new Date('2026-11-22T23:59:59');
-
-  // ── After 22 Nov 2026 → return to a "thank you" / default state ──
-  // (Adjust below if you want a different post-event message)
-
-  if (now <= professionEnd) {
-    // Still inside the profession window — keep current content as-is
-    // (nothing to change — HTML already has the profession text)
-    return;
-  }
-
-  if (now >= christKingStart && now <= christKingEnd) {
-    // ── Swap to Christ the King announcement ──
-    if (msg) {
+    // Christ the King window
+    if (now >= christKingStart && now <= christKingEnd) {
       msg.innerHTML = '👑 Solemnity of Christ the King · Sunday, 22 November 2026 · Adoration at St. Clare Monastery Nigeria · All are welcome.';
+      if (link) {
+        link.textContent = '👑 See Details';
+        link.href = 'News.html';
+        link.style.display = 'inline-block';
+      }
+      banner.classList.add('celebration');
+      return;
     }
-    if (link) {
-      link.textContent = '👑 See Details';
-      link.href = 'News.html';
-      link.style.display = 'inline-block';
-    }
-    // Optional: give the banner the celebration glow
-    banner.classList.add('celebration');
-    return;
-  }
 
-  // ── After Christ the King → gentle post-event message ──
-  if (now > christKingEnd) {
-    if (msg) {
-      msg.innerHTML = '✦ Thank you for celebrating with us · St. Clare Monastery Nigeria ✦';
+    // Profession window
+    if (now <= professionEnd) {
+      return;
     }
+
+    // Post-event
+    msg.innerHTML = '✦ Thank you for celebrating with us · St. Clare Monastery Nigeria ✦';
     if (link) {
       link.textContent = '📰 View News';
       link.href = 'News.html';
       link.style.display = 'inline-block';
     }
   }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyBanner);
+  } else {
+    applyBanner();
+  }
 })();
+
+/* ============================================================
+   2. CHRIST THE KING — ROSE PETAL RAIN
+   Runs only 26 Oct 2026 → 22 Nov 2026 23:59:59
+   Auto-stops at midnight after 22 Nov.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  function initPetalRain() {
+    var now = new Date();
+    var start = new Date('2026-10-26T00:00:00');
+    var end   = new Date('2026-11-22T23:59:59');
+
+    if (now < start || now > end) return;
+
+    var layer = document.querySelector('.ctk-petal-layer');
+    if (!layer) {
+      layer = document.createElement('div');
+      layer.className = 'ctk-petal-layer';
+      layer.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(layer);
+    }
+
+    var petalSVG = [
+      '<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">',
+      '<path d="M20,2 C28,2 36,10 38,20 C39,25 37,31 33,35 C29,39 24,39 20,37',
+      'C16,39 11,39 7,35 C3,31 1,25 2,20 C4,10 12,2 20,2 Z"/>',
+      '<path d="M20,6 C26,6 32,12 33,19 C34,23 32,27 29,30 C26,33 22,33 20,31',
+      'C18,33 14,33 11,30 C8,27 6,23 7,19 C8,12 14,6 20,6 Z" opacity="0.55"/>',
+      '<path d="M20,10 C24,10 28,14 29,19 C30,22 28,25 26,27 C24,29 21,29 20,27',
+      'C19,29 16,29 14,27 C12,25 10,22 11,19 C12,14 16,10 20,10 Z" opacity="0.35"/>',
+      '</svg>'
+    ].join('');
+
+    var isMobile = window.matchMedia('(max-width: 720px)').matches;
+    var COUNT = isMobile ? 25 : 40;   // ← MORE PETALS (was 14 / 22)
+
+    for (var i = 0; i < COUNT; i++) {
+      (function () {
+        var petal = document.createElement('div');
+        var isRed = Math.random() < 0.55;
+        petal.className = 'ctk-petal ' + (isRed ? 'ctk-petal--red' : 'ctk-petal--white');
+        petal.innerHTML = petalSVG;
+
+        var size = 14 + Math.random() * 22;
+        petal.style.width  = size + 'px';
+        petal.style.height = size + 'px';
+
+        var left = Math.random() * 100;
+        petal.style.left = left + 'vw';
+
+        var duration = 9 + Math.random() * 8;
+        petal.style.animationDuration = duration + 's';
+        petal.style.animationDelay = (-Math.random() * duration) + 's';
+        petal.style.setProperty('--drift', (Math.random() * 120 - 60) + 'px');
+        petal.style.opacity = (0.55 + Math.random() * 0.35).toFixed(2);
+
+        layer.appendChild(petal);
+      })();
+    }
+
+    // Auto-cleanup after 22 Nov 23:59
+    function cleanup() {
+      if (new Date() > end) {
+        if (layer && layer.parentNode) layer.parentNode.removeChild(layer);
+        clearInterval(checker);
+      }
+    }
+    var checker = setInterval(cleanup, 60 * 1000);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPetalRain);
+  } else {
+    initPetalRain();
+  }
+})();
+
+/* ============================================================
+   3. NAVIGATION TOGGLE (mobile menu)
+   ============================================================ */
+(function () {
+  'use strict';
+
+  function initNav() {
+    var toggle = document.querySelector('.nav-toggle');
+    var links  = document.querySelector('.nav-links');
+    if (!toggle || !links) return;
+
+    toggle.addEventListener('click', function () {
+      var isOpen = links.classList.toggle('open');
+      toggle.classList.toggle('open', isOpen);
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    links.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        links.classList.remove('open');
+        toggle.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNav);
+  } else {
+    initNav();
+  }
+})();
+
+/* ============================================================
+   4. REVEAL ON SCROLL
+   ============================================================ */
+(function () {
+  'use strict';
+
+  function initReveal() {
+    var els = document.querySelectorAll('.reveal');
+    if (!els.length || !('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    els.forEach(function (el) { io.observe(el); });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initReveal);
+  } else {
+    initReveal();
+  }
+})();
+
+/* ============================================================
+   5. WHATSAPP TOAST
+   ============================================================ */
+(function () {
+  'use strict';
+
+  function initToast() {
+    if (!document.querySelector('[href*="wa.me"]')) return;
+
+    function showToast(text) {
+      var toast = document.createElement('div');
+      toast.className = 'st-clare-toast';
+      toast.textContent = text || 'Opening WhatsApp…';
+      document.body.appendChild(toast);
+      requestAnimationFrame(function () { toast.classList.add('show'); });
+      setTimeout(function () {
+        toast.classList.remove('show');
+        setTimeout(function () { toast.remove(); }, 400);
+      }, 2200);
+    }
+
+    document.querySelectorAll('[href*="wa.me"]').forEach(function (el) {
+      el.addEventListener('click', function () { showToast('Opening WhatsApp…'); });
+    });
+    document.querySelectorAll('[href^="mailto:"]').forEach(function (el) {
+      el.addEventListener('click', function () { showToast('Opening email…'); });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initToast);
+  } else {
+    initToast();
+  }
+})();
+
+/* ============================================================
+   6. GALLERY LIGHTBOX + FILTERS
+   ============================================================ */
+(function () {
+  'use strict';
+
+  function initGallery() {
+    var gallery = document.getElementById('mainGallery');
+    if (!gallery) return;
+
+    var items    = gallery.querySelectorAll('.gallery-item');
+    var tabs     = document.querySelectorAll('.gallery-tab');
+    var lightbox = document.getElementById('lightbox');
+    var lbImg    = document.getElementById('lightboxImg');
+    var lbCap    = document.getElementById('lightboxCaption');
+    var lbClose  = document.getElementById('lightboxClose');
+    var lbPrev   = document.getElementById('lightboxPrev');
+    var lbNext   = document.getElementById('lightboxNext');
+
+    var visibleItems = [];
+    var currentIndex = 0;
+
+    // Tabs / filtering
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        tabs.forEach(function (t) { t.classList.remove('active'); });
+        tab.classList.add('active');
+
+        var filter = tab.getAttribute('data-filter');
+        items.forEach(function (item) {
+          var cat = item.getAttribute('data-category');
+          if (filter === 'all' || cat === filter) {
+            item.classList.remove('hidden');
+          } else {
+            item.classList.add('hidden');
+          }
+        });
+
+        var adventPanel  = document.getElementById('adventPanel');
+        var paschalPanel = document.getElementById('paschalPanel');
+        if (adventPanel)  adventPanel.classList.toggle('show', filter === 'advent');
+        if (paschalPanel) paschalPanel.classList.toggle('show', filter === 'paschal');
+      });
+    });
+
+    // Lightbox
+    function rebuildVisible() {
+      visibleItems = [];
+      items.forEach(function (item) {
+        if (!item.classList.contains('hidden')) visibleItems.push(item);
+      });
+    }
+
+    function openLightbox(index) {
+      rebuildVisible();
+      if (!visibleItems.length) return;
+      currentIndex = ((index % visibleItems.length) + visibleItems.length) % visibleItems.length;
+      var item = visibleItems[currentIndex];
+      var img  = item.querySelector('img');
+      var cap  = item.querySelector('figcaption');
+      if (!img || !lightbox) return;
+      lbImg.src = img.src;
+      lbImg.alt = img.alt || '';
+      lbCap.textContent = cap ? cap.textContent : '';
+      lightbox.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      if (!lightbox) return;
+      lightbox.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+
+    items.forEach(function (item) {
+      item.addEventListener('click', function () {
+        rebuildVisible();
+        var idx = visibleItems.indexOf(item);
+        openLightbox(idx >= 0 ? idx : 0);
+      });
+    });
+
+    if (lbClose) lbClose.addEventListener('click', closeLightbox);
+    if (lbPrev)  lbPrev.addEventListener('click', function () { openLightbox(currentIndex - 1); });
+    if (lbNext)  lbNext.addEventListener('click', function () { openLightbox(currentIndex + 1); });
+
+    if (lightbox) {
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (!lightbox || !lightbox.classList.contains('show')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft')  openLightbox(currentIndex - 1);
+      if (e.key === 'ArrowRight') openLightbox(currentIndex + 1);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initGallery);
+  } else {
+    initGallery();
+  }
+})();
+
+/* ============================================================
+   7. AUTO WHATSAPP (Contact page only)
+   ============================================================ */
+(function () {
+  'use strict';
+
+  function initAutoWhatsApp() {
+    if (document.body.getAttribute('data-auto-whatsapp') !== 'true') return;
+    // Reserved for future use — kept intentional no-op
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAutoWhatsApp);
+  } else {
+    initAutoWhatsApp();
+  }
+})();
+
+/* ============================================================
+   END OF SCRIPT.JS
+   © 2026 St. Clare Candle and Altar Bread Enterprise.
+   ============================================================ */
