@@ -1605,39 +1605,159 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   /* Image shows at its natural aspect ratio — nothing cropped */
   .cinematic-hero-bg {
     position: relative;
-    inset: auto;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 5;
-    max-height: 70vh;
+/* ============================================================
+   CINEMATIC HERO — Tall portrait image, blends with site
+   Newly Professed Sister Maria Hope Ehizojie
+   ============================================================ */
+
+.cinematic-hero {
+  position: relative;
+  width: 100%;
+  background: transparent;
+  margin: 0;
+  padding: 50px 24px 40px;
+}
+
+.cinematic-hero-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  max-width: 100%;
+}
+
+/* ── Tall image wrapper ── */
+.cinematic-hero-bg {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow:
+    0 20px 60px rgba(62,36,18,0.28),
+    0 8px 24px rgba(62,36,18,0.15);
+  transition: transform 0.5s cubic-bezier(0.16,1,0.3,1),
+              box-shadow 0.5s ease;
+}
+
+.cinematic-hero-link:hover .cinematic-hero-bg {
+  transform: translateY(-6px);
+  box-shadow:
+    0 28px 80px rgba(62,36,18,0.35),
+    0 10px 30px rgba(62,36,18,0.2);
+}
+
+.cinematic-hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+}
+
+/* Remove the dark overlay entirely */
+.cinematic-hero-overlay {
+  display: none;
+}
+
+/* ── Caption below the image, on the site background ── */
+.cinematic-hero-content {
+  max-width: 720px;
+  margin: 36px auto 0;
+  text-align: center;
+  padding: 0 8px;
+}
+
+.cinematic-hero-eyebrow {
+  display: inline-block;
+  font-family: 'Courier New', monospace;
+  font-size: 0.74rem;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--brown-mid);
+  padding: 8px 22px;
+  border: 1px solid var(--brown-light);
+  border-radius: var(--r-pill);
+  background: rgba(255,255,255,0.7);
+  margin-bottom: 20px;
+}
+
+.cinematic-hero-title {
+  font-size: clamp(1.7rem, 4vw, 2.9rem);
+  color: var(--brown-deep);
+  line-height: 1.2;
+  margin-bottom: 18px;
+  padding-bottom: 0;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.cinematic-hero-title::after {
+  display: none;
+}
+
+.cinematic-hero-title strong {
+  display: block;
+  font-weight: 800;
+  color: var(--brown-darkest);
+  margin-top: 6px;
+  letter-spacing: 0.5px;
+}
+
+.cinematic-hero-sub {
+  max-width: 620px;
+  margin: 0 auto 26px;
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: var(--brown-darkest);
+  opacity: 0.88;
+  font-style: italic;
+}
+
+.cinematic-hero-cta {
+  display: inline-block;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  color: var(--brown-mid);
+  padding: 13px 30px;
+  border: 1px solid var(--brown-light);
+  border-radius: var(--r-pill);
+  background: rgba(255,255,255,0.75);
+  transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+
+.cinematic-hero-link:hover .cinematic-hero-cta {
+  background: var(--brown-deep);
+  color: var(--white-pure);
+  border-color: var(--brown-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(107,62,30,0.35);
+}
+
+/* ============================================================
+   MOBILE — Full-width tall portrait, blends with background
+   ============================================================ */
+@media (max-width: 720px) {
+  .cinematic-hero {
+    padding: 28px 16px 30px;
   }
 
-  .cinematic-hero-bg img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 25%;
-    transform: none;
-  }
-
-  .cinematic-hero-link:hover .cinematic-hero-bg img {
-    transform: none;
-  }
-
-  /* Overlay only sits over the image — text sits below */
-  .cinematic-hero-overlay {
-    position: relative;
-    inset: auto;
-    height: 0;
-    display: none;
+  .cinematic-hero-bg {
+    max-width: 100%;
+    aspect-ratio: 3 / 4;
+    border-radius: 16px;
+    box-shadow:
+      0 14px 40px rgba(62,36,18,0.24),
+      0 4px 12px rgba(62,36,18,0.12);
   }
 
   .cinematic-hero-content {
-    position: relative;
-    inset: auto;
-    background: linear-gradient(180deg, #3E2412 0%, #2A1A0F 100%);
-    padding: 28px 22px 36px;
-    text-align: center;
+    margin-top: 24px;
+    padding: 0 6px;
   }
 
   .cinematic-hero-eyebrow {
@@ -1648,22 +1768,21 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
   }
 
   .cinematic-hero-title {
-    font-size: 1.45rem;
+    font-size: 1.5rem;
     margin-bottom: 12px;
   }
 
   .cinematic-hero-sub {
-    font-size: 0.9rem;
-    margin-bottom: 18px;
-    line-height: 1.6;
+    font-size: 0.92rem;
+    line-height: 1.65;
+    margin-bottom: 20px;
   }
 
   .cinematic-hero-cta {
     font-size: 0.7rem;
-    padding: 10px 22px;
+    padding: 11px 24px;
   }
    }
-
 /* ============================================================
    END OF STYLESHEET
    © 2026 St. Clare Candle and Altar Bread Enterprise.
