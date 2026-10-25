@@ -1889,6 +1889,119 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
 
 .cinematic-hero-cta {
   display: inline-block;
+/* ============================================================
+   CINEMATIC HERO — Erect portrait, blended with site background
+   Newly Professed Sister Maria Hope Ehizojie
+   Jesuit.org aesthetic — no box, no overlay, pure blend
+   ============================================================ */
+
+.cinematic-hero {
+  position: relative;
+  width: 100%;
+  background: transparent;
+  margin: 0;
+  padding: 50px 24px 40px;
+}
+
+.cinematic-hero-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  max-width: 100%;
+}
+
+/* ── Image wrapper ── */
+.cinematic-hero-bg {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  overflow: visible;
+  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+
+.cinematic-hero-link:hover .cinematic-hero-bg {
+  transform: translateY(-4px);
+}
+
+/* ── The image itself ── */
+.cinematic-hero-bg img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: center top;
+  /* Soft radial fade to blend edges into ivory background */
+  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, #000 70%, transparent 100%);
+  mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, #000 70%, transparent 100%);
+}
+
+/* ── No overlay ── */
+.cinematic-hero-overlay {
+  display: none !important;
+}
+
+/* ── Caption below the image ── */
+.cinematic-hero-content {
+  max-width: 680px;
+  margin: 28px auto 0;
+  text-align: center;
+  padding: 0 12px;
+}
+
+.cinematic-hero-eyebrow {
+  display: inline-block;
+  font-family: 'Courier New', monospace;
+  font-size: 0.74rem;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--brown-mid);
+  padding: 8px 22px;
+  border: 1px solid var(--brown-light);
+  border-radius: var(--r-pill);
+  background: rgba(255,255,255,0.7);
+  margin-bottom: 20px;
+}
+
+.cinematic-hero-title {
+  font-size: clamp(1.7rem, 4vw, 2.9rem);
+  color: var(--brown-deep);
+  line-height: 1.2;
+  margin-bottom: 18px;
+  padding-bottom: 0;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.cinematic-hero-title::after {
+  display: none;
+}
+
+.cinematic-hero-title strong {
+  display: block;
+  font-weight: 800;
+  color: var(--brown-darkest);
+  margin-top: 6px;
+  letter-spacing: 0.5px;
+}
+
+.cinematic-hero-sub {
+  max-width: 620px;
+  margin: 0 auto 26px;
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: var(--brown-darkest);
+  opacity: 0.88;
+  font-style: italic;
+}
+
+.cinematic-hero-cta {
+  display: inline-block;
   font-family: 'Courier New', monospace;
   font-size: 0.8rem;
   letter-spacing: 2.2px;
@@ -1910,22 +2023,24 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
 }
 
 /* ============================================================
-   MOBILE — Erect portrait, blended into background
+   MOBILE — Full-width portrait, blended
    ============================================================ */
 @media (max-width: 720px) {
   .cinematic-hero {
-    padding: 30px 16px 36px;
+    padding: 28px 16px 32px;
   }
 
   .cinematic-hero-bg {
     max-width: 100%;
-    /* Softer blend on mobile */
-    -webkit-mask-image: radial-gradient(ellipse 110% 110% at 50% 45%, #000 65%, transparent 100%);
-    mask-image: radial-gradient(ellipse 110% 110% at 50% 45%, #000 65%, transparent 100%);
+  }
+
+  .cinematic-hero-bg img {
+    -webkit-mask-image: radial-gradient(ellipse 110% 110% at 50% 50%, #000 75%, transparent 100%);
+    mask-image: radial-gradient(ellipse 110% 110% at 50% 50%, #000 75%, transparent 100%);
   }
 
   .cinematic-hero-content {
-    margin-top: 22px;
+    margin-top: 20px;
     padding: 0 8px;
   }
 
@@ -1951,7 +2066,7 @@ section { position: relative; padding: 80px 24px; z-index: 2; }
     font-size: 0.7rem;
     padding: 11px 24px;
   }
-   }
+     }
 /* ============================================================
    END OF STYLESHEET
    © 2026 St. Clare Candle and Altar Bread Enterprise.
