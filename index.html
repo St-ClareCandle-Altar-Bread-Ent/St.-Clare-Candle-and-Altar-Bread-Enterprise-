@@ -92,20 +92,59 @@
   </div>
 </header>
 
-<!-- CINEMATIC HERO — NEWLY PROFESSED SISTER -->
-<section class="cinematic-hero">
-  <a href="SisterMariaHope.html" class="cinematic-hero-link" aria-label="Read about Sister Maria Hope Ehizojie">
-    <div class="cinematic-hero-bg">
-      <img src="sistermariaper1.png" alt="Sister Maria Hope Ehizojie — newly professed" loading="eager">
+<!-- ═══════════════════════════════════════════════════════════════
+     CINEMATIC HERO — NEWLY PROFESSED SISTER
+     GUARANTEED NO-OVERLAP: image on top, text stacked below
+     All layout forced via inline styles as ultimate fallback
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="cinematic-hero" style="position: relative; width: 100%; display: block; background: transparent; margin: 0; padding: 50px 24px 60px; box-sizing: border-box;">
+
+  <a href="SisterMariaHope.html"
+     class="cinematic-hero-link"
+     aria-label="Read about Sister Maria Hope Ehizojie"
+     style="display: block; width: 100%; max-width: 100%; text-decoration: none; color: inherit; margin: 0 auto; padding: 0; box-sizing: border-box;">
+
+    <!-- IMAGE BLOCK — takes natural height, no absolute positioning -->
+    <div class="cinematic-hero-bg"
+         style="display: block; width: 100%; max-width: 440px; margin: 0 auto; padding: 0; background: transparent; border: none; box-shadow: none; border-radius: 0; overflow: visible; position: relative; box-sizing: border-box;">
+
+      <img src="sistermariaper1.png"
+           alt="Sister Maria Hope Ehizojie — newly professed"
+           loading="eager"
+           style="display: block; width: 100%; height: auto; margin: 0 auto; object-fit: contain; object-position: center top;">
+
     </div>
-    <div class="cinematic-hero-content">
-      <span class="cinematic-hero-eyebrow">✦ Newly Professed ✦</span>
-      <h1 class="cinematic-hero-title">Our Newly Professed Sister<br><strong>Sister Maria Hope Ehizojie</strong></h1>
-      <p class="cinematic-hero-sub">On Saturday, 24 October 2026, she made her Simple Profession at St. Clare Monastery Nigeria — offering her life to God through the vows of poverty, chastity, and obedience.</p>
-      <span class="cinematic-hero-cta">Tap to read her story →</span>
+
+    <!-- CAPTION BLOCK — sits BELOW the image, never overlaps -->
+    <div class="cinematic-hero-content"
+         style="display: block; width: 100%; max-width: 680px; margin: 32px auto 0; padding: 0 12px; text-align: center; position: relative; box-sizing: border-box;">
+
+      <span class="cinematic-hero-eyebrow"
+            style="display: inline-block; margin-bottom: 20px;">
+        ✦ Newly Professed ✦
+      </span>
+
+      <h1 class="cinematic-hero-title"
+          style="display: block; margin: 0 0 18px 0; padding: 0;">
+        Our Newly Professed Sister<br>
+        <strong style="display: block; margin-top: 6px;">Sister Maria Hope Ehizojie</strong>
+      </h1>
+
+      <p class="cinematic-hero-sub"
+         style="display: block; margin: 0 auto 26px; max-width: 620px;">
+        On Saturday, 24 October 2026, she made her Simple Profession at St. Clare Monastery Nigeria — offering her life to God through the vows of poverty, chastity, and obedience.
+      </p>
+
+      <span class="cinematic-hero-cta"
+            style="display: inline-block;">
+        Tap to read her story →
+      </span>
+
     </div>
+
   </a>
 </section>
+<!-- ═══════════════════════════════════════════════════════════════ -->
 
 <section class="hero">
   <div class="hero-inner">
@@ -214,8 +253,8 @@
       </article>
     </div>
   </div>
-                                                                                                       </section>
-                                                                                                       <section id="altar-bread-gallery" style="background: linear-gradient(180deg, var(--white-warm), var(--white-pure));">
+  </section>
+ <section id="altar-bread-gallery" style="background: linear-gradient(180deg, var(--white-warm), var(--white-pure));">
   <div class="container">
     <div class="section-head">
       <span class="eyebrow">A Closer Look</span>
@@ -376,4 +415,4 @@
 
 <script src="script.js"></script>
 </body>
-  </html>
+                                     </html> 
