@@ -5,7 +5,7 @@
 
    CONTENTS
    1. Auto Banner Rotation
-   2. Christ the King — Rose Petal Rain
+   2. Christ the King — Rose Petal Rain (ONLY 22 Nov 2026)
    3. Navigation Toggle
    4. Reveal on Scroll
    5. WhatsApp Toast
@@ -15,8 +15,8 @@
 
 /* ============================================================
    1. AUTO BANNER ROTATION
-   - Up to 25 Oct 2026 23:59 → Profession of Sister Maria Hope
-   - From 26 Oct 2026 00:00 → Christ the King (22 Nov 2026)
+   - Up to 24 Oct 2026 23:59 → Profession of Sister Maria Hope
+   - From 25 Oct 2026 00:00 → Christ the King (22 Nov 2026)
    - After 22 Nov 2026 23:59 → Thank you message
    ============================================================ */
 (function () {
@@ -30,11 +30,11 @@
 
     var now = new Date();
 
-    var professionEnd   = new Date('2026-10-25T23:59:59');
-    var christKingStart = new Date('2026-10-26T00:00:00');
+    var professionEnd   = new Date('2026-10-24T23:59:59');
+    var christKingStart = new Date('2026-10-25T00:00:00');
     var christKingEnd   = new Date('2026-11-22T23:59:59');
 
-    // Christ the King window
+    // Christ the King window (25 Oct → 22 Nov 2026)
     if (now >= christKingStart && now <= christKingEnd) {
       msg.innerHTML = '👑 Solemnity of Christ the King · Sunday, 22 November 2026 · Adoration at St. Clare Monastery Nigeria · All are welcome.';
       if (link) {
@@ -46,12 +46,12 @@
       return;
     }
 
-    // Profession window
+    // Profession window (up to 24 Oct 2026 23:59)
     if (now <= professionEnd) {
       return;
     }
 
-    // Post-event
+    // Post-event (after 22 Nov 2026 23:59)
     msg.innerHTML = '✦ Thank you for celebrating with us · St. Clare Monastery Nigeria ✦';
     if (link) {
       link.textContent = '📰 View News';
@@ -69,18 +69,20 @@
 
 /* ============================================================
    2. CHRIST THE KING — ROSE PETAL RAIN
-   Runs only 26 Oct 2026 → 22 Nov 2026 23:59:59
-   Auto-stops at midnight after 22 Nov.
+   ONLY on 22 November 2026 (00:00 → 23:59:59)
+   Petals appear at midnight, fall all day, auto-removed at midnight after.
    ============================================================ */
 (function () {
   'use strict';
 
   function initPetalRain() {
     var now = new Date();
-    var start = new Date('2026-10-26T00:00:00');
-    var end   = new Date('2026-11-22T23:59:59');
 
-    if (now < start || now > end) return;
+    // 🎯 ONLY the day of Christ the King — 22 Nov 2026
+    var petalStart = new Date('2026-11-22T00:00:00');
+    var petalEnd   = new Date('2026-11-22T23:59:59');
+
+    if (now < petalStart || now > petalEnd) return;
 
     var layer = document.querySelector('.ctk-petal-layer');
     if (!layer) {
@@ -102,7 +104,7 @@
     ].join('');
 
     var isMobile = window.matchMedia('(max-width: 720px)').matches;
-    var COUNT = isMobile ? 25 : 40;   // ← MORE PETALS (was 14 / 22)
+    var COUNT = isMobile ? 25 : 40;
 
     for (var i = 0; i < COUNT; i++) {
       (function () {
@@ -128,9 +130,9 @@
       })();
     }
 
-    // Auto-cleanup after 22 Nov 23:59
+    // Auto-remove at midnight after 22 Nov 2026
     function cleanup() {
-      if (new Date() > end) {
+      if (new Date() > petalEnd) {
         if (layer && layer.parentNode) layer.parentNode.removeChild(layer);
         clearInterval(checker);
       }
@@ -267,7 +269,6 @@
     var visibleItems = [];
     var currentIndex = 0;
 
-    // Tabs / filtering
     tabs.forEach(function (tab) {
       tab.addEventListener('click', function () {
         tabs.forEach(function (t) { t.classList.remove('active'); });
@@ -290,7 +291,6 @@
       });
     });
 
-    // Lightbox
     function rebuildVisible() {
       visibleItems = [];
       items.forEach(function (item) {
@@ -360,7 +360,7 @@
 
   function initAutoWhatsApp() {
     if (document.body.getAttribute('data-auto-whatsapp') !== 'true') return;
-    // Reserved for future use — kept intentional no-op
+    // Reserved — intentional no-op for now
   }
 
   if (document.readyState === 'loading') {
