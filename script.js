@@ -459,3 +459,63 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();
+/* ============================================================
+   AUTO BANNER ROTATION
+   Handles date-based announcements:
+   - Before 25 Oct 2026 → Profession of Sister Maria Hope
+   - From 25 Oct 2026 onwards → Christ the King (22 Nov 2026)
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var banner = document.getElementById('professionBanner');
+  var msg    = document.getElementById('professionMessage');
+  var link   = document.getElementById('professionReadMore');
+  if (!banner || !msg) return;
+
+  // Current date — set this to the actual current date logic
+  var now = new Date();
+
+  // ── Profession window: up to and including 24 Oct 2026 ──
+  var professionEnd = new Date('2026-10-24T23:59:59');
+
+  // ── Christ the King window: 25 Oct 2026 → 22 Nov 2026 ──
+  var christKingStart = new Date('2026-10-25T00:00:00');
+  var christKingEnd   = new Date('2026-11-22T23:59:59');
+
+  // ── After 22 Nov 2026 → return to a "thank you" / default state ──
+  // (Adjust below if you want a different post-event message)
+
+  if (now <= professionEnd) {
+    // Still inside the profession window — keep current content as-is
+    // (nothing to change — HTML already has the profession text)
+    return;
+  }
+
+  if (now >= christKingStart && now <= christKingEnd) {
+    // ── Swap to Christ the King announcement ──
+    if (msg) {
+      msg.innerHTML = '👑 Solemnity of Christ the King · Sunday, 22 November 2026 · Adoration at St. Clare Monastery Nigeria · All are welcome.';
+    }
+    if (link) {
+      link.textContent = '👑 See Details';
+      link.href = 'News.html';
+      link.style.display = 'inline-block';
+    }
+    // Optional: give the banner the celebration glow
+    banner.classList.add('celebration');
+    return;
+  }
+
+  // ── After Christ the King → gentle post-event message ──
+  if (now > christKingEnd) {
+    if (msg) {
+      msg.innerHTML = '✦ Thank you for celebrating with us · St. Clare Monastery Nigeria ✦';
+    }
+    if (link) {
+      link.textContent = '📰 View News';
+      link.href = 'News.html';
+      link.style.display = 'inline-block';
+    }
+  }
+})();
