@@ -369,6 +369,29 @@
     initAutoWhatsApp();
   }
 })();
+/* LANGUAGE SELECTOR */
+(function () {
+  'use strict';
+  function initLang() {
+    var btn  = document.querySelector('.lang-btn');
+    var menu = document.getElementById('langMenu');
+    if (!btn || !menu) return;
+
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      menu.classList.toggle('open');
+    });
+
+    document.addEventListener('click', function () {
+      menu.classList.remove('open');
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLang);
+  } else {
+    initLang();
+  }
+})();
 
 /* ============================================================
    END OF SCRIPT.JS
