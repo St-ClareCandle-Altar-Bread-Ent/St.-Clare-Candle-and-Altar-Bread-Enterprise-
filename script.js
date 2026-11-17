@@ -534,6 +534,133 @@
     if (container && container.innerHTML.indexOf('26th') !== -1) {
       container.innerHTML = container.innerHTML.replace(/26th/g, ordinal(week));
     }
+/* ============================================================
+   9. LITURGICAL CALENDAR — WEEK OF ORDINARY TIME (AUTO)
+   Post-Pentecost week counted BACKWARDS from Christ the King
+   (always week 34). Sunday cycle A/B/C from liturgical year.
+
+   Verified:
+     17 Nov 2026 → 33rd week, Year A  (Christ the King = 22 Nov 2026)
+     22 Nov 2026 → 34th week, Year A
+     29 Nov 2026 → Advent begins (not OT)
+     24 May 2027 (Pentecost) → resumes 2nd week, Year B
+   ============================================================ */
+(function () {
+  'use strict';
+
+  function ordinal(n) {
+    var s = ['th', 'st', 'nd', 'rd'];
+    var v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
+  }
+
+  function addDays(date, days) {
+    var d = new Date(date.getTime());
+    d.setDate(d.getDate() + days);
+    return d;
+  }
+
+  // Easter Sunday (Gregorian) — Meeus/Jones/Butcher
+  function easterSunday(year) {
+    var a = year % 19;
+    var b = Math.floor(year / 100);
+    var c = year % 100;
+    var d = Math.floor(b / 4);
+    var e = b % 4;
+    var f = Math.floor((b + 8) / 25);
+    var g = Math.floor((b - f + 1) / 3);
+    var h = (19 * a + b - d - g + 15) % 30;
+    var i = Math.floor(c / 4);
+    var k = c % 4;
+    var l = (32 + 2 * e + 2 * i - h - k) % 7;
+    var m = Math.floor((a + 11 * h + 22 * l) / 451);
+    var month = Math.floor((h + l - 7 * m + 114) / 31);
+    var day   = ((h + l - 7 * m + 114) % 31) + 1;
+    return new Date(year, month - 1, day);
+  }
+
+  // 1st Sunday of Advent for a calendar year
+  function firstSundayOfAdvent(year) {
+    var christmas = new Date(year, 11, 25);
+    var dow = christmas.getDay();
+    var fourthSunday = addDays(christmas, -dow);
+    return addDays(fourthSunday, -21);
+  }
+
+  // Liturgical year label (the year that ENDS on Christ the King)
+  function liturgicalYearOf(today) {
+    var y = today.getFullYear();
+    var adventThisYear = firstSundayOfAdvent(y);
+    return today >= adventThisYear ? y + 1 : y;
+  }
+
+  // Sunday cycle A/B/C
+  //   2026 → A, 2027 → B, 2025 → C
+  function sundayCycle(liturgicalYear) {
+    var r = liturgicalYear % 3;
+    if (r === 0) return 'A';
+    if (r === 1) return 'B';
+    return 'C';
+  }
+
+  // Christ the King = Sunday before the ENDING year's Advent 1
+  function christTheKing(liturgicalYear) {
+    var advent1 = firstSundayOfAdvent(liturgicalYear);   // ← FIXED (no -1)
+    return addDays(advent1, -7);
+  }
+
+  function weekOfOrdinaryTime(today) {
+    var ly = liturgicalYearOf(today);
+    var easter    = easterSunday(ly);
+    var ashWed    = addDays(easter, -46);
+    var pentecost = addDays(easter, 49);
+    var ctk       = christTheKing(ly);
+
+    // Phase 1: pre-Lent OT (Advent → Ash Wednesday)
+    if (today < ashWed) {
+      var epiphany = new Date(ly - 1, 0, 6);
+      var baptism = addDays(epiphany, (7 - epiphany.getDay()) % 7 || 7);
+      var count = 0;
+      var cursor = new Date(baptism.getTime());
+      while (cursor <= today) {
+        if (cursor.getDay() === 0) count++;
+        cursor = addDays(cursor, 1);
+      }
+      return Math.min(Math.max(count, 1), 8);
+    }
+
+    // Phase 2: Lent / Easter — not OT
+    if (today <= pentecost) return null;
+
+    // Phase 3: post-Pentecost OT — count backwards from Christ the King
+    var dow = today.getDay();
+    var lastSunday = addDays(today, -dow);
+    var diffDays = Math.round((ctk - lastSunday) / 86400000);
+    var weeksBack = diffDays / 7;
+    var week = 34 - weeksBack;
+    return Math.min(Math.max(week, 2), 34);
+  }
+
+  function updateLiturgicalWeek() {
+    var today = new Date();
+    var weekEl = document.getElementById('weekNumber');
+    if (!weekEl) return;
+
+    var week = weekOfOrdinaryTime(today);
+    if (week === null) return;
+
+    var ly = liturgicalYearOf(today);
+    var cycle = sundayCycle(ly);
+
+    weekEl.textContent = ordinal(week);
+
+    var cycleEl = document.getElementById('yearCycle');
+    if (cycleEl) cycleEl.textContent = cycle;
+
+    var container = document.getElementById('liturgicalWeek');
+    if (container && container.innerHTML.indexOf('26th') !== -1) {
+      container.innerHTML = container.innerHTML.replace(/26th/g, ordinal(week));
+    }
   }
 
   function scheduleMidnightUpdate() {
