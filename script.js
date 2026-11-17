@@ -11,6 +11,8 @@
    5. WhatsApp Toast
    6. Gallery Lightbox + Filters
    7. Auto WhatsApp (Contact page)
+   8. Language Selector
+   9. Liturgical Calendar — Week of Ordinary Time (auto-updating)
    ============================================================ */
 
 /* ============================================================
@@ -34,7 +36,6 @@
     var christKingStart = new Date('2026-10-25T00:00:00');
     var christKingEnd   = new Date('2026-11-22T23:59:59');
 
-    // Christ the King window (25 Oct → 22 Nov 2026)
     if (now >= christKingStart && now <= christKingEnd) {
       msg.innerHTML = '👑 Solemnity of Christ the King · Sunday, 22 November 2026 · Adoration at St. Clare Monastery Nigeria · All are welcome.';
       if (link) {
@@ -46,12 +47,10 @@
       return;
     }
 
-    // Profession window (up to 24 Oct 2026 23:59)
     if (now <= professionEnd) {
       return;
     }
 
-    // Post-event (after 22 Nov 2026 23:59)
     msg.innerHTML = '✦ Thank you for celebrating with us · St. Clare Monastery Nigeria ✦';
     if (link) {
       link.textContent = '📰 View News';
@@ -70,7 +69,6 @@
 /* ============================================================
    2. CHRIST THE KING — ROSE PETAL RAIN
    ONLY on 22 November 2026 (00:00 → 23:59:59)
-   Petals appear at midnight, fall all day, auto-removed at midnight after.
    ============================================================ */
 (function () {
   'use strict';
@@ -78,7 +76,6 @@
   function initPetalRain() {
     var now = new Date();
 
-    // 🎯 ONLY the day of Christ the King — 22 Nov 2026
     var petalStart = new Date('2026-11-22T00:00:00');
     var petalEnd   = new Date('2026-11-22T23:59:59');
 
@@ -130,7 +127,6 @@
       })();
     }
 
-    // Auto-remove at midnight after 22 Nov 2026
     function cleanup() {
       if (new Date() > petalEnd) {
         if (layer && layer.parentNode) layer.parentNode.removeChild(layer);
@@ -146,7 +142,6 @@
     initPetalRain();
   }
 })();
-
 /* ============================================================
    3. NAVIGATION TOGGLE (mobile menu)
    ============================================================ */
@@ -246,7 +241,6 @@
     initToast();
   }
 })();
-
 /* ============================================================
    6. GALLERY LIGHTBOX + FILTERS
    ============================================================ */
@@ -369,9 +363,13 @@
     initAutoWhatsApp();
   }
 })();
-/* LANGUAGE SELECTOR */
+
+/* ============================================================
+   8. LANGUAGE SELECTOR
+   ============================================================ */
 (function () {
   'use strict';
+
   function initLang() {
     var btn  = document.querySelector('.lang-btn');
     var menu = document.getElementById('langMenu');
@@ -385,11 +383,176 @@
     document.addEventListener('click', function () {
       menu.classList.remove('open');
     });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') menu.classList.remove('open');
+    });
   }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initLang);
   } else {
     initLang();
+  }
+})();
+/* ============================================================
+   9. LITURGICAL CALENDAR — WEEK OF ORDINARY TIME (AUTO)
+   Computes the correct week of Ordinary Time from today's date.
+   Post-Pentecost week is counted BACKWARDS from Christ the King
+   (always week 34), which is stable every year.
+
+   Also updates the Sunday cycle (Year A / B / C):
+     liturgical year % 3 === 0 → A
+     liturgical year % 3 === 1 → B
+     liturgical year % 3 === 2 → C
+   (Verified: 2025–26 = A, 2026–27 = B, 2024–25 = C)
+
+   Writes to:
+     #weekNumber  → ordinal, e.g. "33rd"
+     #yearCycle   → "A" / "B" / "C"
+
+   Runs on load AND at midnight rollover (so Sunday change appears
+   live without a page reload if the tab is left open).
+   ============================================================ */
+(function () {
+  'use strict';
+
+  function ordinal(n) {
+    var s = ['th', 'st', 'nd', 'rd'];
+    var v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
+  }
+
+  function addDays(date, days) {
+    var d = new Date(date.getTime());
+    d.setDate(d.getDate() + days);
+    return d;
+  }
+
+  function isBetween(today, start, end) {
+    var t = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    var s = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+    var e = new Date(end.getFullYear(), end.getMonth(), end.getDate());
+    return t >= s && t <= e;
+  }
+
+  // Easter Sunday (Gregorian) — Meeus/Jones/Butcher
+  function easterSunday(year) {
+    var a = year % 19;
+    var b = Math.floor(year / 100);
+    var c = year % 100;
+    var d = Math.floor(b / 4);
+    var e = b % 4;
+    var f = Math.floor((b + 8) / 25);
+    var g = Math.floor((b - f + 1) / 3);
+    var h = (19 * a + b - d - g + 15) % 30;
+    var i = Math.floor(c / 4);
+    var k = c % 4;
+    var l = (32 + 2 * e + 2 * i - h - k) % 7;
+    var m = Math.floor((a + 11 * h + 22 * l) / 451);
+    var month = Math.floor((h + l - 7 * m + 114) / 31);
+    var day   = ((h + l - 7 * m + 114) % 31) + 1;
+    return new Date(year, month - 1, day);
+  }
+
+  // 1st Sunday of Advent for a calendar year
+  function firstSundayOfAdvent(year) {
+    var christmas = new Date(year, 11, 25);
+    var dow = christmas.getDay();
+    var fourthSunday = addDays(christmas, -dow);
+    return addDays(fourthSunday, -21);
+  }
+
+  // Liturgical year label (the year that ends on Christ the King)
+  function liturgicalYearOf(today) {
+    var y = today.getFullYear();
+    var adventThisYear = firstSundayOfAdvent(y);
+    return today >= adventThisYear ? y + 1 : y;
+  }
+
+  function sundayCycle(liturgicalYear) {
+    var r = liturgicalYear % 3;
+    if (r === 0) return 'A';
+    if (r === 1) return 'B';
+    return 'C';
+  }
+
+  function christTheKing(liturgicalYear) {
+    var advent1 = firstSundayOfAdvent(liturgicalYear - 1);
+    return addDays(advent1, -7);
+  }
+
+  function weekOfOrdinaryTime(today) {
+    var ly = liturgicalYearOf(today);
+    var easter    = easterSunday(ly);
+    var ashWed    = addDays(easter, -46);
+    var pentecost = addDays(easter, 49);
+    var ctk       = christTheKing(ly);
+
+    // Phase 1: pre-Lent OT (Advent → Ash Wednesday)
+    if (today < ashWed) {
+      var epiphany = new Date(ly - 1, 0, 6);
+      var baptism = addDays(epiphany, (7 - epiphany.getDay()) % 7 || 7);
+      var count = 0;
+      var cursor = new Date(baptism.getTime());
+      while (cursor <= today) {
+        if (cursor.getDay() === 0) count++;
+        cursor = addDays(cursor, 1);
+      }
+      return Math.min(Math.max(count, 1), 8);
+    }
+
+    // Phase 2: Lent / Easter — not OT
+    if (today <= pentecost) return null;
+
+    // Phase 3: post-Pentecost OT — count backwards from Christ the King
+    var dow = today.getDay();
+    var lastSunday = addDays(today, -dow);
+    var diffDays = Math.round((ctk - lastSunday) / 86400000);
+    var weeksBack = diffDays / 7;
+    var week = 34 - weeksBack;
+    return Math.min(Math.max(week, 2), 34);
+  }
+
+  function updateLiturgicalWeek() {
+    var today = new Date();
+    var weekEl = document.getElementById('weekNumber');
+    if (!weekEl) return;
+
+    var week = weekOfOrdinaryTime(today);
+    if (week === null) return;
+
+    var ly = liturgicalYearOf(today);
+    var cycle = sundayCycle(ly);
+
+    weekEl.textContent = ordinal(week);
+
+    var cycleEl = document.getElementById('yearCycle');
+    if (cycleEl) cycleEl.textContent = cycle;
+
+    var container = document.getElementById('liturgicalWeek');
+    if (container && container.innerHTML.indexOf('26th') !== -1) {
+      container.innerHTML = container.innerHTML.replace(/26th/g, ordinal(week));
+    }
+  }
+
+  function scheduleMidnightUpdate() {
+    var now = new Date();
+    var nextMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 5);
+    setTimeout(function () {
+      updateLiturgicalWeek();
+      scheduleMidnightUpdate();
+    }, nextMidnight - now);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      updateLiturgicalWeek();
+      scheduleMidnightUpdate();
+    });
+  } else {
+    updateLiturgicalWeek();
+    scheduleMidnightUpdate();
   }
 })();
 
