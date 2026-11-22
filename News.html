@@ -78,21 +78,21 @@
       <h2>Upcoming Events</h2>
     </div>
 
-    <div class="grid">
+    <div class="grid" id="upcomingGrid">
 
-      <!-- 1. Christ the King (22 Nov 2026) -->
-      <article class="card news-card" style="padding: 0; overflow: hidden;">
+      <!-- 1. Christ the King (22 Nov 2026) — moves to Past Events at 12:00 AM, 23 Nov 2026 -->
+      <article class="card news-card" id="ctkCard" data-event-end="2026-11-22T23:59:59" style="padding: 0; overflow: hidden;">
         <div style="background: linear-gradient(135deg, #FFF5F8, #FFF0F5); padding: 20px 24px; border-bottom: 2px solid #C71585;">
-          <span class="news-date" style="display: inline-block; font-family: 'Courier New', monospace; font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; color: #C71585; font-weight: 700;">👑 Sunday, 22 November 2026</span>
+          <span class="news-date" id="ctkDateLabel" style="display: inline-block; font-family: 'Courier New', monospace; font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; color: #C71585; font-weight: 700;">👑 Sunday, 22 November 2026</span>
         </div>
         <div style="overflow: hidden; background: linear-gradient(180deg, #FFF5F8, #FFFFFF);">
           <img src="monstrance.jpeg" alt="Christ the King — Solemnity celebrated at St. Clare Monastery Nigeria on 22 November 2026" loading="lazy" decoding="async" style="width: 100%; display: block; object-fit: cover;">
         </div>
-        <div class="news-body" style="padding: 26px 24px;">
+        <div class="news-body" id="ctkBody" style="padding: 26px 24px;">
           <h3 style="color: var(--brown-deep); margin-bottom: 12px;">The Solemnity of Christ the King</h3>
-          <p>On Sunday, 22 November 2026, St. Clare Monastery Nigeria will celebrate the Solemnity of Our Lord Jesus Christ, King of the Universe — the final Sunday of the liturgical year, when the Church crowns Christ as King of all creation.</p>
-          <p>The Blessed Sacrament will be exposed for adoration, and the Sisters invite the faithful to join them in prayer before the Monstrance, adoring the King who reigns from the altar.</p>
-          <p>Please mark your calendars and join us for this day of grace. All are welcome.</p>
+          <p>On Sunday, 22 November 2026, St. Clare Monastery Nigeria celebrated the Solemnity of Our Lord Jesus Christ, King of the Universe — the final Sunday of the liturgical year, when the Church crowns Christ as King of all creation.</p>
+          <p>The Blessed Sacrament was exposed for adoration, and the Sisters invited the faithful to join them in prayer before the Monstrance, adoring the King who reigns from the altar.</p>
+          <p>Thanks be to God for a day of grace. All were welcome, and all were blessed.</p>
         </div>
         <div style="padding: 0 24px 24px;">
           <a href="ChristTheKing.html" class="btn btn-flame btn-sm">🎬 See Videos &amp; Photos</a>
@@ -147,6 +147,85 @@
           <p>The Solemnity of St. Clare (11 August) and other feast days in the monastery calendar will be announced here as the dates approach. Please continue to check this page for updates.</p>
         </div>
       </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- PAST EVENTS -->
+<section style="background: linear-gradient(180deg, var(--white-pure), var(--white-warm));">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Recently Celebrated</span>
+      <h2>Past Events</h2>
+    </div>
+
+    <div class="grid" id="pastGrid">
+
+      <!-- Auto-insertion target: Christ the King card is moved here at 12:00 AM, 23 Nov 2026 -->
+
+      <article class="card news-card" style="padding: 0; overflow: hidden;">
+        <div style="background: linear-gradient(135deg, #FFF5F8, #FFF0F5); padding: 20px 24px; border-bottom: 2px solid #C71585;">
+          <span class="news-date" style="display: inline-block; font-family: 'Courier New', monospace; font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; color: #C71585; font-weight: 700;">🌸 Saturday, 24 October 2026</span>
+        </div>
+        <div style="overflow: hidden;">
+          <img src="sistermaria1.jpg" alt="Sister Maria Hope Ehizojie — now professed" loading="lazy" decoding="async" style="width: 100%; display: block;">
+        </div>
+        <div class="news-body" style="padding: 26px 24px;">
+          <h3 style="color: var(--brown-deep); margin-bottom: 12px;">Simple Profession of Sister Maria Hope Ehizojie</h3>
+          <p>On Saturday, 24 October 2026, Sister Maria Hope Ehizojie made her Simple Profession at St. Clare Monastery Nigeria — offering her life to God through the vows of poverty, chastity, and obedience. Thanks be to God.</p>
+        </div>
+        <div style="padding: 0 24px 24px;">
+          <a href="Profession.html" class="btn btn-flame btn-sm">🌸 See Photos</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">
+        <img src="logoaltarbread.png" alt="St. Clare Monastery Nigeria logo">
+        <strong>St. Clare Monastery Nigeria · Candle &amp; Altar Bread <b>Enterprise</b></strong>
+      </div>
+      <p>A small-scale apostolate of the Sisters of St. Clare Monastery Nigeria, producing high-quality candles and consecration-ready altar bread for the Church in Nigeria and beyond.</p>
+      <p style="font-style: italic; color: var(--flame-mid); margin-top: 14px;">"Handcrafted for the Altar. Made for the Church."</p>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <p><a href="index.html">Home</a></p>
+      <p><a href="About.html">About Us</a></p>
+      <p><a href="Vocation.html">Vocation</a></p>
+      <p><a href="Gallery.html">Gallery</a></p>
+      <p><a href="News.html">News</a></p>
+      <p><a href="Contact.html">Contact</a></p>
+    </div>
+    <div>
+      <h4>Our Work</h4>
+      <p><a href="index.html#products">All Products</a></p>
+      <p><a href="Gallery.html#candles">Altar Candles</a></p>
+      <p><a href="Gallery.html#candles">Votive Candles</a></p>
+      <p><a href="Gallery.html#candles">Household Candles</a></p>
+      <p><a href="Gallery.html#candles">Emergency Candles</a></p>
+      <p><a href="Gallery.html#advent">Advent Candles</a></p>
+      <p><a href="Gallery.html#paschal">Paschal Candles</a></p>
+      <p><a href="Gallery.html#altar-bread">Altar Bread</a></p>
+      <p><a href="https://stclare-heliciculture.github.io/stclaremonastery-heliciculture/" target="_blank" rel="noopener">🐌 Snail Production</a></p>
+    </div>
+    <div>
+      <h4>Reach Us</h4>
+      <p>St. Clare Monastery Nigeria<br>Plot 1, Monastery Close<br>Ikoto, Imoru Road<br>P.O. Box 32<br>Ijebu-Ode, Ogun State<br>Nigeria</p>
+      <p style="margin-top: 12px;">📞 <a href="tel:+2349031805281">0903 180 5281</a><br>✉️ <a href="mailto:stclarecandlealtarent8@gmail.com">stclarecandlealtarent8@gmail.com</a></p>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 St. Clare Candle and Altar Bread <b>Enterprise</b>. All Rights Reserved. · Ijebu-Ode, Ogun State, Nigeria</div>
+</footer>
+
+<script src="script.js?v=20261122a"></script>
+</body>
+          </html>
 
     </div>
   </div>
