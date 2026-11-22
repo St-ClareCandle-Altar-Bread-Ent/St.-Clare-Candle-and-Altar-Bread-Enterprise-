@@ -360,3 +360,70 @@
     initLang();
   }
 })();
+/* ============================================================
+   10. AUTO-MOVE PAST EVENT CARDS (News page)
+   At midnight on the day after the event, the Christ the King
+   card is moved from #upcomingGrid to #pastGrid automatically.
+   Runs on load, and again at midnight if the tab is left open.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  function movePastEvents() {
+    var ctkCard = document.getElementById('ctkCard');
+    if (!ctkCard) return; // not on News page
+
+    var endAttr = ctkCard.getAttribute('data-event-end');
+    if (!endAttr) return;
+
+    var endDate = new Date(endAttr);
+    var now = new Date();
+    if (now <= endDate) return; // event hasn't ended yet
+
+    var pastGrid = document.getElementById('pastGrid');
+    var upcomingGrid = document.getElementById('upcomingGrid');
+    if (!pastGrid || !upcomingGrid) return;
+
+    // Move the card to the top of the Past Events grid
+    if (pastGrid.firstChild) {
+      pastGrid.insertBefore(ctkCard, pastGrid.firstChild);
+    } else {
+      pastGrid.appendChild(ctkCard);
+    }
+
+    // Update the date label to past tense
+    var dateLabel = document.getElementById('ctkDateLabel');
+    if (dateLabel) {
+      dateLabel.textContent = '👑 Sunday, 22 November 2026 · Celebrated';
+    }
+
+    // Update the body text to past tense if still future-tense
+    var ctkBody = document.getElementById('ctkBody');
+    if (ctkBody) {
+      var html = ctkBody.innerHTML;
+      html = html.replace(/will celebrate/g, 'celebrated');
+      html = html.replace(/will be exposed/g, 'was exposed');
+      html = html.replace(/invite the faithful/g, 'invited the faithful');
+      html = html.replace(/Please mark your calendars and join us for this day of grace\. All are welcome\./g, 'Thanks be to God for a day of grace. All were welcome, and all were blessed.');
+      ctkBody.innerHTML = html;
+    }
+  }
+
+  // Run on load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', movePastEvents);
+  } else {
+    movePastEvents();
+  }
+
+  // Also schedule a check at midnight (if the page is left open overnight)
+  function scheduleMidnightMove() {
+    var now = new Date();
+    var nextMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 5);
+    setTimeout(function () {
+      movePastEvents();
+      scheduleMidnightMove();
+    }, nextMidnight - now);
+  }
+  scheduleMidnightMove();
+})();
